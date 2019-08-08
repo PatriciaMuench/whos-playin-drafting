@@ -106,10 +106,11 @@ class Band extends Component {
               <h2>{this.bandName}</h2>
     
               {this.state.band &&
-              <ul>
+              // (this prob doesn't even need to be a list, but I guess we can decide later...)
+              <ul style={{'listStyle': 'none', 'padding': '0'}}>
                   {/* (strings as keys?) */}
-                <li key="site">{this.state.band.website_url}</li>
-                <li key="description">{this.state.band.description}</li>
+                <li  key="description">{this.state.band.description}</li>
+                <li  key="site">{this.state.band.website_url}</li>
               </ul>
               }
             </div>

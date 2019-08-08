@@ -70,7 +70,7 @@ class Bands extends Component {
 
           {/* {this.bands.map(band => ( */}
           {/* {this.bandsList.forEach(band => band.map(band => ( */}
-          <ul>
+          <ul style={{'listStyle': 'none', 'padding': '0'}}>
           {this.state.bands.map((band, i) => (
             // to do: use id for key instead of index
             // how to link using name??...

@@ -39,8 +39,30 @@ const bands = [
 //     }
 // };
 
+// Basic: name, city, state, website url, one descriptor (?)
+// Or maybe just start with Name, for bare bones...
+const venues = [
+    {
+        name: 'The Lansdowne',
+        city: 'Boston',
+        state: 'MA',
+        website_url: 'lansdowne.com',
+        description: 'bar'
+    },
+    {
+        name: 'The Chicken Box',
+        city: 'Nantucket',
+        state: 'MA',
+        website_url: 'chickenbox.com',
+        description: 'bar'
+    }
+];
+
 const bandsRouter = express.Router();
 app.use('/bands', bandsRouter);
+
+const venuesRouter = express.Router();
+app.use('/venues', venuesRouter);
 
 // app.get('/bands', (req, res, next) => {
 bandsRouter.get('/', (req, res, next) => {
@@ -62,10 +84,10 @@ bandsRouter.get('/', (req, res, next) => {
 //   res.send(JSON.stringify(bands));
 //   res.bands = 'bands';
 
-    const band = bands.filter(band => {
-        return band.name === req.params.name;
-    });
-    console.log(band);
+    // const band = bands.filter(band => {
+    //     return band.name === req.params.name;
+    // });
+    // console.log(band);
     // can I not console.log from this file?? :(
 
   res.send(bands);
@@ -86,6 +108,21 @@ bandsRouter.get('/:name', (req, res, next) => {
     // res.send(bands[req.params.name]);
     res.send(band[0]);
     // res.send(JSON.stringify(band));    
+    next();
+});
+
+venuesRouter.get('/', (req, res, next) => {
+  res.send(venues);
+  next();
+});
+
+// use IDs instead of names?
+venuesRouter.get('/:name', (req, res, next) => {
+    const venue = venues.filter(venue => {
+        return venue.name === req.params.name;
+    });
+    // really I would need events.....
+    res.send(venue[0]);
     next();
 });
 

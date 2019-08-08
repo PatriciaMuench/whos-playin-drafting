@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom
 import Home from './home';
 import Bands from './bands';
 import Band from './band';
+import Venues from './venues';
+import Venue from './venue';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -142,7 +144,11 @@ class App extends Component {
           {/* <Bands /> */}
         {/* </div> */}
 
+        {/* <Route path="/bands/:name" component={Band} /> */}
         <Route path="/bands/:name" component={Band} />
+
+        <Route exact path="/venues" component={Venues}/>
+        <Route path="/venues/:name" component={Venue} />
 
       </div>
       </Router>

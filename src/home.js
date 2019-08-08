@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Bands from './bands';
+import Venues from './venues';
 import './App.css';
 
 class Home extends Component {
@@ -14,7 +15,7 @@ class Home extends Component {
             Find live music events organized by venue, band, or location
           </p>
 
-          <Link to="/bands">Bands</Link>
+          <span><Link to="/bands">Bands</Link> <Link to="/venues">Venues</Link></span>
 
           {/* <Route path="/bands" component={Bands}/> */}
 
