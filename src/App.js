@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Home from './home';
 import Bands from './bands';
-import logo from './logo.svg';
+import Band from './band';
+// import logo from './logo.svg';
 import './App.css';
 
 // function App() {
@@ -27,69 +28,69 @@ import './App.css';
 // }
 
 // (based on https://reacttraining.com/react-router/web/guides/quick-start)
-function Index() {
-  return <h2>Home</h2>;
-}
+// function Index() {
+//   return <h2>Home</h2>;
+// }
 
-function About() {
-  return <h2>About</h2>;
-}
+// function About() {
+//   return <h2>About</h2>;
+// }
 
-function Users() {
-  return <h2>Users</h2>;
-}
+// function Users() {
+//   return <h2>Users</h2>;
+// }
 
-function AppRouter() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about/">About</Link>
-            </li>
-            <li>
-              <Link to="/users/">Users</Link>
-            </li>
-          </ul>
-        </nav>
+// function AppRouter() {
+//   return (
+//     <Router>
+//       <div>
+//         <nav>
+//           <ul>
+//             <li>
+//               <Link to="/">Home</Link>
+//             </li>
+//             <li>
+//               <Link to="/about/">About</Link>
+//             </li>
+//             <li>
+//               <Link to="/users/">Users</Link>
+//             </li>
+//           </ul>
+//         </nav>
 
-        <Route path="/" exact component={Index} />
-        <Route path="/about/" component={About} />
-        <Route path="/users/" component={Users} />
-      </div>
-    </Router>
-  );
-}
+//         <Route path="/" exact component={Index} />
+//         <Route path="/about/" component={About} />
+//         <Route path="/users/" component={Users} />
+//       </div>
+//     </Router>
+//   );
+// }
 
 // export default AppRouter;
 
 
 // (based on https://www.twilio.com/blog/react-app-with-node-js-server-proxy)
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      greeting: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     name: '',
+  //     greeting: ''
+  //   };
+  //   this.handleChange = this.handleChange.bind(this);
+  //   this.handleSubmit = this.handleSubmit.bind(this);
+  // }
 
-  handleChange(event) {
-    this.setState({ name: event.target.value });
-  }
+  // handleChange(event) {
+  //   this.setState({ name: event.target.value });
+  // }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    fetch(`/api/greeting?name=${encodeURIComponent(this.state.name)}`)
-      .then(response => response.json())
-      .then(state => this.setState(state));
-  }
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   fetch(`/api/greeting?name=${encodeURIComponent(this.state.name)}`)
+  //     .then(response => response.json())
+  //     .then(state => this.setState(state));
+  // }
 
   render() {
     return (
@@ -135,11 +136,13 @@ class App extends Component {
 
           {/* <Link to="/bands">Bands</Link> */}
 
-          <Route path="/bands" component={Bands}/>
+          <Route exact path="/bands" component={Bands}/>
           {/* <Route path="/bands" render={() => (<Bands/>)} /> */}
 
           {/* <Bands /> */}
         {/* </div> */}
+
+        <Route path="/bands/:name" component={Band} />
 
       </div>
       </Router>
