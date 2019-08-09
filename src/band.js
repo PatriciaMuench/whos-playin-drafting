@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+// import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import './App.css';
 
 // const fetchBandInfo = (bandName) => {

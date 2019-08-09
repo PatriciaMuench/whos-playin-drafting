@@ -23,14 +23,26 @@ class Venues extends Component {
         <div className="App-header">
 
           <Link to="/"><h3>Who's Playin'</h3></Link>
+          <Link to="/bands"><h4>Bands</h4></Link>
           <h2>Venues</h2>
 
           <ul style={{'listStyle': 'none', 'padding': '0'}}>
           {this.state.venues.map((venue, i) => (
             // to do: use id for key instead of index
+        // * note sure exactly where this note belongs but, note: this is producing paths like '/The%20Chicken%20Box'...
             <li key={i}><Link to={`/venues/${venue.name}`}>{venue.name}</Link></li>
           ))}
           </ul>
+
+          <table>
+            <tbody>
+              <tr>
+                <td>Venue</td>
+                <td>Band</td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </Router>
     );

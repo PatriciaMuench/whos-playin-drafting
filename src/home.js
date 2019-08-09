@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Bands from './bands';
-import Venues from './venues';
+import { BrowserRouter as Router, Link } from "react-router-dom";
+// import Bands from './bands';
+// import Venues from './venues';
 import './App.css';
 
 class Home extends Component {

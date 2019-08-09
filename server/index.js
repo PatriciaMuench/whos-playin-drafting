@@ -58,6 +58,27 @@ const venues = [
     }
 ];
 
+// Basic: venue (foreign key or w/e), band (foreign key or w/e), date, time, ... (?)
+// Additional: (maybe notes such as whether ticket or cover would be required?, maybe optional name for the event such as a concert with a tour name?) … (?)
+const events = [
+    {
+        // (prob IDs instead of names...)
+        venue_name: 'The Lansdowne',
+        band_name: 'BearFight',
+        // (date/time format?)
+        date: '8/9/19',
+        time: '9pm',
+        notes: 'good times'
+    },
+    {
+        venue_name: 'The Lansdowne',
+        band_name: 'Dalton',
+        date: '8/10/19',
+        time: '9pm',
+        notes: 'sing along'
+    }
+];
+
 const bandsRouter = express.Router();
 app.use('/bands', bandsRouter);
 
