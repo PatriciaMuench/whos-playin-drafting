@@ -94,6 +94,49 @@ let db = new sqlite3.Database('./db.sqlite', err => {
 //   }
 // );
 
+const getBands = () => {
+    db.serialize(() => {
+        db.run(
+          'DROP TABLE IF EXISTS Bands',
+          error => {
+            // throw error;
+            console.log(error);
+          }
+        );
+        db.run(
+          'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+          error => {
+            // throw error;
+            console.log(error);
+          }
+        );
+        db.run(
+        //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+          "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+        );
+        db.all(
+          'SELECT * FROM Bands',
+          [],
+          (error, rows) => {
+            if (error) {
+            //   throw error;
+              console.log(error);
+            }
+            // console.log(rows);
+            // wait, I bet I can't even get it to log to console from here... :/
+            // return rows;
+            rows.forEach(row => {
+              console.log('within db function');
+              console.log(row);
+            });
+            this.bands = rows; 
+            // const bands = rows;
+          }
+        );
+      });
+      return this.bands;
+};
+
 // Basic: name, city, state, website url, one descriptor (?)
 // Or maybe just start with Name, for bare bones...
 const venues = [
@@ -168,55 +211,57 @@ bandsRouter.get('/', (req, res, next) => {
 
 
         // const bands = db.serialize(() => {
-          db.serialize(() => {
-            db.run(
-              'DROP TABLE IF EXISTS Bands',
-              error => {
-                // throw error;
-                console.log(error);
-              }
-            );
-            db.run(
-              'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
-              error => {
-                // throw error;
-                console.log(error);
-              }
-            );
-            db.run(
-            //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
-              "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
-            );
-            db.all(
-              'SELECT * FROM Bands',
-              [],
-              (error, rows) => {
-                if (error) {
-                //   throw error;
-                  console.log(error);
-                }
-                // console.log(rows);
-                // wait, I bet I can't even get it to log to console from here... :/
-                // return rows;
-                rows.forEach(row => {
-                  console.log('within db function');
-                  console.log(row);
-                });
-                this.bands = rows; 
-              }
-            );
-          });
+        //   db.serialize(() => {
+        //     db.run(
+        //       'DROP TABLE IF EXISTS Bands',
+        //       error => {
+        //         // throw error;
+        //         console.log(error);
+        //       }
+        //     );
+        //     db.run(
+        //       'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+        //       error => {
+        //         // throw error;
+        //         console.log(error);
+        //       }
+        //     );
+        //     db.run(
+        //     //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+        //       "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+        //     );
+        //     db.all(
+        //       'SELECT * FROM Bands',
+        //       [],
+        //       (error, rows) => {
+        //         if (error) {
+        //         //   throw error;
+        //           console.log(error);
+        //         }
+        //         // console.log(rows);
+        //         // wait, I bet I can't even get it to log to console from here... :/
+        //         // return rows;
+        //         rows.forEach(row => {
+        //           console.log('within db function');
+        //           console.log(row);
+        //         });
+        //         this.bands = rows; 
+        //       }
+        //     );
+        //   });
+  const bands = getBands();
   console.log('within server function');
-//   console.log(bands);
-  console.log(this.bands);
-//   res.send(bands);
-  res.send(this.bands);
+  console.log(bands);
+//   console.log(this.bands);
+  res.send(bands);
+//   res.send(this.bands);
   next();
 });
 
 // use IDs instead of names?
 // app.get('/bands/:name', (req, res, next) => {
 bandsRouter.get('/:name', (req, res, next) => {
+    const bands = getBands();
     const band = bands.filter(band => {
         return band.name === req.params.name;
     });
