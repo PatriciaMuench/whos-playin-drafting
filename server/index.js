@@ -139,22 +139,64 @@ const getBands = () => {
 
 // Basic: name, city, state, website url, one descriptor (?)
 // Or maybe just start with Name, for bare bones...
-const venues = [
-    {
-        name: 'The Lansdowne',
-        city: 'Boston',
-        state: 'MA',
-        website_url: 'lansdowne.com',
-        description: 'bar'
-    },
-    {
-        name: 'The Chicken Box',
-        city: 'Nantucket',
-        state: 'MA',
-        website_url: 'chickenbox.com',
-        description: 'bar'
-    }
-];
+// const venues = [
+//     {
+//         name: 'The Lansdowne',
+//         city: 'Boston',
+//         state: 'MA',
+//         website_url: 'lansdowne.com',
+//         description: 'bar'
+//     },
+//     {
+//         name: 'The Chicken Box',
+//         city: 'Nantucket',
+//         state: 'MA',
+//         website_url: 'chickenbox.com',
+//         description: 'bar'
+//     }
+// ];
+const getVenues = () => {
+    db.serialize(() => {
+        db.run(
+          'DROP TABLE IF EXISTS Venues',
+          error => {
+            // throw error;
+            console.log(error);
+          }
+        );
+        db.run(
+          'CREATE TABLE IF NOT EXISTS Venues (id INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT DEFAULT \'\', state TEXT DEFAULT \'\', description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+          error => {
+            // throw error;
+            console.log(error);
+          }
+        );
+        db.run(
+        //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+          "INSERT INTO Venues (name, city, state, description, website_url) VALUES ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com'), ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com')"
+        );
+        db.all(
+          'SELECT * FROM Venues',
+          [],
+          (error, rows) => {
+            if (error) {
+            //   throw error;
+              console.log(error);
+            }
+            // console.log(rows);
+            // wait, I bet I can't even get it to log to console from here... :/
+            // return rows;
+            rows.forEach(row => {
+              console.log('within db function');
+              console.log(row);
+            });
+            this.venues = rows; 
+            // const bands = rows;
+          }
+        );
+      });
+      return this.venues;
+};
 
 // Basic: venue (foreign key or w/e), band (foreign key or w/e), date, time, ... (?)
 // Additional: (maybe notes such as whether ticket or cover would be required?, maybe optional name for the event such as a concert with a tour name?) … (?)
@@ -277,12 +319,14 @@ bandsRouter.get('/:name', (req, res, next) => {
 });
 
 venuesRouter.get('/', (req, res, next) => {
+  const venues = getVenues();
   res.send(venues);
   next();
 });
 
 // use IDs instead of names?
 venuesRouter.get('/:name', (req, res, next) => {
+    const venues = getVenues();
     const venue = venues.filter(venue => {
         return venue.name === req.params.name;
     });

@@ -42,6 +42,16 @@ class Venue extends Component {
                 <li  key="site">{this.state.venue.website_url}</li>
               </ul>
               }
+
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Band</td>
+                    <td>Date(?)</td>
+                  </tr>
+                </tbody>
+              </table>
+
             </div>
           </Router>
         );

@@ -113,6 +113,16 @@ class Band extends Component {
                 <li  key="site">{this.state.band.website_url}</li>
               </ul>
               }
+
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Venue</td>
+                    <td>Date(?)</td>
+                  </tr>
+                </tbody>
+              </table>
+
             </div>
           </Router>
         );
