@@ -8,6 +8,28 @@ import Venue from './venue';
 // import logo from './logo.svg';
 import './App.css';
 
+// ...unsure how to set up the db stuff properly...
+// const sqlite3 = require('sqlite3');
+// const sqlite3 = require('sqlite3').verbose();
+// import sqlite3 from 'sqlite3';
+// const db = new sqlite3.Database('./db.sqlite');
+// let db = new sqlite3.Database('./db.sqlite', err => {
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log('Success');
+//   }
+// });
+
+// it is good practice to close a database connection when you are done with it (?)
+// db.close((err) => {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+//   console.log('Close the database connection.');
+// });
+
+
 // function App() {
 //   return (
 //     <div className="App">

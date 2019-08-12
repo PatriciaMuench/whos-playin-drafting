@@ -7,6 +7,61 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 
+
+// ...unsure how to set up the db stuff properly...
+// const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
+// import sqlite3 from 'sqlite3';
+// const db = new sqlite3.Database('./db.sqlite');
+let db = new sqlite3.Database('./db.sqlite', err => {
+  if (err){
+    console.log(err);
+  } else {
+    console.log('Success');
+  }
+});
+
+// some notes from codecademy:
+// db.all() - fetch all the data we have that meets certain criteria
+// db.get() - fetch a single row from a database
+// db.run() - To perform SQL commands that do not return rows
+// db.each() - will enable us to process every row returned from a database query, 
+// additionally takes an optional second callback function, which will be called when all of the queries are completed and processed
+// db.serialize() - 
+
+// db.serialize(() => {
+//   db.run(
+//     'CREATE TABLE Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\'), website_url TEXT DEFAULT \'\'',
+//     error => {
+//       throw error;
+//       // console.log(error);
+//     }
+//   );
+//   db.run(
+//     "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+//   );
+//   db.all(
+//     'SELECT * FROM Bands',
+//     (error, rows) => {
+//       if (error) {
+//         throw error;
+//         // console.log(error);
+//       }
+//       console.log(rows);
+//       // wait, I bet I can't even get it to log to console from here... :/
+//     }
+//   );
+// });
+
+// it is good practice to close a database connection when you are done with it (?)
+// db.close((err) => {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+//   console.log('Close the database connection.');
+// });
+
+
 // app.get('/api/greeting', (req, res) => {
 //   const name = req.query.name || 'World';
 //   res.setHeader('Content-Type', 'application/json');
@@ -14,30 +69,30 @@ app.use(pino);
 // });
 
 // maybe should be using camel case instead of snake
-const bands = [
-    {
-        name: 'BearFight',
-        website_url: 'bearfight.com',
-        description: 'rock cover/wedding band'
-    },
-    {
-        name: 'Dalton',
-        website_url: 'daltonsherrifs.com',
-        description: 'country cover & original solo artist'
-    }
-];
-// const bands = {
-//     'BearFight': {
+// const bands = [
+//     {
 //         name: 'BearFight',
 //         website_url: 'bearfight.com',
 //         description: 'rock cover/wedding band'
 //     },
-//     'Dalton': {
+//     {
 //         name: 'Dalton',
 //         website_url: 'daltonsherrifs.com',
 //         description: 'country cover & original solo artist'
 //     }
-// };
+// ];
+// const bands = db.all(
+//   'SELECT * FROM Bands',
+//   (error, rows) => {
+//     if (error) {
+//       throw error;
+//       // console.log(error);
+//     }
+//     //console.log(rows);
+//     // wait, I bet I can't even get it to log to console from here... :/
+//     return rows;
+//   }
+// );
 
 // Basic: name, city, state, website url, one descriptor (?)
 // Or maybe just start with Name, for bare bones...
@@ -111,7 +166,51 @@ bandsRouter.get('/', (req, res, next) => {
     // console.log(band);
     // can I not console.log from this file?? :(
 
-  res.send(bands);
+
+        // const bands = db.serialize(() => {
+          db.serialize(() => {
+            db.run(
+              'DROP TABLE IF EXISTS Bands',
+              error => {
+                // throw error;
+                console.log(error);
+              }
+            );
+            db.run(
+              'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+              error => {
+                // throw error;
+                console.log(error);
+              }
+            );
+            db.run(
+            //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+              "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+            );
+            db.all(
+              'SELECT * FROM Bands',
+              [],
+              (error, rows) => {
+                if (error) {
+                //   throw error;
+                  console.log(error);
+                }
+                // console.log(rows);
+                // wait, I bet I can't even get it to log to console from here... :/
+                // return rows;
+                rows.forEach(row => {
+                  console.log('within db function');
+                  console.log(row);
+                });
+                this.bands = rows; 
+              }
+            );
+          });
+  console.log('within server function');
+//   console.log(bands);
+  console.log(this.bands);
+//   res.send(bands);
+  res.send(this.bands);
   next();
 });
 

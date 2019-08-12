@@ -10,7 +10,14 @@ class Bands extends Component {
   componentWillMount() {
     fetch(`/bands`)
       .then(response => response.json())
-      .then(response => this.setState({bands: response}))
+      .then(response => this.setState({bands: response}, () => {
+        console.log('within componentWillMount');
+        console.log(this.state);
+      }))
+      .then(() => {
+        console.log('also within componentWillMount');
+        console.log(this.state);
+      })
       .catch(error => console.log(error));
   }
 
@@ -80,6 +87,8 @@ class Bands extends Component {
           ))}
           </ul> */}
 
+          {/* attempting to handle errors while trying to implement sqlite... */}
+          {/* {this.state.bands &&  */}
           <table>
             <tbody>
               {this.state.bands.map((band, i) => (
@@ -92,6 +101,7 @@ class Bands extends Component {
               ))}
             </tbody>
           </table>
+          {/* } */}
 
         </div>
       </Router>
