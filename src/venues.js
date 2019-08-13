@@ -22,8 +22,9 @@ class Venues extends Component {
       <Router forceRefresh>
         <div className="App-header">
 
-          <Link to="/"><h3>Who's Playin'</h3></Link>
-          <Link to="/bands"><h4>Bands</h4></Link>
+          {/* <Link to="/"><h3>Who's Playin'</h3></Link>
+          <Link to="/bands"><h4>Bands</h4></Link> */}
+          <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
           <h2>Venues</h2>
 
           {/* <ul style={{'listStyle': 'none', 'padding': '0'}}>

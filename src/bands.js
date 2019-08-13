@@ -1,23 +1,43 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 // import Home from './home';
 import './App.css';
 
 class Bands extends Component {
 
-  state = {bands: []}
+  // state = {bands: []}
+  state = {
+    bands: [],
+    venues: [],
+    events: [],
+    eventInfo: []
+  }
 
   componentWillMount() {
     fetch(`/bands`)
       .then(response => response.json())
-      .then(response => this.setState({bands: response}, () => {
+      // .then(response => this.setState({bands: response}, () => {
+      .then(response => {
+        // if (response !== undefined) {
+        console.log(response);
+        // this.setState({
+        //   // bands: response[0],
+        //   // venues: response[1],
+        //   // events: response[2]
+        //   bands: response.bands,
+        //   venues: response.venues,
+        //   events: response.events
+        // }, () => {
+        this.setState({
+          eventInfo: response
+        }, () => {
         console.log('within componentWillMount');
         console.log(this.state);
-      }))
-      .then(() => {
-        console.log('also within componentWillMount');
-        console.log(this.state);
-      })
+      })})
+      // .then(() => {
+      //   console.log('also within componentWillMount');
+      //   console.log(this.state);
+      // })
       .catch(error => console.log(error));
   }
 
@@ -72,8 +92,9 @@ class Bands extends Component {
           {/* <Link to="/">Home</Link> */}
           {/* <Route path="/" exact component={Home} /> */}
 
-          <Link to="/"><h3>Who's Playin'</h3></Link>
-          <Link to="/venues"><h4>Venues</h4></Link>
+          {/* <span><Link to="/"><h3>Who's Playin'</h3></Link>
+          <Link to="/venues"><h4>Venues</h4></Link></span> */}
+          <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
           <h2>Bands</h2>
 
           {/* {this.bands.map(band => ( */}
@@ -91,13 +112,24 @@ class Bands extends Component {
           {/* {this.state.bands &&  */}
           <table>
             <tbody>
-              {this.state.bands.map((band, i) => (
+              {/* {this.state.bands && this.state.bands.map((band, i) => ( */}
+              {this.state.eventInfo && this.state.eventInfo.map((event, i) => (              
               // to do: use id for key instead of index ?
               // link using id instead of name ?
+              // also, I am actually not sure how much info should be on this page besides the list of bands? (well, obv..)
+              /* <Fragment> */
               <tr key={i}>
-                <td><Link to={`/bands/${band.name}`}>{band.name}</Link></td>
-                <td>Venue</td>
+                {/* <td><Link to={`/bands/${band.name}`}>{band.name}</Link></td> */}
+                <td><big><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link></big></td>                
+                <td><small>{event.band_description}</small></td>
+                <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small></td> 
+                <td><small>{event.date}</small></td>      
+                <td><small>{event.time}</small></td>                                                                      
               </tr>
+              /* <tr key={`${i}a`}>
+                <td><small>{event.band_description}</small></td>
+              </tr> */
+              /* </Fragment> */
               ))}
             </tbody>
           </table>

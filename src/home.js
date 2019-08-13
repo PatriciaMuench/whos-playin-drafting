@@ -15,7 +15,7 @@ class Home extends Component {
             Find live music events organized by venue, band, or location
           </p>
 
-          <span><Link to="/bands">Bands</Link> <Link to="/venues">Venues</Link></span>
+          <span><Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span>
 
           {/* <Route path="/bands" component={Bands}/> */}
 

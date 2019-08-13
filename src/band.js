@@ -99,8 +99,9 @@ class Band extends Component {
             <div className="App-header">
     
               {/* I think I'd actually want a better stylized menu bar or breadcrukbs or something... */}
-              <Link to="/"><h3>Who's Playin'</h3></Link>
-              <Link to="/bands"><h3>Bands</h3></Link>
+              {/* <Link to="/"><h3>Who's Playin'</h3></Link>
+              <Link to="/bands"><h3>Bands</h3></Link> */}
+              <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span> 
 
               {/* <h2>{band.name}</h2> */}
               <h2>{this.bandName}</h2>

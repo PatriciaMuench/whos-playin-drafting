@@ -26,8 +26,9 @@ class Venue extends Component {
             <div className="App-header">
     
               {/* I think I'd actually want a better stylized menu bar or breadcrumbs or something... */}
-              <Link to="/"><h3>Who's Playin'</h3></Link>
-              <Link to="/venues"><h3>Venues</h3></Link>
+              {/* <Link to="/"><h3>Who's Playin'</h3></Link>
+              <Link to="/venues"><h3>Venues</h3></Link> */}
+              <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link> &nbsp; <Link to="/bands">Bands</Link></span> 
 
               {/* add, in several places... */}
 
