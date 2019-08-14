@@ -104,11 +104,12 @@ class Band extends Component {
               <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span> 
 
               {/* <h2>{band.name}</h2> */}
-              <h2>{this.bandName}</h2>
+              <h2 className="main">{this.bandName}</h2>
     
               {this.state.band &&
               // (this prob doesn't even need to be a list, but I guess we can decide later...)
-              <ul style={{'listStyle': 'none', 'padding': '0'}}>
+              // <ul style={{'listStyle': 'none', 'padding': '0'}} className="main">
+              <ul className="main">
                   {/* (strings as keys?) */}
                 <li  key="description">{this.state.band.description}</li>
                 <li  key="site">{this.state.band.website_url}</li>

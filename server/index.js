@@ -515,8 +515,36 @@ bandsRouter.get('/:name', (req, res, next) => {
 });
 
 venuesRouter.get('/', (req, res, next) => {
-  const venues = getVenues();
-  res.send(venues);
+//   const venues = getVenues();
+//   res.send(venues);
+
+  db.all(
+    `SELECT 
+      Venues.name AS venue_name,
+      Bands.name AS band_name,
+      Events.date AS event_date,
+      Events.time AS event_time,
+      Venues.description AS venue_description
+    FROM Venues
+    LEFT JOIN Events
+      ON Events.venue_name = Venues.name
+    LEFT JOIN Bands
+      ON Bands.name = Events.band_name
+    `,
+    [],
+    (error, rows) => {
+      if (error) {
+      //   throw error;
+        console.log(error);
+      }
+      this.data = rows; 
+      console.log(`within db.all within get '/venues': \n`, this.data);
+    }
+
+  );
+  console.log(`below db.all within get '/venues': \n`, this.data);
+  res.send(this.data);
+
   next();
 });
 

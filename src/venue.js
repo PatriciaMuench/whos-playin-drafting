@@ -32,11 +32,11 @@ class Venue extends Component {
 
               {/* add, in several places... */}
 
-              <h2>{this.venueName}</h2>
+              <h2 className="main">{this.venueName}</h2>
     
               {this.state.venue &&
               // (this prob doesn't even need to be a list, but I guess we can decide later...)
-              <ul style={{'listStyle': 'none', 'padding': '0'}}>
+              <ul className="main">
                   {/* (strings as keys?) */}
                 <li  key="location">{`${this.state.venue.city}, ${this.state.venue.state}`}</li>                  
                 <li  key="description">{this.state.venue.description}</li>

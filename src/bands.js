@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 // import Home from './home';
 import './App.css';
@@ -95,7 +95,7 @@ class Bands extends Component {
           {/* <span><Link to="/"><h3>Who's Playin'</h3></Link>
           <Link to="/venues"><h4>Venues</h4></Link></span> */}
           <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
-          <h2>Bands</h2>
+          <h2 className="main">Bands</h2>
 
           {/* {this.bands.map(band => ( */}
           {/* {this.bandsList.forEach(band => band.map(band => ( */}
@@ -111,6 +111,7 @@ class Bands extends Component {
           {/* attempting to handle errors while trying to implement sqlite... */}
           {/* {this.state.bands &&  */}
           <table>
+          {/* <table className="App-body"> */}
             <tbody>
               {/* {this.state.bands && this.state.bands.map((band, i) => ( */}
               {this.state.eventInfo && this.state.eventInfo.map((event, i) => (              
@@ -120,8 +121,8 @@ class Bands extends Component {
               /* <Fragment> */
               <tr key={i}>
                 {/* <td><Link to={`/bands/${band.name}`}>{band.name}</Link></td> */}
-                <td><big><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link></big></td>                
-                <td><small>{event.band_description}</small></td>
+                <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big></td>                
+                <td className="main"><small>{event.band_description}</small></td>
                 <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small></td> 
                 <td><small>{event.date}</small></td>      
                 <td><small>{event.time}</small></td>                                                                      
