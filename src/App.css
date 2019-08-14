@@ -24,6 +24,8 @@
   align-items: center;
   /* justify-content: center; */
   padding-top: 100px;
+  /* padding-top: 0px; */
+  /* margin-top: 0px; */
   font-size: calc(10px + 2vmin);
   /* color: #ffb84d; */
   color: #0066ff;
@@ -69,6 +71,16 @@ ul {
   list-style: none;
   padding: 0;
   margin-top: 0;
+}
+
+/* .logo {
+  margin: 50px 0px 0px 50px;
+  padding: 0px;
+} */
+
+h1 {
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 /* .App-link {

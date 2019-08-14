@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
 // (just copied in based on current state of Bands)
@@ -31,7 +32,7 @@ class Venues extends Component {
 
           {/* <Link to="/"><h3>Who's Playin'</h3></Link>
           <Link to="/bands"><h4>Bands</h4></Link> */}
-          <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
+          <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
           <h2 className="main">Venues</h2>
 
           {/* <ul style={{'listStyle': 'none', 'padding': '0'}}>

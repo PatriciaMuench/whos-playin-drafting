@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
 // const fetchBandInfo = (bandName) => {
@@ -101,7 +102,7 @@ class Band extends Component {
               {/* I think I'd actually want a better stylized menu bar or breadcrukbs or something... */}
               {/* <Link to="/"><h3>Who's Playin'</h3></Link>
               <Link to="/bands"><h3>Bands</h3></Link> */}
-              <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span> 
+              <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span> 
 
               {/* <h2>{band.name}</h2> */}
               <h2 className="main">{this.bandName}</h2>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
 // (just copied in based on current state of Band)
@@ -28,7 +29,7 @@ class Venue extends Component {
               {/* I think I'd actually want a better stylized menu bar or breadcrumbs or something... */}
               {/* <Link to="/"><h3>Who's Playin'</h3></Link>
               <Link to="/venues"><h3>Venues</h3></Link> */}
-              <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link> &nbsp; <Link to="/bands">Bands</Link></span> 
+              <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link> &nbsp; <Link to="/bands">Bands</Link></span> 
 
               {/* add, in several places... */}
 

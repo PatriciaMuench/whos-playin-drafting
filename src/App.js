@@ -6,6 +6,8 @@ import Band from './band';
 import Venues from './venues';
 import Venue from './venue';
 // import logo from './logo.svg';
+// import logo from './favicon-copy.ico';
+import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
 // ...unsure how to set up the db stuff properly...
@@ -119,6 +121,9 @@ class App extends Component {
   render() {
     return (
       <Router>
+
+      {/* <img src={logo} alt="logo" className="logo" height="100" width="100" /> */}
+
       <div className="App">
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
