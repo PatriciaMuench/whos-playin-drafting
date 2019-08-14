@@ -465,6 +465,7 @@ bandsRouter.get('/', (req, res, next) => {
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
+    ORDER BY date, time
     `,
     [],
     (error, rows) => {
@@ -519,17 +520,65 @@ venuesRouter.get('/', (req, res, next) => {
 //   res.send(venues);
 
   db.all(
+    // `SELECT DISTINCT
+    //   Venues.name AS venue_name,
+    //   Bands.name AS band_name,
+    //   Events.date AS event_date,
+    //   Events.time AS event_time,
+    //   Venues.description AS venue_description
+    // FROM Venues
+    // LEFT JOIN Events
+    //   ON Events.venue_name = Venues.name
+    // LEFT JOIN Bands
+    //   ON Bands.name = Events.band_name
+    // -- ORDER BY event_date, event_time
+    // -- ORDER BY venue_name
+    // `,
     `SELECT 
       Venues.name AS venue_name,
       Bands.name AS band_name,
-      Events.date AS event_date,
-      Events.time AS event_time,
-      Venues.description AS venue_description
+      -- Max(Events.date) AS event_date
+      -- CASE Events.date
+        -- WHEN Events.date <> '' THEN Max(Events.date)
+        -- ELSE '13'
+        -- END
+        -- AS event_date
+      -- CASE Events.date
+        -- WHEN NOT NULL THEN Max(Events.date) 
+        -- ELSE '13'
+        -- END event_date
+      -- CASE Max(Events.date)
+        -- WHEN 'null' THEN '13'
+        -- ELSE Events.date
+        -- END event_date
+      -- Max(
+        -- CASE Events.date
+          -- WHEN Events.date <> '' THEN Events.date
+          -- WHEN Events.date = '' THEN '13'
+          -- END
+      -- ) AS event_date
+      CASE Events.date
+        -- WHEN Events.date <> '' THEN Events.date
+        -- WHEN Events.date = '' THEN '13'
+        -- WHEN Events.date IS NULL THEN '13'
+        -- ELSE Events.date
+        WHEN Events.date THEN Events.date
+        -- ELSE '13'
+        -- ELSE '9'
+        ELSE 'A'
+        END event_date
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
+    -- -- ORDER BY Events.date, Events.time
+    -- -- ORDER BY venue_name
+    GROUP BY venue_name
+    ORDER BY event_date
+    -- WHERE Venues.name = (SELECT DISTINCT Venues.name FROM Venues)
+    -- WHERE Events.date = (SELECT Max(Events.date) FROM Events)
+    -- WHERE Events.date = (SELECT DISTINCT Events.date FROM Events)
     `,
     [],
     (error, rows) => {
