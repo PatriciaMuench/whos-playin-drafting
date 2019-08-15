@@ -60,7 +60,7 @@ db.serialize(() => {
     );
     db.run(
     //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
-      "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+      "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover band / wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
     // ** error stuff??...
 
     );

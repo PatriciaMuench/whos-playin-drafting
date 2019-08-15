@@ -124,9 +124,11 @@ class Bands extends Component {
                 {/* <td><Link to={`/bands/${band.name}`}>{band.name}</Link></td> */}
                 <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big></td>                
                 <td className="main"><small>{event.band_description}</small></td>
-                <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small></td> 
-                <td><small>{event.date}</small></td>      
-                <td><small>{event.time}</small></td>                                                                      
+                {event.event_date !== 'none' &&
+                  <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small></td> 
+                }
+                <td><small>{event.event_date}</small></td>      
+                <td><small>{event.event_time}</small></td>                                                                      
               </tr>
               /* <tr key={`${i}a`}>
                 <td><small>{event.band_description}</small></td>

@@ -457,15 +457,21 @@ bandsRouter.get('/', (req, res, next) => {
     `SELECT 
       Bands.name AS band_name,
       Venues.name AS venue_name,
-      Events.date AS date,
-      Events.time AS time,
+      CASE Events.date 
+        WHEN Events.date THEN Events.date
+        ELSE 'none'
+      END event_date,
+      Events.time AS event_time,
       Bands.description AS band_description
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
-    ORDER BY date, time
+    GROUP BY band_name
+    ORDER BY event_date
+    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
+    -- ORDER BY date, time
     `,
     [],
     (error, rows) => {
@@ -565,8 +571,10 @@ venuesRouter.get('/', (req, res, next) => {
         WHEN Events.date THEN Events.date
         -- ELSE '13'
         -- ELSE '9'
-        ELSE 'A'
-        END event_date
+        ELSE 'none'
+        END event_date,
+      Events.time AS event_time,
+      Venues.description AS venue_description
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name

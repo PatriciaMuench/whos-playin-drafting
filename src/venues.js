@@ -64,7 +64,9 @@ class Venues extends Component {
                   {/* <td><small><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link></small></td> 
                   <td><small>{event.event_date}</small></td>      
                   <td><small>{event.event_time}</small></td> */}
-                  <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> &nbsp; <small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                  {event.event_date !== 'none' &&
+                    <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> &nbsp; <small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                  }
                 </tr>
               ))}
 
