@@ -507,19 +507,57 @@ bandsRouter.get('/', (req, res, next) => {
 // use IDs instead of names?
 // app.get('/bands/:name', (req, res, next) => {
 bandsRouter.get('/:name', (req, res, next) => {
-    const bands = getBands();
-    const band = bands.filter(band => {
-        return band.name === req.params.name;
-    });
-    console.log(band);
-    // console.log(bands.find(req.params.name));
-    console.log(req.params.name);
-    // console.log(bands[req.params.name]);
-    // really I would need events.....
-    // res.send(bands[req.params.name]);
-    res.send(band[0]);
-    // res.send(JSON.stringify(band));    
-    next();
+  const bandName = req.params.name;
+  db.all(
+    `SELECT 
+      Bands.name AS band_name,
+      Bands.description AS band_description,
+      Bands.website_url AS band_website_url,
+      Venues.name AS venue_name,
+      Venues.description AS venue_description,
+      CASE Events.date 
+        WHEN Events.date THEN Events.date
+        ELSE 'none'
+      END event_date,
+      Events.time AS event_time
+    FROM Bands
+    LEFT JOIN Events
+      ON Events.band_name = Bands.name
+    LEFT JOIN Venues
+      ON Venues.name = Events.venue_name
+    WHERE band_name = $bandName
+    -- GROUP BY band_name
+    ORDER BY event_date
+    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
+    -- ORDER BY date, time
+    `,
+    [bandName],
+    (error, rows) => {
+      if (error) {
+      //   throw error;
+        console.log(error);
+      }
+      this.data = rows; 
+      console.log(rows);
+    }
+
+  );
+  res.send(this.data);
+  next();
+
+    // const bands = getBands();
+    // const band = bands.filter(band => {
+    //     return band.name === req.params.name;
+    // });
+    // console.log(band);
+    // // console.log(bands.find(req.params.name));
+    // console.log(req.params.name);
+    // // console.log(bands[req.params.name]);
+    // // really I would need events.....
+    // // res.send(bands[req.params.name]);
+    // res.send(band[0]);
+    // // res.send(JSON.stringify(band));    
+    // next();
 });
 
 venuesRouter.get('/', (req, res, next) => {

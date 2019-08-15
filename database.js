@@ -186,7 +186,8 @@ db.serialize(() => {
       // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
       `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
         ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
-        ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along')`
+        ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along'),
+        ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`
         // **
 
     );

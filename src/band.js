@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
@@ -28,8 +28,9 @@ class Band extends Component {
     // static propTypes = {bandName: PropTypes.string.isRequired}
 
     // (will need more/different details...)
-    state = {band: null}
-  
+    // state = {band: null}
+    state = {eventInfo: []}
+
     // bandName = request.params.name; // ??
     // const bandName = match.params.name;
     bandName = this.props.match.params.name;
@@ -61,8 +62,13 @@ class Band extends Component {
       .then(response => response.json())
     //   .then(response => console.log(response.website_url))
     //   .then(response => response)
-      .then(response => this.setState({band: response})) // , console.log(this.state))) 
-    //   .then(console.log(this.state))   
+      // .then(response => this.setState({band: response})) // , console.log(this.state))) 
+      .then(response => this.setState({eventInfo: response}))      
+      .then(() => {
+        console.log(this.state);
+        console.log(this.state.eventInfo);
+        console.log(this.state.eventInfo[0]);
+      })   
       .catch(error => console.log(error.message)) // (?)    
     //   .then(console.log(this.state))   
       
@@ -77,7 +83,9 @@ class Band extends Component {
 
     render() {
     // console.log(this.bandURL);
-      console.log(this.state);
+      // console.log(this.state);
+      // console.log(this.state.eventInfo);
+      // console.log(this.state.eventInfo[0]);
 
     return(
 
@@ -105,27 +113,36 @@ class Band extends Component {
               <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span> 
 
               {/* <h2>{band.name}</h2> */}
-              <h2 className="main">{this.bandName}</h2>
+              <h2 className="main" style={{'marginBottom': '5px'}}>{this.bandName}</h2>
     
-              {this.state.band &&
+              {/* {this.state.band && */}
+              {this.state.eventInfo[0] &&              
               // (this prob doesn't even need to be a list, but I guess we can decide later...)
               // <ul style={{'listStyle': 'none', 'padding': '0'}} className="main">
-              <ul className="main">
-                  {/* (strings as keys?) */}
-                <li  key="description">{this.state.band.description}</li>
-                <li  key="site">{this.state.band.website_url}</li>
-              </ul>
+                <Fragment>
+                  <ul className="main">
+                      {/* (strings as keys?) */}
+                    {/* <li key="description">{this.state.band.description}</li>
+                    <li key="site">{this.state.band.website_url}</li> */}
+                    <li key="description">{this.state.eventInfo[0].band_description}</li>
+                    <li key="site">{this.state.eventInfo[0].band_website_url}</li>
+                  </ul>
+                  <table>
+                    <tbody>
+                      {this.state.eventInfo.map((event, i) => (
+                        event.event_date !== 'none' && (
+                          <tr key={i}>
+                            {/* (update keys...) */}
+                            <td key={`venue${i}`}><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link> <br /> <span className="description">{event.venue_description}</span></td> 
+                            <td key={`date${i}`}>{event.event_date}</td>      
+                            <td key={`time${i}`}>{event.event_time}</td>       
+                          </tr>    
+                        )  
+                      ))}
+                    </tbody>
+                  </table>
+                </Fragment>
               }
-
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Venue</td>
-                    <td>Date(?)</td>
-                  </tr>
-                </tbody>
-              </table>
-
             </div>
           </Router>
         );
