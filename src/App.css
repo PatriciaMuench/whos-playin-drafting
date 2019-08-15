@@ -83,6 +83,10 @@ h1 {
   margin-top: 0px;
 }
 
+.description {
+  font-size: 12px;
+}
+
 /* .App-link {
   color: #61dafb;
 } */

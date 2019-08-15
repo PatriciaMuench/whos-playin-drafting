@@ -462,7 +462,8 @@ bandsRouter.get('/', (req, res, next) => {
         ELSE 'none'
       END event_date,
       Events.time AS event_time,
-      Bands.description AS band_description
+      Bands.description AS band_description,
+      Venues.description AS venue_description
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
@@ -574,7 +575,8 @@ venuesRouter.get('/', (req, res, next) => {
         ELSE 'none'
         END event_date,
       Events.time AS event_time,
-      Venues.description AS venue_description
+      Venues.description AS venue_description,
+      Bands.description AS band_description
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name

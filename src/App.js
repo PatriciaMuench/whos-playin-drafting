@@ -7,7 +7,7 @@ import Venues from './venues';
 import Venue from './venue';
 // import logo from './logo.svg';
 // import logo from './favicon-copy.ico';
-import logo from './android-chrome-512x512-copy.png';
+// import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
 // ...unsure how to set up the db stuff properly...

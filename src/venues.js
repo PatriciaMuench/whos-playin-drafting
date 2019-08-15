@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
 import './App.css';
@@ -60,12 +60,17 @@ class Venues extends Component {
                 <tr key={i}>
                   {/* <td><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big></td>                
                   <td><small>{event.venue_description}</small></td> */}
-                  <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big><br /><small>{event.venue_description}</small></td>
+                  {/* <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big><br /><small>{event.venue_description}</small></td> */}
+                  <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big><br /><span className="description">{event.venue_description}</span></td>
                   {/* <td><small><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link></small></td> 
                   <td><small>{event.event_date}</small></td>      
                   <td><small>{event.event_time}</small></td> */}
                   {event.event_date !== 'none' &&
-                    <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> &nbsp; <small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                    // <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> &nbsp; <small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small><br /><small className="description">{event.band_description}</small></td>
+                    <Fragment>
+                      <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link><br /><span className="description">{event.band_description}</span></td>
+                      <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                    </Fragment>
                   }
                 </tr>
               ))}
