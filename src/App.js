@@ -10,27 +10,6 @@ import Venue from './venue';
 // import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
-// ...unsure how to set up the db stuff properly...
-// const sqlite3 = require('sqlite3');
-// const sqlite3 = require('sqlite3').verbose();
-// import sqlite3 from 'sqlite3';
-// const db = new sqlite3.Database('./db.sqlite');
-// let db = new sqlite3.Database('./db.sqlite', err => {
-//   if (err){
-//     console.log(err);
-//   } else {
-//     console.log('Success');
-//   }
-// });
-
-// it is good practice to close a database connection when you are done with it (?)
-// db.close((err) => {
-//   if (err) {
-//     return console.error(err.message);
-//   }
-//   console.log('Close the database connection.');
-// });
-
 
 // function App() {
 //   return (
@@ -52,6 +31,7 @@ import './App.css';
 //     </div>
 //   );
 // }
+
 
 // (based on https://reacttraining.com/react-router/web/guides/quick-start)
 // function Index() {
@@ -95,8 +75,8 @@ import './App.css';
 // export default AppRouter;
 
 
-// (based on https://www.twilio.com/blog/react-app-with-node-js-server-proxy)
 class App extends Component {
+// (based on https://www.twilio.com/blog/react-app-with-node-js-server-proxy)
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -118,66 +98,50 @@ class App extends Component {
   //     .then(state => this.setState(state));
   // }
 
+
   render() {
     return (
       <Router>
 
       {/* <img src={logo} alt="logo" className="logo" height="100" width="100" /> */}
 
-      <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="name">Enter your name: </label>
-            <input
-              id="name"
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-            <button type="submit">Submit</button>
-          </form>
-          <p>{this.state.greeting}</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
+      {/* note: consider if having everything centered is really what I want... */}
+        <div className="App">
+        
+          {/* <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <form onSubmit={this.handleSubmit}>
+              <label htmlFor="name">Enter your name: </label>
+              <input
+                id="name"
+                type="text"
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+              <button type="submit">Submit</button>
+            </form>
+            <p>{this.state.greeting}</p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a>
+          </header> */}
 
-        {/* <Link to="/">Home</Link> */}
 
-        <Route exact path="/" component={Home} />
-        {/* <Route exact path="/" render={() => (<Home/>)} /> */}
-
-        {/* <div className="App-header"> */}
-          {/* <h1>Who's Playin'</h1> */}
-          {/* <p> */}
-            {/* Find live music events organized by venue, band, or location */}
-          {/* </p> */}
-          {/* <a className="App-link" href="./bands">bands</a> */}
-
-          {/* <Link to="/bands">Bands</Link> */}
-
+          <Route exact path="/" component={Home} />
           <Route exact path="/bands" component={Bands}/>
-          {/* <Route path="/bands" render={() => (<Bands/>)} /> */}
+          <Route path="/bands/:name" component={Band} />
+          <Route exact path="/venues" component={Venues}/>
+          <Route path="/venues/:name" component={Venue} />
 
-          {/* <Bands /> */}
-        {/* </div> */}
-
-        {/* <Route path="/bands/:name" component={Band} /> */}
-        <Route path="/bands/:name" component={Band} />
-
-        <Route exact path="/venues" component={Venues}/>
-        <Route path="/venues/:name" component={Venue} />
-
-      </div>
+        </div>
       </Router>
     );
   }
