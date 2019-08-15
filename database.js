@@ -29,7 +29,6 @@ let db = new sqlite3.Database('./db.sqlite', err => {
     console.log('Success');
   }
 });
-
 // let db = './db.sqlite';
 // let db = sqlite3.Database('./db.sqlite', err => {
 //   if (err){
@@ -39,58 +38,52 @@ let db = new sqlite3.Database('./db.sqlite', err => {
 //   }
 // });
 
+/********** Bands Table ****************************************/
 db.serialize(() => {
     db.run(
       'DROP TABLE IF EXISTS Bands',
       error => {
-        // throw error;
         if (error) {
+          // throw error;
           console.log(error);
         }
       }
     );
     db.run(
-      'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+      `CREATE TABLE IF NOT EXISTS Bands (
+        id INTEGER PRIMARY KEY, 
+        name TEXT NOT NULL, 
+        description TEXT DEFAULT '', 
+        website_url TEXT DEFAULT ''
+      )`,
       error => {
-        // throw error;
         if (error) {
+          // throw error;
           console.log(error);
         }
       }
     );
     db.run(
-    //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
-      "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover band / wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+      `INSERT INTO Bands (name, description, website_url) VALUES 
+      ('BearFight', 'rock cover band / wedding band', 'bearfight.com'), 
+      ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')`,
     // ** error stuff??...
-
+      error => {
+        if (error) {
+          // throw error;
+          console.log(error);
+        }
+      }
     );
-    // db.all(
-    //   'SELECT * FROM Bands',
-    //   [],
-    //   (error, rows) => {
-    //     if (error) {
-    //     //   throw error;
-    //       console.log(error);
-    //     }
-    //     // console.log(rows);
-    //     // wait, I bet I can't even get it to log to console from here... :/
-    //     // return rows;
-    //     rows.forEach(row => {
-    //       console.log('within db function');
-    //       console.log(row);
-    //     });
-    //     this.bands = rows; 
-    //     // const bands = rows;
-    //   }
-    // );
   });
 
+  /********** Venues Table ****************************************/
   db.serialize(() => {
     db.run(
       'DROP TABLE IF EXISTS Venues',
       error => {
-        // throw error;
         if (error) {
+          // throw error;
           console.log(error);
         }
       }
@@ -105,41 +98,27 @@ db.serialize(() => {
         website_url TEXT DEFAULT ''
       )`,
       error => {
-        // throw error;
         if (error) {
+          // throw error;
           console.log(error);
         }
       }
     );
     db.run(
-    //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
       `INSERT INTO Venues (name, city, state, description, website_url) VALUES 
       ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com'), 
-      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com')`
+      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com')`,
       // **
-
+      error => {
+        if (error) {
+          // throw error;
+          console.log(error);
+        }
+      }
     );
-    // db.all(
-    //   'SELECT * FROM Venues',
-    //   [],
-    //   (error, rows) => {
-    //     if (error) {
-    //     //   throw error;
-    //       console.log(error);
-    //     }
-    //     // console.log(rows);
-    //     // wait, I bet I can't even get it to log to console from here... :/
-    //     // return rows;
-    //     rows.forEach(row => {
-    //       console.log('within db function');
-    //       console.log(row);
-    //     });
-    //     this.venues = rows; 
-    //     // const bands = rows;
-    //   }
-    // );
   });
 
+  /********** Events Table ****************************************/
   db.serialize(() => {
     db.run(
       'DROP TABLE IF EXISTS Events',
@@ -175,8 +154,8 @@ db.serialize(() => {
         FOREIGN KEY (band_name) REFERENCES Bands(name)
       )`, 
       error => {
-        // throw error;
         if (error) {
+          // throw error;
           console.log(error);
         }
       }
@@ -187,27 +166,13 @@ db.serialize(() => {
       `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
         ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
         ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along'),
-        ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`
-        // **
-
+        ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`,
+      // **
+      error => {
+        if (error) {
+          // throw error;
+          console.log(error);
+        }
+      }
     );
-    // db.all(
-    //   'SELECT * FROM Events',
-    //   [],
-    //   (error, rows) => {
-    //     if (error) {
-    //     //   throw error;
-    //       console.log(error);
-    //     }
-    //     // console.log(rows);
-    //     // wait, I bet I can't even get it to log to console from here... :/
-    //     // return rows;
-    //     rows.forEach(row => {
-    //       console.log('within db function');
-    //       console.log(row);
-    //     });
-    //     this.events = rows; 
-    //     // const bands = rows;
-    //   }
-    // );
   });
