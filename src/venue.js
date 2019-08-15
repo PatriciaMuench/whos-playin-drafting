@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
 import './App.css';
@@ -7,7 +7,8 @@ import './App.css';
 
 class Venue extends Component {
 
-    state = {venue: null}
+    // state = {venue: null}
+    state = {eventInfo: []}
   
     venueName = this.props.match.params.name;
 
@@ -15,7 +16,8 @@ class Venue extends Component {
     //   console.log(this.venueName);
       fetch(`/venues/${this.venueName}`)
       .then(response => response.json())
-      .then(response => this.setState({venue: response}))
+      // .then(response => this.setState({venue: response}))
+      .then(response => this.setState({eventInfo: response}))
       .catch(error => console.log(error.message)) // (?)    
     }
 
@@ -33,27 +35,38 @@ class Venue extends Component {
 
               {/* add, in several places... */}
 
-              <h2 className="main">{this.venueName}</h2>
+              <h2 className="main" style={{'marginBottom': '5px'}}>{this.venueName}</h2>
     
-              {this.state.venue &&
-              // (this prob doesn't even need to be a list, but I guess we can decide later...)
-              <ul className="main">
-                  {/* (strings as keys?) */}
-                <li  key="location">{`${this.state.venue.city}, ${this.state.venue.state}`}</li>                  
-                <li  key="description">{this.state.venue.description}</li>
-                <li  key="site">{this.state.venue.website_url}</li>
-              </ul>
+              {/* {this.state.venue && */}
+              {this.state.eventInfo[0] &&            
+                <Fragment>  
+                  {/* // (this prob doesn't even need to be a list, but I guess we can decide later...) */}
+                  <ul className="main">
+                      {/* (strings as keys?) */}
+                    {/* <li  key="location">{`${this.state.venue.city}, ${this.state.venue.state}`}</li>                  
+                    <li  key="description">{this.state.venue.description}</li>
+                    <li  key="site">{this.state.venue.website_url}</li> */}
+                    <li  key="description">{this.state.eventInfo[0].venue_description}</li>
+                    <li  key="location">{`${this.state.eventInfo[0].city}, ${this.state.eventInfo[0].state}`}</li>                  
+                    <li  key="site">{this.state.eventInfo[0].venue_website_url}</li>
+                  </ul>
+
+                  <table>
+                    <tbody>
+                      {this.state.eventInfo.map((event, i) => (
+                        event.event_date !== 'none' && (
+                          <tr key={i}>
+                            {/* (update keys...) */}
+                            <td key={`band${i}`}><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td> 
+                            <td key={`date${i}`}>{event.event_date} <br /> &nbsp; </td>     
+                            <td key={`time${i}`}>{event.event_time} <br /> &nbsp; </td>       
+                          </tr>    
+                        )  
+                      ))}
+                    </tbody>
+                  </table>
+                </Fragment>
               }
-
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Band</td>
-                    <td>Date(?)</td>
-                  </tr>
-                </tbody>
-              </table>
-
             </div>
           </Router>
         );

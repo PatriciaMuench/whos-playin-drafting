@@ -94,48 +94,48 @@ let db = new sqlite3.Database('./db.sqlite', err => {
 //   }
 // );
 
-const getBands = () => {
-    db.serialize(() => {
-        db.run(
-          'DROP TABLE IF EXISTS Bands',
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-          'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-        //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
-          "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
-        );
-        db.all(
-          'SELECT * FROM Bands',
-          [],
-          (error, rows) => {
-            if (error) {
-            //   throw error;
-              console.log(error);
-            }
-            // console.log(rows);
-            // wait, I bet I can't even get it to log to console from here... :/
-            // return rows;
-            rows.forEach(row => {
-              console.log('within db function');
-              console.log(row);
-            });
-            this.bands = rows; 
-            // const bands = rows;
-          }
-        );
-      });
-      return this.bands;
-};
+// const getBands = () => {
+//     db.serialize(() => {
+//         db.run(
+//           'DROP TABLE IF EXISTS Bands',
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//           'CREATE TABLE IF NOT EXISTS Bands (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT DEFAULT \'\', website_url TEXT DEFAULT \'\')',
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//         //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+//           "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com'), ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')"
+//         );
+//         db.all(
+//           'SELECT * FROM Bands',
+//           [],
+//           (error, rows) => {
+//             if (error) {
+//             //   throw error;
+//               console.log(error);
+//             }
+//             // console.log(rows);
+//             // wait, I bet I can't even get it to log to console from here... :/
+//             // return rows;
+//             rows.forEach(row => {
+//               console.log('within db function');
+//               console.log(row);
+//             });
+//             this.bands = rows; 
+//             // const bands = rows;
+//           }
+//         );
+//       });
+//       return this.bands;
+// };
 
 // Basic: name, city, state, website url, one descriptor (?)
 // Or maybe just start with Name, for bare bones...
@@ -155,57 +155,57 @@ const getBands = () => {
 //         description: 'bar'
 //     }
 // ];
-const getVenues = () => {
-    db.serialize(() => {
-        db.run(
-          'DROP TABLE IF EXISTS Venues',
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-          `CREATE TABLE IF NOT EXISTS Venues (
-            id INTEGER PRIMARY KEY, 
-            name TEXT NOT NULL, 
-            city TEXT DEFAULT '', 
-            state TEXT DEFAULT '', 
-            description TEXT DEFAULT '', 
-            website_url TEXT DEFAULT ''
-          )`,
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-        //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
-          `INSERT INTO Venues (name, city, state, description, website_url) VALUES 
-          ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com'), 
-          ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com')`
-        );
-        db.all(
-          'SELECT * FROM Venues',
-          [],
-          (error, rows) => {
-            if (error) {
-            //   throw error;
-              console.log(error);
-            }
-            // console.log(rows);
-            // wait, I bet I can't even get it to log to console from here... :/
-            // return rows;
-            rows.forEach(row => {
-              console.log('within db function');
-              console.log(row);
-            });
-            this.venues = rows; 
-            // const bands = rows;
-          }
-        );
-      });
-      return this.venues;
-};
+// const getVenues = () => {
+//     db.serialize(() => {
+//         db.run(
+//           'DROP TABLE IF EXISTS Venues',
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//           `CREATE TABLE IF NOT EXISTS Venues (
+//             id INTEGER PRIMARY KEY, 
+//             name TEXT NOT NULL, 
+//             city TEXT DEFAULT '', 
+//             state TEXT DEFAULT '', 
+//             description TEXT DEFAULT '', 
+//             website_url TEXT DEFAULT ''
+//           )`,
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//         //   "INSERT INTO Bands (name, description, website_url) VALUES ('BearFight', 'rock cover/wedding band', 'bearfight.com')"
+//           `INSERT INTO Venues (name, city, state, description, website_url) VALUES 
+//           ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com'), 
+//           ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com')`
+//         );
+//         db.all(
+//           'SELECT * FROM Venues',
+//           [],
+//           (error, rows) => {
+//             if (error) {
+//             //   throw error;
+//               console.log(error);
+//             }
+//             // console.log(rows);
+//             // wait, I bet I can't even get it to log to console from here... :/
+//             // return rows;
+//             rows.forEach(row => {
+//               console.log('within db function');
+//               console.log(row);
+//             });
+//             this.venues = rows; 
+//             // const bands = rows;
+//           }
+//         );
+//       });
+//       return this.venues;
+// };
 
 // Basic: venue (foreign key or w/e), band (foreign key or w/e), date, time, ... (?)
 // Additional: (maybe notes such as whether ticket or cover would be required?, maybe optional name for the event such as a concert with a tour name?) … (?)
@@ -227,73 +227,73 @@ const getVenues = () => {
 //         notes: 'sing along'
 //     }
 // ];
-const getEvents = () => {
-    db.serialize(() => {
-        db.run(
-          'DROP TABLE IF EXISTS Events',
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-          // not sure of the proper/best order for column vs foreign key definitions (or w/e)..
-          // (date/time format?)
-          // note: * will prob need to update which items are required, for all tables...
-        //   `CREATE TABLE IF NOT EXISTS Events (
-        //     id INTEGER PRIMARY KEY, 
-        //     venue_id INTEGER,  
-        //     band_id INTEGER, 
-        //     date TEXT DEFAULT '', 
-        //     time TEXT DEFAULT '', 
-        //     notes TEXT DEFUALT '',
-        //     FOREIGN KEY (venue_id) REFERENCES Venues(id),
-        //     FOREIGN KEY (band_id) REFERENCES Bands(id)
-        //   )`,
-          `CREATE TABLE IF NOT EXISTS Events (
-            id INTEGER PRIMARY KEY, 
-            venue_name TEXT NOT NULL,  
-            band_name TEXT NOT NULL, 
-            date TEXT DEFAULT '', 
-            time TEXT DEFAULT '', 
-            notes TEXT DEFUALT '',
-            FOREIGN KEY (venue_name) REFERENCES Venues(name),
-            FOREIGN KEY (band_name) REFERENCES Bands(name)
-          )`, 
-          error => {
-            // throw error;
-            console.log(error);
-          }
-        );
-        db.run(
-          // how to work with venue/band names vs. ids (now and/or when a user is able to add...) ?
-          // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
-          `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
-            ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
-            ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along')`
-        );
-        db.all(
-          'SELECT * FROM Events',
-          [],
-          (error, rows) => {
-            if (error) {
-            //   throw error;
-              console.log(error);
-            }
-            // console.log(rows);
-            // wait, I bet I can't even get it to log to console from here... :/
-            // return rows;
-            rows.forEach(row => {
-              console.log('within db function');
-              console.log(row);
-            });
-            this.events = rows; 
-            // const bands = rows;
-          }
-        );
-      });
-      return this.events;
-};
+// const getEvents = () => {
+//     db.serialize(() => {
+//         db.run(
+//           'DROP TABLE IF EXISTS Events',
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//           // not sure of the proper/best order for column vs foreign key definitions (or w/e)..
+//           // (date/time format?)
+//           // note: * will prob need to update which items are required, for all tables...
+//         //   `CREATE TABLE IF NOT EXISTS Events (
+//         //     id INTEGER PRIMARY KEY, 
+//         //     venue_id INTEGER,  
+//         //     band_id INTEGER, 
+//         //     date TEXT DEFAULT '', 
+//         //     time TEXT DEFAULT '', 
+//         //     notes TEXT DEFUALT '',
+//         //     FOREIGN KEY (venue_id) REFERENCES Venues(id),
+//         //     FOREIGN KEY (band_id) REFERENCES Bands(id)
+//         //   )`,
+//           `CREATE TABLE IF NOT EXISTS Events (
+//             id INTEGER PRIMARY KEY, 
+//             venue_name TEXT NOT NULL,  
+//             band_name TEXT NOT NULL, 
+//             date TEXT DEFAULT '', 
+//             time TEXT DEFAULT '', 
+//             notes TEXT DEFUALT '',
+//             FOREIGN KEY (venue_name) REFERENCES Venues(name),
+//             FOREIGN KEY (band_name) REFERENCES Bands(name)
+//           )`, 
+//           error => {
+//             // throw error;
+//             console.log(error);
+//           }
+//         );
+//         db.run(
+//           // how to work with venue/band names vs. ids (now and/or when a user is able to add...) ?
+//           // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
+//           `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
+//             ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
+//             ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along')`
+//         );
+//         db.all(
+//           'SELECT * FROM Events',
+//           [],
+//           (error, rows) => {
+//             if (error) {
+//             //   throw error;
+//               console.log(error);
+//             }
+//             // console.log(rows);
+//             // wait, I bet I can't even get it to log to console from here... :/
+//             // return rows;
+//             rows.forEach(row => {
+//               console.log('within db function');
+//               console.log(row);
+//             });
+//             this.events = rows; 
+//             // const bands = rows;
+//           }
+//         );
+//       });
+//       return this.events;
+// };
 
 const bandsRouter = express.Router();
 app.use('/bands', bandsRouter);
@@ -647,13 +647,54 @@ venuesRouter.get('/', (req, res, next) => {
 
 // use IDs instead of names?
 venuesRouter.get('/:name', (req, res, next) => {
-    const venues = getVenues();
-    const venue = venues.filter(venue => {
-        return venue.name === req.params.name;
-    });
-    // really I would need events.....
-    res.send(venue[0]);
-    next();
+  const venueName = req.params.name;
+  db.all(
+    `SELECT 
+      Venues.name AS venue_name,
+      Venues.description AS venue_description,
+      Venues.city AS city,
+      Venues.state AS state,
+      Venues.website_url AS venue_website_url,
+      Bands.name AS band_name,
+      Bands.description AS band_description,
+      Bands.website_url AS band_website_url,
+      CASE Events.date 
+        WHEN Events.date THEN Events.date
+        ELSE 'none'
+      END event_date,
+      Events.time AS event_time
+    FROM Venues
+    LEFT JOIN Events
+      ON Events.venue_name = Venues.name
+    LEFT JOIN Bands
+      ON Bands.name = Events.band_name
+    WHERE venue_name = $venueName
+    -- GROUP BY venue_name
+    ORDER BY event_date
+    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
+    -- ORDER BY date, time
+    `,
+    [venueName],
+    (error, rows) => {
+      if (error) {
+      //   throw error;
+        console.log(error);
+      }
+      this.data = rows; 
+      console.log(rows);
+    }
+
+  );
+  res.send(this.data);
+  next();
+
+    // const venues = getVenues();
+    // const venue = venues.filter(venue => {
+    //     return venue.name === req.params.name;
+    // });
+    // // really I would need events.....
+    // res.send(venue[0]);
+    // next();
 });
 
 app.listen(3001, () =>
