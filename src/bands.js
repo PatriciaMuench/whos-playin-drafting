@@ -40,6 +40,19 @@ class Bands extends Component {
           <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
           <h2 className="main">Bands</h2>
 
+          {/* <label>Genre:&nbsp; */}
+          <label htmlFor="genre"><small>Genre:</small></label>
+          <select name="genre" id="genre">
+            <option value="">--Select a genre--</option>
+            <option value="">none</option>
+            <option value="">any/all</option>
+            <option>country</option>
+            <option>rock</option>
+            <option></option>
+          </select>
+          {/* </label> */}
+          <br/>
+
           <table>
             <tbody>
               {this.state.eventInfo && this.state.eventInfo.map((event, i) => (              
@@ -68,3 +81,43 @@ class Bands extends Component {
 }
 
 export default Bands;
+
+
+// a few examples/notes on <select> elements:
+
+// (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
+
+// <label for="pet-select">Choose a pet:</label>
+// <select id="pet-select">
+//     <option value="">--Please choose an option--</option>
+//     <option value="dog">Dog</option>
+//     <option value="cat">Cat</option>
+//     <option value="hamster">Hamster</option>
+//     <option value="parrot">Parrot</option>
+//     <option value="spider">Spider</option>
+//     <option value="goldfish">Goldfish</option>
+// </select>
+
+// <!-- The second value will be selected initially -->
+// <select name="choice">
+//   <option value="first">First Value</option>
+//   <option value="second" selected>Second Value</option>
+//   <option value="third">Third Value</option>
+// </select>
+
+// <label>Please choose one or more pets:
+//   <select name="pets" multiple size="4">
+//     <optgroup label="4-legged pets">
+//       <option value="dog">Dog</option>
+//       <option value="cat">Cat</option>
+//       <option value="hamster" disabled>Hamster</option>
+//     </optgroup>
+//     <optgroup label="Flying pets">
+//       <option value="parrot">Parrot</option>
+//       <option value="macaw">Macaw</option>
+//       <option value="albatross">Albatross</option>
+//     </optgroup>
+//   </select>
+// </label>
+
+// (https://www.w3schools.com/html/html_form_elements.asp and https://www.w3schools.com/tags/tag_select.asp might also be helpful..)
