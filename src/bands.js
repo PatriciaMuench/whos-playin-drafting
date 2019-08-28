@@ -8,7 +8,7 @@ class Bands extends Component {
   // maybe break state up into more specific pieces?
   state = {
     eventInfo: [],
-    genreValues: [] // ''
+    genreValues: ['no selection'] // [] // ''
   }
 
   // (I wonder how componentDidMount actually compares to componentWillMount, etc.?)
@@ -110,6 +110,7 @@ class Bands extends Component {
                 // to do: use id for key instead of index ?
                 // link using id instead of name / how to link using name ?
                 // also, I am actually not sure how much info should be on this page besides the list of bands? (well, obv..)
+                (this.state.genreValues.includes('no selection') || this.state.genreValues.includes(event.band_genre)) && (
                 <tr key={i}>
                   <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
                   {/* <td className="main"><small>{event.band_description}</small></td> */}
@@ -121,6 +122,7 @@ class Bands extends Component {
                     </Fragment>       
                   }                                                        
                 </tr>
+                ) 
               ))}
             </tbody>
           </table>
@@ -180,3 +182,4 @@ export default Bands;
 // ok idk checkboxes might be kindof annoying... (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)
 
 // (so far, didn't fully explore checkboxes and datalists, but I guess I got the multi select essentially working...)
+// (also, I didn't much look into using a library/plugin or whatever, such as maybe https://www.syncfusion.com/javascript-ui-controls/js-multiselect-dropdown or https://www.jqueryscript.net/blog/Best-Multiple-Select-jQuery-Plugins.html)

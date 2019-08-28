@@ -54,7 +54,8 @@ db.serialize(() => {
         id INTEGER PRIMARY KEY, 
         name TEXT NOT NULL, 
         description TEXT DEFAULT '', 
-        website_url TEXT DEFAULT ''
+        website_url TEXT DEFAULT '',
+        genre TEXT
       )`,
       error => {
         if (error) {
@@ -64,9 +65,9 @@ db.serialize(() => {
       }
     );
     db.run(
-      `INSERT INTO Bands (name, description, website_url) VALUES 
-      ('BearFight', 'rock cover band / wedding band', 'bearfight.com'), 
-      ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com')`,
+      `INSERT INTO Bands (name, description, website_url, genre) VALUES 
+      ('BearFight', 'rock cover band / wedding band', 'bearfight.com', 'rock'), 
+      ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com', 'country')`,
     // ** error stuff??...
       error => {
         if (error) {
