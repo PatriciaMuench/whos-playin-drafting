@@ -7,7 +7,8 @@ class Bands extends Component {
 
   // maybe break state up into more specific pieces?
   state = {
-    eventInfo: []
+    eventInfo: [],
+    genreValue: [] // ''
   }
 
   // (I wonder how componentDidMount actually compares to componentWillMount, etc.?)
@@ -32,6 +33,8 @@ class Bands extends Component {
       .catch(error => console.log(error));
   }
 
+  genreValues = ['no selection'];
+
   render() {
     return(
       // note: I don't know if forceRefresh is desirable here, but I also don't know why things weren't rerendering on link clicks
@@ -42,16 +45,90 @@ class Bands extends Component {
 
           {/* <label>Genre:&nbsp; */}
           <label htmlFor="genre"><small>Genre:</small></label>
-          <select name="genre" id="genre">
-            <option value="">--Select a genre--</option>
-            <option value="">none</option>
-            <option value="">any/all</option>
-            <option>country</option>
-            <option>rock</option>
-            <option></option>
+          <select 
+            name="genre" 
+            id="genre" 
+            value={this.state.genreValue} 
+            // onChange={(event) => this.setState({genreValue: event.target.value})}
+            onChange={(event) => {
+              console.log('genreValues1: ', this.genreValues);
+              let value = event.target.value;
+              console.log('value: ', value);
+              // if (!this.genreValues.includes(value)) {
+              let index = this.genreValues.findIndex(genreName => genreName === value);
+              console.log('index: ', index);
+              let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
+              console.log('noneSelectedIndex: ', noneSelectedIndex);
+              // let isSelected = this.option.selected;
+              // console.log('isSelected: ', isSelected);
+              if (value === 'no selection') {
+                this.genreValues = ['no selection'];
+                console.log('genreValues1.5: ', this.genreValues);
+              }
+              else if (index === -1) {
+                if (noneSelectedIndex !== -1) {
+                  this.genreValues.splice(noneSelectedIndex, 1);
+                } 
+                this.genreValues.push(value);
+                console.log('genreValues2: ', this.genreValues);                
+              } else {
+                // don't know if this is the best way to delete the array element if found (nor anything else I'm doing)...
+                // this.genreValues = this.genreValues.filter(genreName => genreName !== value);
+                // const index = this.genreValues.findIndex(value);
+                // if (this.genreValues.length > 1) {
+                  this.genreValues.splice(index, 1);
+                  console.log('genreValues3: ', this.genreValues);                  
+                // } else {
+                  // this.genreValues = [];
+                  // event.target.value = null;
+                //   // this.genreValues.pop();
+                //   this.genreValues.splice(index, 1, '');
+                //   console.log('genreValues4: ', this.genreValues);                  
+                // }
+                // value = '';
+                // this.genreValues.splice(index, 1, value);
+                // event.target.attributes('selected', 'false');
+                  // console.log('genreValues3.5: ', this.genreValues);
+                // }
+              }
+              this.setState({genreValue: this.genreValues});
+            }} 
+            multiple
+          >          
+          {/* <select name="genre" id="genre" multiple size=""> */}
+            {/* <option value="no selection">--Select a genre--</option> */}
+            <option value="no selection">--none specified--</option>
+            {/* <option value="">none</option> */}
+            {/* <option value="">any/all</option> */}
+            <option value ="country">country</option>
+            <option value="rock">rock</option>
+            {/* <option></option> */}
           </select>
           {/* </label> */}
           <br/>
+
+          <label htmlFor="genre-list"><small>Genre:</small></label>
+          <input list="genre-list" />
+          {/* <input list="genre-list" multiple />           */}
+          <datalist name="genre-list" id="genre-list">          
+            {/* <option value="">--Select a genre--</option>
+            <option value="">none</option>
+            <option value="">any/all</option> */}
+            <option value="country">country</option>
+            <option value="rock"></option>
+          </datalist>
+          <br/> 
+
+          {/* (this one isn't even right yet..) */}
+          <label htmlFor="genre-check"><small>Genre:</small></label>
+          <input type="checkbox" name="genre-check" id="genre-check" />
+          {/* <input type="checkbox" multiple />           */}
+            {/* <option value="">--Select a genre--</option>
+            <option value="">none</option>
+            <option value="">any/all</option> */}
+            <option value="country">country</option>
+            <option value="rock"></option>
+          <br/> 
 
           <table>
             <tbody>
@@ -121,3 +198,9 @@ export default Bands;
 // </label>
 
 // (https://www.w3schools.com/html/html_form_elements.asp and https://www.w3schools.com/tags/tag_select.asp might also be helpful..)
+// https://www.w3schools.com/tags/tag_input.asp, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+
+// maybe try datalist, or input type=checkbox (w/ multiple), or input w/ list (and w/ multiple, and label plus placeholder..?) ?
+// (actually I think it's that input w/ list goes with datalist..)
+
+// ok idk checkboxes might be kindof annoying... (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)
