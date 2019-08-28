@@ -8,7 +8,7 @@ class Bands extends Component {
   // maybe break state up into more specific pieces?
   state = {
     eventInfo: [],
-    genreValue: [] // ''
+    genreValues: [] // ''
   }
 
   // (I wonder how componentDidMount actually compares to componentWillMount, etc.?)
@@ -43,24 +43,19 @@ class Bands extends Component {
           <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
           <h2 className="main">Bands</h2>
 
-          {/* <label>Genre:&nbsp; */}
           <label htmlFor="genre"><small>Genre:</small></label>
           <select 
             name="genre" 
             id="genre" 
-            value={this.state.genreValue} 
-            // onChange={(event) => this.setState({genreValue: event.target.value})}
+            value={this.state.genreValues} 
             onChange={(event) => {
               console.log('genreValues1: ', this.genreValues);
               let value = event.target.value;
               console.log('value: ', value);
-              // if (!this.genreValues.includes(value)) {
               let index = this.genreValues.findIndex(genreName => genreName === value);
               console.log('index: ', index);
               let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
               console.log('noneSelectedIndex: ', noneSelectedIndex);
-              // let isSelected = this.option.selected;
-              // console.log('isSelected: ', isSelected);
               if (value === 'no selection') {
                 this.genreValues = ['no selection'];
                 console.log('genreValues1.5: ', this.genreValues);
@@ -72,63 +67,42 @@ class Bands extends Component {
                 this.genreValues.push(value);
                 console.log('genreValues2: ', this.genreValues);                
               } else {
-                // don't know if this is the best way to delete the array element if found (nor anything else I'm doing)...
-                // this.genreValues = this.genreValues.filter(genreName => genreName !== value);
-                // const index = this.genreValues.findIndex(value);
-                // if (this.genreValues.length > 1) {
-                  this.genreValues.splice(index, 1);
-                  console.log('genreValues3: ', this.genreValues);                  
-                // } else {
-                  // this.genreValues = [];
-                  // event.target.value = null;
-                //   // this.genreValues.pop();
-                //   this.genreValues.splice(index, 1, '');
-                //   console.log('genreValues4: ', this.genreValues);                  
-                // }
-                // value = '';
-                // this.genreValues.splice(index, 1, value);
-                // event.target.attributes('selected', 'false');
-                  // console.log('genreValues3.5: ', this.genreValues);
-                // }
+                this.genreValues.splice(index, 1);
+                console.log('genreValues3: ', this.genreValues);                  
               }
-              this.setState({genreValue: this.genreValues});
+              this.setState({genreValues: this.genreValues});
             }} 
             multiple
           >          
-          {/* <select name="genre" id="genre" multiple size=""> */}
-            {/* <option value="no selection">--Select a genre--</option> */}
             <option value="no selection">--none specified--</option>
-            {/* <option value="">none</option> */}
-            {/* <option value="">any/all</option> */}
             <option value ="country">country</option>
             <option value="rock">rock</option>
             {/* <option></option> */}
           </select>
-          {/* </label> */}
           <br/>
 
-          <label htmlFor="genre-list"><small>Genre:</small></label>
-          <input list="genre-list" />
+          {/* <label htmlFor="genre-list"><small>Genre:</small></label> */}
+          {/* <input list="genre-list" /> */}
           {/* <input list="genre-list" multiple />           */}
-          <datalist name="genre-list" id="genre-list">          
+          {/* <datalist name="genre-list" id="genre-list">           */}
             {/* <option value="">--Select a genre--</option>
             <option value="">none</option>
             <option value="">any/all</option> */}
-            <option value="country">country</option>
-            <option value="rock"></option>
-          </datalist>
-          <br/> 
+            {/* <option value="country">country</option> */}
+            {/* <option value="rock"></option> */}
+          {/* </datalist> */}
+          {/* <br/>  */}
 
           {/* (this one isn't even right yet..) */}
-          <label htmlFor="genre-check"><small>Genre:</small></label>
-          <input type="checkbox" name="genre-check" id="genre-check" />
+          {/* <label htmlFor="genre-check"><small>Genre:</small></label> */}
+          {/* <input type="checkbox" name="genre-check" id="genre-check" /> */}
           {/* <input type="checkbox" multiple />           */}
             {/* <option value="">--Select a genre--</option>
             <option value="">none</option>
             <option value="">any/all</option> */}
-            <option value="country">country</option>
-            <option value="rock"></option>
-          <br/> 
+            {/* <option value="country">country</option> */}
+            {/* <option value="rock"></option> */}
+          {/* <br/>  */}
 
           <table>
             <tbody>
@@ -204,3 +178,5 @@ export default Bands;
 // (actually I think it's that input w/ list goes with datalist..)
 
 // ok idk checkboxes might be kindof annoying... (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)
+
+// (so far, didn't fully explore checkboxes and datalists, but I guess I got the multi select essentially working...)
