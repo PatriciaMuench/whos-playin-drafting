@@ -88,19 +88,27 @@ class Bands extends Component {
             //   console.log('state2: ', this.state.genreValues);
             // }}  
             // I THINK this works the same without the async/await:
+            // onChange={ event => {            
+            // // onChange={async event => {
+            //   // console.log('state1: ', this.state.genreValues);
+            //   // let attemptedGenreValues = await onFilterChange.call(this, event.target.value, 'genreValues');
+            //   // let attemptedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
+            //   let selectedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
+            //   // console.log('attemptedGenreValues: ', attemptedGenreValues);
+            //   // this.setState({genreValues: attemptedGenreValues});
+            //   this.setState({genreValues: selectedGenreValues});
+            //   // this.setState(onFilterChange.call(this, event.target.value, 'genreValues'));
+            //   // this.setState({genreValues: [onFilterChange.call(this, event.target.value, 'genreValues')]});
+            //   // console.log('state2: ', this.state.genreValues);
+            // }}       
             onChange={ event => {            
-            // onChange={async event => {
-              // console.log('state1: ', this.state.genreValues);
-              // let attemptedGenreValues = await onFilterChange.call(this, event.target.value, 'genreValues');
-              // let attemptedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
-              let selectedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
-              // console.log('attemptedGenreValues: ', attemptedGenreValues);
-              // this.setState({genreValues: attemptedGenreValues});
-              this.setState({genreValues: selectedGenreValues});
-              // this.setState(onFilterChange.call(this, event.target.value, 'genreValues'));
-              // this.setState({genreValues: [onFilterChange.call(this, event.target.value, 'genreValues')]});
-              // console.log('state2: ', this.state.genreValues);
-            }}          
+              let selectedGenreValues = onFilterChange(event.target.value, this.state.genreValues);
+              // this.setState({genreValues: selectedGenreValues});
+              // (currently not sure whether it will ever matter if I have the return)
+              return this.setState({genreValues: selectedGenreValues});
+              // FYI, actually this does seem to work too, but I'm thinking I like it less:
+              // this.setState({genreValues: onFilterChange(event.target.value, this.state.genreValues)});
+            }}     
             // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues, 'genreValues')}
             // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues)}            
             // onChange={event => this.onFilterChange2(event.target.value, 'genreValues')}            

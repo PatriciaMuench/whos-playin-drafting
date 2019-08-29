@@ -165,29 +165,69 @@
 // }
 
 // and again here, making a copy of the above function to try to clean up even more:
-// export async function onFilterChange (value, filterArrayName) {
-export function onFilterChange (value, filterArrayName) {  
-  // console.log('filterArrayName: ', filterArrayName);
-  let filterArray = this.state[filterArrayName];                                
-  // console.log('filterArray1', filterArray);  
-  // console.log('value: ', value);
+// const noSelection = 'no selection';
+// // export async function onFilterChange (value, filterArrayName) {
+// // export function onFilterChange (value, filterArrayName) {
+// export function onFilterChange (value, filterArray) {      
+//   // console.log('filterArrayName: ', filterArrayName);
+//   // let filterArray = this.state[filterArrayName];                                
+//   // console.log('filterArray1', filterArray);  
+//   // console.log('value: ', value);
+//   let alreadySelectedIndex = filterArray.findIndex(filterOption => filterOption === value);
+//   // console.log('index: ', index);
+//   // let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection');
+//   let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === noSelection);
+//   // console.log('noneSelectedIndex: ', noneSelectedIndex);
+//   // if (value === 'no selection') {
+//     if (value === noSelection) {
+//       // filterArray = ['no selection'];
+//       filterArray = [noSelection];                        
+//     // console.log('filterArray2', filterArray);
+//   } else if (alreadySelectedIndex === -1) {      
+//     if (noneSelectedIndex !== -1) {  
+//       filterArray.splice(noneSelectedIndex, 1);        
+//     } 
+//     filterArray.push(value);           
+//     // console.log('filterArray3', filterArray);              
+//   } else {
+//     filterArray.splice(alreadySelectedIndex, 1);                         
+//     // console.log('filterArray4', filterArray);                 
+//   }
+//   // console.log('filterArray5: ', filterArray);
+//   return filterArray;
+// }
+
+
+// aaand, again:
+
+/** 
+ * constant to minimize string typos
+ */
+const noSelection = 'no selection';
+
+/**
+ * function to update (and return) the array of selected filters when a user clicks an option
+ * (note that clicking a filter that is the only one currently selected, in an attempt to deselect it, does not trigger an onChange event)
+ */
+// (maybe should change name because it's not the entire function since setState still needs to happen onChange??)
+// export function onFilterChange (value, filterArray) {  
+export const onFilterChange = (value, filterArray) => {  
+  // check if "--none specified--" is currently selected    
+  let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === noSelection);
+  // check if the option just clicked is already selected
   let alreadySelectedIndex = filterArray.findIndex(filterOption => filterOption === value);
-  // console.log('index: ', index);
-  let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection');
-  // console.log('noneSelectedIndex: ', noneSelectedIndex);
-  if (value === 'no selection') {
-    filterArray = ['no selection'];         
-    // console.log('filterArray2', filterArray);
+  // if the user clicked "--none specified--", clear any other filters and make this the only one
+  if (value === noSelection) {
+    filterArray = [noSelection];   
+  // if the user clicked a filter that is not already selected, add it to the array of selected filters, removing "none specified" if needed                     
   } else if (alreadySelectedIndex === -1) {      
     if (noneSelectedIndex !== -1) {  
       filterArray.splice(noneSelectedIndex, 1);        
     } 
-    filterArray.push(value);           
-    // console.log('filterArray3', filterArray);              
+    filterArray.push(value);   
+  // if the user clicked a filter that is already selected, remove it from the array of selected filters        
   } else {
     filterArray.splice(alreadySelectedIndex, 1);                         
-    // console.log('filterArray4', filterArray);                 
   }
-  // console.log('filterArray5: ', filterArray);
   return filterArray;
 }
