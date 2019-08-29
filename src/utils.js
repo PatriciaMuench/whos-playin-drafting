@@ -40,85 +40,154 @@
 
 // const filterArray = ['no selection'];
 
-export async function onFilterChange (value, filterArrayName) {
-// export async function onFilterChange (value, filterArrayName) { return async state => {
-// export function onFilterChange (value, filterArray, filterArrayName) {
-// export function onFilterChange (value, filterArray) {
-  const filterArrayNameString = filterArrayName;  
-  console.log('filterArrayName: ', filterArrayName);
-  console.log('type of filterArrayName: ', typeof(filterArrayName));
-  // let filterArray = this.state[filterArrayName];
-  // const filterArray = this.state[filterArrayName];  
-  // const filterArray = this.state[filterArrayNameString]; 
-  // let filterArray = state[filterArrayNameString];     
-  let filterArray = this.state[filterArrayNameString];       
-// this.setState(prevState => {
-//   let filterArray = prevState[filterArrayName];  
-  console.log('filterArray1', filterArray);  
-// export const onFilterChange = event => {     
-//   let value = event.target.value;
-//   let filterArrayName = filterArrayName;
-//   return event => { 
-// //   console.log('genreValues1: ', this.genreValues);
-//   let value = event.target.value;
-  console.log('value: ', value);
-// //   let index = this.genreValues.findIndex(genreName => genreName === value);
-//   let index = this.filterArrayName.findIndex(filterOption => filterOption === value);
-  let index = filterArray.findIndex(filterOption => filterOption === value);
-  console.log('index: ', index);
-// //   let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
-//   let noneSelectedIndex = this.filterArrayName.findIndex(filterOption => filterOption === 'no selection');
+// export async function onFilterChange (value, filterArrayName) {
+// // export async function onFilterChange (value, filterArrayName) { return async state => {
+// // export function onFilterChange (value, filterArray, filterArrayName) {
+// // export function onFilterChange (value, filterArray) {
+//   const filterArrayNameString = filterArrayName;  
+//   console.log('filterArrayName: ', filterArrayName);
+//   console.log('type of filterArrayName: ', typeof(filterArrayName));
+//   // let filterArray = this.state[filterArrayName];
+//   // const filterArray = this.state[filterArrayName];  
+//   // const filterArray = this.state[filterArrayNameString]; 
+//   // let filterArray = state[filterArrayNameString];     
+//   let filterArray = this.state[filterArrayNameString];       
+// // this.setState(prevState => {
+// //   let filterArray = prevState[filterArrayName];  
+//   console.log('filterArray1', filterArray);  
+// // export const onFilterChange = event => {     
+// //   let value = event.target.value;
+// //   let filterArrayName = filterArrayName;
+// //   return event => { 
+// // //   console.log('genreValues1: ', this.genreValues);
+// //   let value = event.target.value;
+//   console.log('value: ', value);
+// // //   let index = this.genreValues.findIndex(genreName => genreName === value);
+// //   let index = this.filterArrayName.findIndex(filterOption => filterOption === value);
+//   let index = filterArray.findIndex(filterOption => filterOption === value);
+//   console.log('index: ', index);
+// // //   let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
+// //   let noneSelectedIndex = this.filterArrayName.findIndex(filterOption => filterOption === 'no selection');
+//   let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection');
+//   console.log('noneSelectedIndex: ', noneSelectedIndex);
+//   if (value === 'no selection') {
+//     // this.genreValues = ['no selection'];
+//     // this.filterArrayName = ['no selection'];   
+//     filterArray = ['no selection'];         
+//     // filterArray = [value]; 
+//     noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection'); // ???
+//     console.log('noneSelectedIndex2: ', noneSelectedIndex);
+//     // console.log('genreValues1.5: ', this.genreValues);
+//     console.log('filterArray2', filterArray);
+//     // return this.setState({'filterArrayName': await filterArray}, console.log('stateShouldBeNoSelection: ', this.state[filterArrayName])); // filterArray, or maybe even straight to 'no selection' ???
+//     // return this.setState({filterArrayName: ['no selection']}, console.log('stateShouldBeNoSelection: ', this.state.filterArrayName)); // filterArray, or maybe even straight to 'no selection' ???
+//   } else if (index === -1) {
+//     if (noneSelectedIndex !== -1) {
+//     //   this.genreValues.splice(noneSelectedIndex, 1);
+//     //   this.filterArrayName.splice(noneSelectedIndex, 1);    
+//       filterArray.splice(noneSelectedIndex, 1);        
+//     } 
+//     //   this.genreValues.push(value);
+//     // this.filterArrayName.push(value); 
+//     filterArray.push(value);           
+//     //   console.log('genreValues2: ', this.genreValues);  
+//     console.log('filterArray3', filterArray);              
+//   } else {
+//     // this.genreValues.splice(index, 1);
+//     // this.filterArrayName.splice(index, 1);
+//     filterArray.splice(index, 1);            
+//   //   console.log('genreValues3: ', this.genreValues); 
+//     console.log('filterArray4', filterArray);                 
+//   }
+// //   this.setState({genreValues: this.genreValues});
+// //   this.setState({filterArrayName: this.filterArrayName});
+//   console.log('filterArray5: ', filterArray);
+// //   return this.setState({filterArrayName: filterArray}, console.log('filterArray6: ', filterArray, 'within state: ', this.state[filterArrayName]));
+// let currentFilterArray = filterArray;
+// console.log('currentFilterArray1: ', currentFilterArray);
+// console.log('type of filterArrayName2: ', typeof(filterArrayName));
+// // this may not be logging the updated state of the real component actually....
+// // BUT idk why it seems to work with everything but no selection!
+// // could it be that state is updated but target value is not???
+// // return this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state[filterArrayName]));
+// // return this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
+// // this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
+// // this.setState({state[filterArrayNameString]: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
+// return currentFilterArray;
+// // return {filterArrayNameString: currentFilterArray};
+// // this.setState({filterArrayName: filterArray}, console.log('filterArray6: ', filterArray, 'within state: ', this.state[filterArrayName]));
+// //   return {filterArrayName: filterArray}
+// // }, () => console.log('filterArray5: ', filterArray, 'within state: ', this.state[filterArrayName]));
+// // })
+// // }
+// //   innerFunc.call(this);
+// }
+
+// here, making a copy of the above function/mess to try to remove most of the b.s.:
+// export async function onFilterChange (value, filterArrayName) {
+//     // const filterArrayNameString = filterArrayName;  
+//     // console.log('filterArrayName: ', filterArrayName);
+//     // console.log('type of filterArrayName: ', typeof(filterArrayName)); 
+//     // let filterArray = this.state[filterArrayNameString]; 
+//     let filterArray = this.state[filterArrayName];    
+//     // just curious:
+//     // let filterArray = this.state.filterArrayName; // this actually doesn't work (FYI)                               
+//     // console.log('filterArray1', filterArray);  
+//     // console.log('value: ', value);
+//     // let index = filterArray.findIndex(filterOption => filterOption === value);
+//     let alreadySelectedIndex = filterArray.findIndex(filterOption => filterOption === value);
+//     // console.log('index: ', index);
+//     let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection');
+//     // console.log('noneSelectedIndex: ', noneSelectedIndex);
+//     if (value === 'no selection') {
+//       filterArray = ['no selection'];         
+//       // noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection'); // ???
+//       // console.log('noneSelectedIndex2: ', noneSelectedIndex);
+//       // console.log('filterArray2', filterArray);
+//     // } else if (index === -1) {
+//     } else if (alreadySelectedIndex === -1) {      
+//       if (noneSelectedIndex !== -1) {  
+//         filterArray.splice(noneSelectedIndex, 1);        
+//       } 
+//       filterArray.push(value);           
+//       // console.log('filterArray3', filterArray);              
+//     } else {
+//       // filterArray.splice(index, 1);     
+//       filterArray.splice(alreadySelectedIndex, 1);                         
+//       // console.log('filterArray4', filterArray);                 
+//     }
+//     // console.log('filterArray5: ', filterArray);
+//   // let currentFilterArray = filterArray;
+//   // console.log('currentFilterArray1: ', currentFilterArray);
+//   // console.log('type of filterArrayName2: ', typeof(filterArrayName));
+//   // return currentFilterArray;
+//   return filterArray;
+// }
+
+// and again here, making a copy of the above function to try to clean up even more:
+// export async function onFilterChange (value, filterArrayName) {
+export function onFilterChange (value, filterArrayName) {  
+  // console.log('filterArrayName: ', filterArrayName);
+  let filterArray = this.state[filterArrayName];                                
+  // console.log('filterArray1', filterArray);  
+  // console.log('value: ', value);
+  let alreadySelectedIndex = filterArray.findIndex(filterOption => filterOption === value);
+  // console.log('index: ', index);
   let noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection');
-  console.log('noneSelectedIndex: ', noneSelectedIndex);
+  // console.log('noneSelectedIndex: ', noneSelectedIndex);
   if (value === 'no selection') {
-    // this.genreValues = ['no selection'];
-    // this.filterArrayName = ['no selection'];   
     filterArray = ['no selection'];         
-    // filterArray = [value]; 
-    noneSelectedIndex = filterArray.findIndex(filterOption => filterOption === 'no selection'); // ???
-    console.log('noneSelectedIndex2: ', noneSelectedIndex);
-    // console.log('genreValues1.5: ', this.genreValues);
-    console.log('filterArray2', filterArray);
-    // return this.setState({'filterArrayName': await filterArray}, console.log('stateShouldBeNoSelection: ', this.state[filterArrayName])); // filterArray, or maybe even straight to 'no selection' ???
-    // return this.setState({filterArrayName: ['no selection']}, console.log('stateShouldBeNoSelection: ', this.state.filterArrayName)); // filterArray, or maybe even straight to 'no selection' ???
-  } else if (index === -1) {
-    if (noneSelectedIndex !== -1) {
-    //   this.genreValues.splice(noneSelectedIndex, 1);
-    //   this.filterArrayName.splice(noneSelectedIndex, 1);    
+    // console.log('filterArray2', filterArray);
+  } else if (alreadySelectedIndex === -1) {      
+    if (noneSelectedIndex !== -1) {  
       filterArray.splice(noneSelectedIndex, 1);        
     } 
-    //   this.genreValues.push(value);
-    // this.filterArrayName.push(value); 
     filterArray.push(value);           
-    //   console.log('genreValues2: ', this.genreValues);  
-    console.log('filterArray3', filterArray);              
+    // console.log('filterArray3', filterArray);              
   } else {
-    // this.genreValues.splice(index, 1);
-    // this.filterArrayName.splice(index, 1);
-    filterArray.splice(index, 1);            
-  //   console.log('genreValues3: ', this.genreValues); 
-    console.log('filterArray4', filterArray);                 
+    filterArray.splice(alreadySelectedIndex, 1);                         
+    // console.log('filterArray4', filterArray);                 
   }
-//   this.setState({genreValues: this.genreValues});
-//   this.setState({filterArrayName: this.filterArrayName});
-  console.log('filterArray5: ', filterArray);
-//   return this.setState({filterArrayName: filterArray}, console.log('filterArray6: ', filterArray, 'within state: ', this.state[filterArrayName]));
-let currentFilterArray = filterArray;
-console.log('currentFilterArray1: ', currentFilterArray);
-console.log('type of filterArrayName2: ', typeof(filterArrayName));
-// this may not be logging the updated state of the real component actually....
-// BUT idk why it seems to work with everything but no selection!
-// could it be that state is updated but target value is not???
-// return this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state[filterArrayName]));
-// return this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
-// this.setState({filterArrayName: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
-// this.setState({state[filterArrayNameString]: currentFilterArray}, console.log('currentFilterArray2: ', currentFilterArray, 'within state: ', this.state.filterArrayName));
-return currentFilterArray;
-// return {filterArrayNameString: currentFilterArray};
-// this.setState({filterArrayName: filterArray}, console.log('filterArray6: ', filterArray, 'within state: ', this.state[filterArrayName]));
-//   return {filterArrayName: filterArray}
-// }, () => console.log('filterArray5: ', filterArray, 'within state: ', this.state[filterArrayName]));
-// })
-// }
-//   innerFunc.call(this);
+  // console.log('filterArray5: ', filterArray);
+  return filterArray;
 }
