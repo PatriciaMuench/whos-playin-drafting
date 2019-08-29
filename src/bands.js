@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
+import { onFilterChange } from './utils';
 import './App.css';
+
+// const onFilterChange = require('./utils');
 
 class Bands extends Component {
 
@@ -33,7 +36,12 @@ class Bands extends Component {
       .catch(error => console.log(error));
   }
 
-  genreValues = ['no selection'];
+  // onFilterChange = onFilterChange;
+  // onFilterChange = require('./utils').onFilterChange;
+  // onFilterChange = require('./utils').onFilterChange();   
+  // onFilterChange2 = onFilterChange.bind(this);     
+
+  // genreValues = ['no selection'];
 
   render() {
     return(
@@ -48,34 +56,53 @@ class Bands extends Component {
             name="genre" 
             id="genre" 
             value={this.state.genreValues} 
-            onChange={(event) => {
-              console.log('genreValues1: ', this.genreValues);
-              let value = event.target.value;
-              console.log('value: ', value);
-              let index = this.genreValues.findIndex(genreName => genreName === value);
-              console.log('index: ', index);
-              let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
-              console.log('noneSelectedIndex: ', noneSelectedIndex);
-              if (value === 'no selection') {
-                this.genreValues = ['no selection'];
-                console.log('genreValues1.5: ', this.genreValues);
-              }
-              else if (index === -1) {
-                if (noneSelectedIndex !== -1) {
-                  this.genreValues.splice(noneSelectedIndex, 1);
-                } 
-                this.genreValues.push(value);
-                console.log('genreValues2: ', this.genreValues);                
-              } else {
-                this.genreValues.splice(index, 1);
-                console.log('genreValues3: ', this.genreValues);                  
-              }
-              this.setState({genreValues: this.genreValues});
-            }} 
+            // maybe pull this function into a utils file?
+            // onChange={(event) => {
+            //   console.log('genreValues1: ', this.genreValues);
+            //   let value = event.target.value;
+            //   console.log('value: ', value);
+            //   let index = this.genreValues.findIndex(genreName => genreName === value);
+            //   console.log('index: ', index);
+            //   let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
+            //   console.log('noneSelectedIndex: ', noneSelectedIndex);
+            //   if (value === 'no selection') {
+            //     this.genreValues = ['no selection'];
+            //     console.log('genreValues1.5: ', this.genreValues);
+            //   }
+            //   else if (index === -1) {
+            //     if (noneSelectedIndex !== -1) {
+            //       this.genreValues.splice(noneSelectedIndex, 1);
+            //     } 
+            //     this.genreValues.push(value);
+            //     console.log('genreValues2: ', this.genreValues);                
+            //   } else {
+            //     this.genreValues.splice(index, 1);
+            //     console.log('genreValues3: ', this.genreValues);                  
+            //   }
+            //   this.setState({genreValues: this.genreValues});
+            // }} 
+            // onChange={event => onFilterChange.call(this, event.target.value, 'genreValues')}            
+            // onChange={event => {
+            //   console.log('state1: ', this.state.genreValues);
+            //   onFilterChange.call(this, event.target.value, 'genreValues');
+            //   console.log('state2: ', this.state.genreValues);
+            // }}  
+            onChange={async event => {
+              console.log('state1: ', this.state.genreValues);
+              let attemptedGenreValues = await onFilterChange.call(this, event.target.value, 'genreValues');
+              console.log('attemptedGenreValues: ', attemptedGenreValues);
+              this.setState({genreValues: attemptedGenreValues});
+              // this.setState(onFilterChange.call(this, event.target.value, 'genreValues'));
+              // this.setState({genreValues: [onFilterChange.call(this, event.target.value, 'genreValues')]});
+              console.log('state2: ', this.state.genreValues);
+            }}          
+            // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues, 'genreValues')}
+            // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues)}            
+            // onChange={event => this.onFilterChange2(event.target.value, 'genreValues')}            
             multiple
           >          
             <option value="no selection">--none specified--</option>
-            <option value ="country">country</option>
+            <option value="country">country</option>
             <option value="rock">rock</option>
             {/* <option></option> */}
           </select>
