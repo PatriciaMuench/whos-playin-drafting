@@ -163,7 +163,8 @@ venuesRouter.get('/', (req, res, next) => {
       END event_date,
       Events.time AS event_time,
       Venues.description AS venue_description,
-      Bands.description AS band_description
+      Bands.description AS band_description,
+      Venues.type AS venue_type
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
