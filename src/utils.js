@@ -203,7 +203,7 @@
 /** 
  * constant to minimize string typos
  */
-const noSelection = 'no selection';
+export const noSelection = 'no selection';
 
 /**
  * function to update (and return) the array of selected filters when a user clicks an option

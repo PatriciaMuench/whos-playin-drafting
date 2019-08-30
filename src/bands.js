@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
-import { onFilterChange } from './utils';
+import { onFilterChange, noSelection } from './utils';
 import './App.css';
 
 // const onFilterChange = require('./utils');
@@ -11,7 +11,8 @@ class Bands extends Component {
   // maybe break state up into more specific pieces?
   state = {
     eventInfo: [],
-    genreValues: ['no selection'] // [] // ''
+    // genreValues: ['no selection'] // [] // ''
+    selectedGenres: [noSelection]
   }
 
   // (I wonder how componentDidMount actually compares to componentWillMount, etc.?)
@@ -55,7 +56,8 @@ class Bands extends Component {
           <select 
             name="genre" 
             id="genre" 
-            value={this.state.genreValues} 
+            // value={this.state.genreValues} 
+            value={this.state.selectedGenres}             
             // maybe pull this function into a utils file?
             // onChange={(event) => {
             //   console.log('genreValues1: ', this.genreValues);
@@ -102,10 +104,12 @@ class Bands extends Component {
             //   // console.log('state2: ', this.state.genreValues);
             // }}       
             onChange={ event => {            
-              let selectedGenreValues = onFilterChange(event.target.value, this.state.genreValues);
+              // let selectedGenreValues = onFilterChange(event.target.value, this.state.genreValues);
+              let selectedGenres = onFilterChange(event.target.value, this.state.selectedGenres);              
               // this.setState({genreValues: selectedGenreValues});
               // (currently not sure whether it will ever matter if I have the return)
-              return this.setState({genreValues: selectedGenreValues});
+              // return this.setState({genreValues: selectedGenreValues});
+              return this.setState({selectedGenres});
               // FYI, actually this does seem to work too, but I'm thinking I like it less:
               // this.setState({genreValues: onFilterChange(event.target.value, this.state.genreValues)});
             }}     
@@ -114,7 +118,8 @@ class Bands extends Component {
             // onChange={event => this.onFilterChange2(event.target.value, 'genreValues')}            
             multiple
           >          
-            <option value="no selection">--none specified--</option>
+            {/* <option value="no selection">--none specified--</option> */}
+            <option value={noSelection}>--none specified--</option>            
             <option value="country">country</option>
             <option value="rock">rock</option>
             {/* <option></option> */}
@@ -150,18 +155,19 @@ class Bands extends Component {
                 // to do: use id for key instead of index ?
                 // link using id instead of name / how to link using name ?
                 // also, I am actually not sure how much info should be on this page besides the list of bands? (well, obv..)
-                (this.state.genreValues.includes('no selection') || this.state.genreValues.includes(event.band_genre)) && (
-                <tr key={i}>
-                  <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
-                  {/* <td className="main"><small>{event.band_description}</small></td> */}
-                  {event.event_date !== 'none' &&
-                    <Fragment>
-                      <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
-                      <td><small>{event.event_date}</small></td>      
-                      <td><small>{event.event_time}</small></td>       
-                    </Fragment>       
-                  }                                                        
-                </tr>
+                // (this.state.genreValues.includes('no selection') || this.state.genreValues.includes(event.band_genre)) && (
+                (this.state.selectedGenres.includes(noSelection) || this.state.selectedGenres.includes(event.band_genre)) && (
+                  <tr key={i}>
+                    <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
+                    {/* <td className="main"><small>{event.band_description}</small></td> */}
+                    {event.event_date !== 'none' &&
+                      <Fragment>
+                        <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
+                        <td><small>{event.event_date}</small></td>      
+                        <td><small>{event.event_time}</small></td>       
+                      </Fragment>       
+                    }                                                        
+                  </tr>
                 ) 
               ))}
             </tbody>

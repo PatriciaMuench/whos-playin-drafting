@@ -97,7 +97,8 @@ db.serialize(() => {
         state TEXT DEFAULT '', 
         description TEXT DEFAULT '', 
         website_url TEXT DEFAULT '',
-        type TEXT
+        type TEXT,
+        size TEXT
       )`,
       error => {
         if (error) {
@@ -107,9 +108,9 @@ db.serialize(() => {
       }
     );
     db.run(
-      `INSERT INTO Venues (name, city, state, description, website_url, type) VALUES 
-      ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com', 'bar'), 
-      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com', 'bar')`,
+      `INSERT INTO Venues (name, city, state, description, website_url, type, size) VALUES 
+      ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com', 'bar', 'medium'), 
+      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com', 'bar', 'medium')`,
       // **
       error => {
         if (error) {
