@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
-// (just copied in based on current state of Band)
-
 class Venue extends Component {
 
     // state = {venue: null}
@@ -13,21 +11,11 @@ class Venue extends Component {
     venueName = this.props.match.params.name;
 
     componentWillMount = () => {
-    //   console.log(this.venueName);
       fetch(`/venues/${this.venueName}`)
       .then(response => response.json())
-      // .then(response => this.setState({venue: response}))
-      // .then(response => this.setState({eventInfo: response}))
       .then(response => {
         response.forEach(event => {
-          // console.log('datetime: ', event.event_datetime);
           event.datetime = new Date(event.event_datetime);
-          // console.log('new datetime: ', event.datetime);
-          // console.log('typeof event.datetime: ', typeof(event.datetime));
-          // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
-          // {event.event_datetime && (?)
-          // <td><small>{event.datetime.toDateString()}</small></td>  
-          // <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>    
           event.date = event.datetime.toDateString();
           event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
         });
@@ -53,7 +41,6 @@ class Venue extends Component {
 
               <h2 className="main" style={{'marginBottom': '5px'}}>{this.venueName}</h2>
     
-              {/* {this.state.venue && */}
               {this.state.eventInfo[0] &&            
                 <Fragment>  
                   {/* // (this prob doesn't even need to be a list, but I guess we can decide later...) */}
