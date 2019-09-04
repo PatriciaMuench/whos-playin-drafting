@@ -6,13 +6,10 @@ import './App.css';
 
 // (many of notes in bands.js apply to this file as well...)
 
-// const noSelection = 'no selection';
-
 class Venues extends Component {
 
   state = {
     eventInfo: [],
-    // selectedVenueTypes: ['no selection'],
     selectedVenueTypes: [noSelection],
     selectedSizes: [noSelection]
   }
@@ -20,13 +17,12 @@ class Venues extends Component {
   componentWillMount() {
     fetch(`/venues`)
     .then(response => response.json())
-    // .then(response => this.setState({eventInfo: response}))
     .then(response => {
       response.forEach(event => {
-        console.log('datetime: ', event.event_datetime);
+        console.log('datetime string: ', event.event_datetime);
         event.datetime = new Date(event.event_datetime);
-        console.log('new datetime: ', event.datetime);
-        console.log('typeof event.datetime: ', typeof(event.datetime));
+        console.log('new datetime object: ', event.datetime);
+        // console.log('typeof event.datetime: ', typeof(event.datetime));
         // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
         // {event.event_datetime && (?)
         // <td><small>{event.datetime.toDateString()}</small></td>  
@@ -73,7 +69,6 @@ class Venues extends Component {
               // onChange={event => this.setState({selectedVenueTypes: onFilterChange(event.target.value, this.state.selectedVenueTypes)})}     
               multiple
             >          
-              {/* <option value="no selection">--none specified--</option> */}
               <option value={noSelection}>--none specified--</option>
               <option value="restaurant">restaurant</option>
               <option value="bar">bar</option>            
@@ -111,9 +106,7 @@ class Venues extends Component {
 
           <table>
             <tbody>
-              {this.state.eventInfo && this.state.eventInfo.map((event, i) => ( 
-                // (this.state.selectedVenueTypes.includes('no selection') || this.state.selectedVenueTypes.includes(event.venue_type)) && (                             
-                // (this.state.selectedVenueTypes.includes(noSelection) || this.state.selectedVenueTypes.includes(event.venue_type)) && (                             
+              {this.state.eventInfo && this.state.eventInfo.map((event, i) => (
                 ((this.state.selectedVenueTypes.includes(noSelection) || this.state.selectedVenueTypes.includes(event.venue_type))
                 && (this.state.selectedSizes.includes(noSelection) || this.state.selectedSizes.includes(event.venue_size))) && (                             
                   <tr key={i}>
