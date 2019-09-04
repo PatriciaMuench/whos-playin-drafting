@@ -62,9 +62,17 @@ class Band extends Component {
       .then(response => response.json())    
       .then(response => {
         response.forEach(event => {
-          event.datetime = new Date(event.event_datetime);
-          event.date = event.datetime.toDateString();
-          event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+          // event.datetime = new Date(event.event_datetime);
+          // event.datetime = new Date(event.event_datetime_string);
+          // event.datetime_object = new Date(event.event_datetime_string);
+          event.event_datetime_object = new Date(event.event_datetime_string);
+          // event.date = event.datetime.toDateString();
+          // event.date = event.datetime_object.toDateString();
+          // event.date_string = event.datetime_object.toDateString();
+          event.event_date = event.event_datetime_object.toDateString();
+          // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+          // event.time = event.datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+          event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});                              
         });
         this.setState({eventInfo: response});
         console.log('state: ', this.state);
@@ -136,14 +144,15 @@ class Band extends Component {
                       {this.state.eventInfo.map((event, i) => (
                         // event.event_date !== 'none' && (
                         // (?)
-                        event.date && (
+                        // event.date && (
+                        event.event_date && (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`venue${i}`}><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link> <br /> <span className="description">{event.venue_description}</span></td> 
-                            {/* <td key={`date${i}`}>{event.event_date}</td>      
-                            <td key={`time${i}`}>{event.event_time}</td> */}
-                            <td key={`date${i}`}>{event.date}</td>      
-                            <td key={`time${i}`}>{event.time}</td>
+                            <td key={`date${i}`}>{event.event_date}</td>      
+                            <td key={`time${i}`}>{event.event_time}</td>
+                            {/* <td key={`date${i}`}>{event.date}</td>      
+                            <td key={`time${i}`}>{event.time}</td> */}
                           </tr>    
                         )  
                       ))}

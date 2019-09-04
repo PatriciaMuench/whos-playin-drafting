@@ -19,8 +19,10 @@ class Venues extends Component {
     .then(response => response.json())
     .then(response => {
       response.forEach(event => {
-        console.log('datetime string: ', event.event_datetime);
-        event.datetime = new Date(event.event_datetime);
+        // console.log('datetime string: ', event.event_datetime);
+        console.log('datetime string: ', event.event_datetime_string);
+        // event.datetime = new Date(event.event_datetime);
+        event.datetime = new Date(event.event_datetime_string);
         console.log('new datetime object: ', event.datetime);
         // console.log('typeof event.datetime: ', typeof(event.datetime));
         // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...

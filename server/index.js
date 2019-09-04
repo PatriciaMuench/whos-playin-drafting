@@ -126,7 +126,8 @@ bandsRouter.get('/:name', (req, res, next) => {
       --   ELSE 'none'
       -- END event_date,
       -- Events.time AS event_time
-      Events.datetime AS event_datetime -- (?)
+      -- Events.datetime AS event_datetime -- (?)
+      Events.datetime AS event_datetime_string -- (?)      
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
@@ -137,7 +138,8 @@ bandsRouter.get('/:name', (req, res, next) => {
     -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
     -- -- ORDER BY date, time
-    ORDER BY event_datetime
+    -- ORDER BY event_datetime
+    ORDER BY event_datetime_string
     `,
     [bandName],
     (error, rows) => {
@@ -164,7 +166,8 @@ venuesRouter.get('/', (req, res, next) => {
       --   ELSE 'none'
       -- END event_date,
       -- Events.time AS event_time,
-      Events.datetime AS event_datetime, -- (?)
+      -- Events.datetime AS event_datetime, -- (?)
+      Events.datetime AS event_datetime_string, -- (?)      
       Venues.description AS venue_description,
       Bands.description AS band_description,
       Venues.type AS venue_type,
@@ -177,7 +180,8 @@ venuesRouter.get('/', (req, res, next) => {
     GROUP BY venue_name
     -- ORDER BY event_date
     -- -- ORDER BY Events.date, Events.time
-    ORDER BY event_datetime
+    -- ORDER BY event_datetime
+    ORDER BY event_datetime_string
     `,
     [],
     (error, rows) => {
@@ -210,7 +214,8 @@ venuesRouter.get('/:name', (req, res, next) => {
       --   ELSE 'none'
       -- END event_date,
       -- Events.time AS event_time
-      Events.datetime AS event_datetime -- (?)
+      -- Events.datetime AS event_datetime -- (?)
+      Events.datetime AS event_datetime_string -- (?)      
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
@@ -221,7 +226,8 @@ venuesRouter.get('/:name', (req, res, next) => {
     -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
     -- -- ORDER BY date, time
-    ORDER BY event_datetime
+    -- ORDER BY event_datetime
+    ORDER BY event_datetime_string
     `,
     [venueName],
     (error, rows) => {
