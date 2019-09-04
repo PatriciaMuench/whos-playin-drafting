@@ -146,12 +146,21 @@ db.serialize(() => {
     //     FOREIGN KEY (venue_id) REFERENCES Venues(id),
     //     FOREIGN KEY (band_id) REFERENCES Bands(id)
     //   )`,
+    // for datetimes, I think my (best) options for storage are text or integer,
+    // there are sqlite functions such as datetime() and strftime(),
+    // also there are javascript Date objects and functions...,
+    // I'm thinking maybe I want to store datetimes as variables utilizing js if necessary, then insert those into tables using sqlite,
+    // and I'm thinking I can convert/format them for display or comparison using js where necessary as well
+    // I'm also thinking that if it doesn't matter otherwise, it would probably be nice to store them as strings rather than integers because they will be more readable at a glance
+    // but, do I need date and time to be separate for any reason, vs. can I use a combined datetime...?
       `CREATE TABLE IF NOT EXISTS Events (
         id INTEGER PRIMARY KEY, 
         venue_name TEXT NOT NULL,  
         band_name TEXT NOT NULL, 
-        date TEXT DEFAULT '', 
-        time TEXT DEFAULT '', 
+        -- date TEXT DEFAULT '', 
+        -- time TEXT DEFAULT '', 
+        datetime TEXT,
+        -- datetime INTEGER,
         notes TEXT DEFUALT '',
         FOREIGN KEY (venue_name) REFERENCES Venues(name),
         FOREIGN KEY (band_name) REFERENCES Bands(name)
@@ -163,14 +172,30 @@ db.serialize(() => {
         }
       }
     );
+    // not sure if this is the right place, etc
+    // (but prob will be different once users can input events anyway)......
+    // let lansdowneBearfight1 = new Date(2019, 7, 9, 21);
+    // let lansdowneBearfight1 = new Date(2019, 7, 9, 21).toString();
+    // let lansdowneBearfight1 = '2019-08-09T21:00:00.000';
+    // let lansdowneBearfight1 = '2019-08-09T21:00:00';
+    let lansdowneBearfight1 = '2019-08-09 21:00:00';    
+    let lansdowneDalton1 = new Date(2019, 7, 10, 21).toString();
+    let chickenboxDalton1 = new Date(2019, 7, 15, 22).toString();
     db.run(
       // how to work with venue/band names vs. ids (now and/or when a user is able to add...) ?
       // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
-      `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
-        ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
-        ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along'),
-        ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`,
+      // `INSERT INTO Events (venue_name, band_name, date, time, notes) VALUES 
+      //   ('The Lansdowne', 'BearFight', '8/9/19', '9pm', 'good times'), 
+      //   ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along'),
+      //   ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`,
       // **
+      `INSERT INTO Events (venue_name, band_name, datetime, notes) VALUES 
+        ('The Lansdowne', 'BearFight', $lansdowneBearfight1, 'good times'), 
+        ('The Lansdowne', 'Dalton', $lansdowneDalton1, 'sing along'),
+        ('The Chicken Box', 'Dalton', $chickenboxDalton1, 'takes requests')`,
+      {$lansdowneBearfight1: lansdowneBearfight1, 
+      $lansdowneDalton1: lansdowneDalton1, 
+      $chickenboxDalton1: chickenboxDalton1},
       error => {
         if (error) {
           // throw error;

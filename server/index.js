@@ -73,11 +73,13 @@ bandsRouter.get('/', (req, res, next) => {
     `SELECT 
       Bands.name AS band_name,
       Venues.name AS venue_name,
-      CASE Events.date 
-        WHEN Events.date THEN Events.date
-        ELSE 'none'
-      END event_date,
-      Events.time AS event_time,
+      -- CASE Events.date 
+      --   WHEN Events.date THEN Events.date
+      --   ELSE 'none'
+      -- END event_date,
+      -- Events.time AS event_time,
+      -- note: not sure about whether I might still need the 'none', should prob input some bands without events to test...
+      Events.datetime AS event_datetime,
       Bands.description AS band_description,
       Venues.description AS venue_description,
       Bands.genre AS band_genre
@@ -87,9 +89,10 @@ bandsRouter.get('/', (req, res, next) => {
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
     GROUP BY band_name
-    ORDER BY event_date
+    -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- ORDER BY date, time
+    -- -- ORDER BY date, time
+    ORDER BY event_datetime
     `,
     [],
     (error, rows) => {

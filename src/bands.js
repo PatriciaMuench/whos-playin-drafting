@@ -29,6 +29,12 @@ class Bands extends Component {
         //   venues: response.venues,
         //   events: response.events
         // }, () => {
+        response.forEach(event => {
+          console.log('datetime: ', event.event_datetime);
+          event.datetime = new Date(event.event_datetime);
+          console.log('new datetime: ', event.datetime);
+          console.log('typeof event.datetime: ', typeof(event.datetime));
+        });
         this.setState({
           eventInfo: response
         }, () => {
@@ -160,11 +166,25 @@ class Bands extends Component {
                   <tr key={i}>
                     <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
                     {/* <td className="main"><small>{event.band_description}</small></td> */}
-                    {event.event_date !== 'none' &&
+
+                    {/* {event.event_date !== 'none' && */}
+                    {/* may need to input some bands without events to check if I have this right (?) ... */}
+                    {event.event_datetime &&
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
-                        <td><small>{event.event_date}</small></td>      
-                        <td><small>{event.event_time}</small></td>       
+                        {/* <td><small>{event.event_date}</small></td>      
+                        <td><small>{event.event_time}</small></td> */}
+                        {/* <td><small>{event.event_datetime.toString()}</small></td> */}
+                        {/* <td><small>{event.event_datetime}</small></td> */}
+                        {/* <td><small>{event.datetime.toString()}</small></td> */}
+                        {/* <td><small>{event.datetime.toLocaleString()}</small></td> */}
+                        <td><small>{event.datetime.toDateString()}</small></td>      
+                        {/* <td><small>{event.datetime.toLocaleTimeString()}</small></td> */}
+                        {/* <td><small>{event.datetime.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric'})}</small></td> */}
+                        {/* <td><small>{event.datetime.toLocaleString([], {weekday: 'short', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'})}</small></td> */}
+                        {/* timeStyle: 'short' */}
+                        {/* <td><small>{event.datetime.toLocaleDateString([], {weekday: 'short', month: 'long', day: 'numeric', year: 'numeric'})}</small></td> */}
+                        <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>
                       </Fragment>       
                     }                                                        
                   </tr>
