@@ -122,21 +122,23 @@ bandsRouter.get('/:name', (req, res, next) => {
       Bands.website_url AS band_website_url,
       Venues.name AS venue_name,
       Venues.description AS venue_description,
-      CASE Events.date 
-        WHEN Events.date THEN Events.date
-        ELSE 'none'
-      END event_date,
-      Events.time AS event_time
+      -- CASE Events.date 
+      --   WHEN Events.date THEN Events.date
+      --   ELSE 'none'
+      -- END event_date,
+      -- Events.time AS event_time
+      Events.datetime AS event_datetime -- (?)
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
     WHERE band_name = $bandName
-    -- GROUP BY band_name
-    ORDER BY event_date
+    -- -- GROUP BY band_name
+    -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- ORDER BY date, time
+    -- -- ORDER BY date, time
+    ORDER BY event_datetime
     `,
     [bandName],
     (error, rows) => {
@@ -160,11 +162,12 @@ venuesRouter.get('/', (req, res, next) => {
       Venues.name AS venue_name,
       Bands.name AS band_name,
       -- Max(Events.date) AS event_date
-      CASE Events.date
-        WHEN Events.date THEN Events.date
-        ELSE 'none'
-      END event_date,
-      Events.time AS event_time,
+      -- CASE Events.date
+      --   WHEN Events.date THEN Events.date
+      --   ELSE 'none'
+      -- END event_date,
+      -- Events.time AS event_time,
+      Events.datetime AS event_datetime, -- (?)
       Venues.description AS venue_description,
       Bands.description AS band_description,
       Venues.type AS venue_type,
@@ -175,8 +178,9 @@ venuesRouter.get('/', (req, res, next) => {
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
     GROUP BY venue_name
-    ORDER BY event_date
-    -- ORDER BY Events.date, Events.time
+    -- ORDER BY event_date
+    -- -- ORDER BY Events.date, Events.time
+    ORDER BY event_datetime
     `,
     [],
     (error, rows) => {
@@ -207,21 +211,23 @@ venuesRouter.get('/:name', (req, res, next) => {
       Bands.name AS band_name,
       Bands.description AS band_description,
       Bands.website_url AS band_website_url,
-      CASE Events.date 
-        WHEN Events.date THEN Events.date
-        ELSE 'none'
-      END event_date,
-      Events.time AS event_time
+      -- CASE Events.date 
+      --   WHEN Events.date THEN Events.date
+      --   ELSE 'none'
+      -- END event_date,
+      -- Events.time AS event_time
+      Events.datetime AS event_datetime -- (?)
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
     WHERE venue_name = $venueName
-    -- GROUP BY venue_name
-    ORDER BY event_date
+    -- -- GROUP BY venue_name
+    -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- ORDER BY date, time
+    -- -- ORDER BY date, time
+    ORDER BY event_datetime
     `,
     [venueName],
     (error, rows) => {

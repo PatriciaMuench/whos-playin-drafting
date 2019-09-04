@@ -20,7 +20,23 @@ class Venues extends Component {
   componentWillMount() {
     fetch(`/venues`)
     .then(response => response.json())
-    .then(response => this.setState({eventInfo: response}))
+    // .then(response => this.setState({eventInfo: response}))
+    .then(response => {
+      response.forEach(event => {
+        console.log('datetime: ', event.event_datetime);
+        event.datetime = new Date(event.event_datetime);
+        console.log('new datetime: ', event.datetime);
+        console.log('typeof event.datetime: ', typeof(event.datetime));
+        // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
+        // {event.event_datetime && (?)
+        // <td><small>{event.datetime.toDateString()}</small></td>  
+        // <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>    
+        event.date = event.datetime.toDateString();
+        event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+      });
+      this.setState({eventInfo: response});
+      console.log('state: ', this.state);
+    })
     .catch(error => console.log(error));
   }
 
@@ -102,10 +118,13 @@ class Venues extends Component {
                 && (this.state.selectedSizes.includes(noSelection) || this.state.selectedSizes.includes(event.venue_size))) && (                             
                   <tr key={i}>
                     <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big> <br /> <span className="description">{event.venue_description}</span></td>
-                    {event.event_date !== 'none' &&
+                    {/* {event.event_date !== 'none' && */}
+                    {/* (?) */}
+                    {event.date &&
                       <Fragment>
                         <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td>
-                        <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                        {/* <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td> */}
+                        <td><small>{event.date}</small> &nbsp; <small>{event.time}</small></td>
                       </Fragment>
                     }
                   </tr>

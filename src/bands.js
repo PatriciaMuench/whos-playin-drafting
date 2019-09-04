@@ -34,6 +34,7 @@ class Bands extends Component {
           event.datetime = new Date(event.event_datetime);
           console.log('new datetime: ', event.datetime);
           console.log('typeof event.datetime: ', typeof(event.datetime));
+          // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
         });
         this.setState({
           eventInfo: response
