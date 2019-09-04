@@ -57,36 +57,24 @@ class Band extends Component {
 
     // bandInfo = fetch(`/bands/${this.bandName}`)
     // const fetchBandInfo = (bandName) => {
-      console.log(this.bandName);
+      // console.log(this.bandName);
       fetch(`/bands/${this.bandName}`)
-      .then(response => response.json())
-    //   .then(response => console.log(response.website_url))
-    //   .then(response => response)
-      // .then(response => this.setState({band: response})) // , console.log(this.state))) 
-      // .then(response => this.setState({eventInfo: response}))    
+      .then(response => response.json())    
       .then(response => {
         response.forEach(event => {
-          // console.log('datetime: ', event.event_datetime);
           event.datetime = new Date(event.event_datetime);
-          // console.log('new datetime: ', event.datetime);
-          // console.log('typeof event.datetime: ', typeof(event.datetime));
-          // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
-          // {event.event_datetime && (?)
-          // <td><small>{event.datetime.toDateString()}</small></td>  
-          // <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>    
           event.date = event.datetime.toDateString();
           event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
         });
         this.setState({eventInfo: response});
         console.log('state: ', this.state);
       })  
-      .then(() => {
-        console.log(this.state);
-        console.log(this.state.eventInfo);
-        console.log(this.state.eventInfo[0]);
-      })   
+      // .then(() => {
+      //   console.log(this.state);
+      //   console.log(this.state.eventInfo);
+      //   console.log(this.state.eventInfo[0]);
+      // })   
       .catch(error => console.log(error.message)) // (?)    
-    //   .then(console.log(this.state))   
       
     //   return this.response;
     }
