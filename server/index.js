@@ -135,7 +135,11 @@ bandsRouter.get('/:name', (req, res, next) => {
       -- END event_date,
       -- Events.time AS event_time
       -- Events.datetime AS event_datetime -- (?)
-      Events.datetime AS event_datetime_string -- (?)      
+      -- Events.datetime AS event_datetime_string -- (?)
+      CASE Events.datetime_string
+        WHEN Events.datetime_string THEN Events.datetime_string
+        ELSE 'none'
+      END event_datetime_string
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
@@ -175,7 +179,11 @@ venuesRouter.get('/', (req, res, next) => {
       -- END event_date,
       -- Events.time AS event_time,
       -- Events.datetime AS event_datetime, -- (?)
-      Events.datetime AS event_datetime_string, -- (?)      
+      -- Events.datetime AS event_datetime_string, -- (?)
+      CASE Events.datetime_string
+        WHEN Events.datetime_string THEN Events.datetime_string
+        ELSE 'none'
+      END event_datetime_string,
       Venues.description AS venue_description,
       Bands.description AS band_description,
       Venues.type AS venue_type,
@@ -225,7 +233,11 @@ venuesRouter.get('/:name', (req, res, next) => {
       -- END event_date,
       -- Events.time AS event_time
       -- Events.datetime AS event_datetime -- (?)
-      Events.datetime AS event_datetime_string -- (?)      
+      -- Events.datetime AS event_datetime_string -- (?)
+      CASE Events.datetime_string
+        WHEN Events.datetime_string THEN Events.datetime_string
+        ELSE 'none'
+      END event_datetime_string
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
