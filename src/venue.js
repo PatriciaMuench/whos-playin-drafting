@@ -6,7 +6,25 @@ import './App.css';
 class Venue extends Component {
 
     // state = {venue: null}
-    state = {eventInfo: []}
+    // state = {eventInfo: []}
+    state = {
+      eventInfo: [
+        {
+          band_description: '',
+          band_name: '',
+          band_website_url: '',
+          event_date: '',
+          event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+          event_datetime_string: '',
+          event_time: '',
+          venue_city: '',
+          venue_description: '',
+          venue_name: '',
+          venue_state: '',
+          venue_website_url: ''
+        }
+      ]
+    }
   
     venueName = this.props.match.params.name;
 
@@ -64,7 +82,7 @@ class Venue extends Component {
                         // event.event_date !== 'none' && (
                         // (?)
                         // event.date && ( 
-                        event.event_date && (                                                                             
+                        event.event_date !== '' && (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`band${i}`}><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td> 
