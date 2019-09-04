@@ -9,7 +9,21 @@ import './App.css';
 class Venues extends Component {
 
   state = {
-    eventInfo: [],
+    // eventInfo: [],
+    eventInfo: [
+      {
+        band_description: '',
+        band_name: '',
+        event_date: '',
+        event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+        event_datetime_string: '',
+        event_time: '',
+        venue_description: '',
+        venue_name: '',
+        venue_size: '',
+        venue_type: ''
+      }
+    ],
     selectedVenueTypes: [noSelection],
     selectedSizes: [noSelection]
   }
@@ -120,7 +134,12 @@ class Venues extends Component {
                     {/* {event.event_date !== 'none' && */}
                     {/* (?) */}
                     {/* {event.date && */}
-                    {event.event_date &&
+                    {/* {event.event_date && */}
+                    {/* ok it seems like maybe when I added the specific items to state with blank defaults, the version above caused this warning: */}
+                    {/* Warning: validateDOMNesting(...): Whitespace text nodes cannot appear as a child of <tr>. Make sure you don't have any extra whitespace between tags on each line of your source code. */}
+                    {/* so I guess either of the below versions will work, but I still need to do some testing to nail down... */}
+                    {/* {event.event_datetime_object && */}
+                    {event.event_date !== '' &&
                       <Fragment>
                         <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td>
                         <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
