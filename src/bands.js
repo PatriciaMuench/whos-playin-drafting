@@ -8,7 +8,23 @@ class Bands extends Component {
 
   // maybe break state up into more specific pieces?
   state = {
-    eventInfo: [],
+    // eventInfo: [],
+  // ok I tried being more explicit here with what goes in state:
+  // not exactly sure if it's useful, but I'm thinking I have it such that it is set in the same way,
+  // but here you can see what belongs there and give each item empty defaults ??
+    eventInfo: [
+      {
+        band_description: '',
+        band_genre: '',
+        band_name: '',
+        event_date: '',
+        event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+        event_datetime_string: '',
+        event_time: '',
+        venue_description: '',
+        venue_name: ''
+      }
+    ],
     selectedGenres: [noSelection]
   }
 
@@ -39,6 +55,11 @@ class Bands extends Component {
         this.setState({
           eventInfo: response
         }, () => {
+        // this.setState({
+        //   // (never quite sure how to do this...)
+        //   // ...response
+        //   eventInfo: [...response]
+        // }, () => {
         console.log('state, within componentWillMount: \n', this.state);
       })})
       .catch(error => console.log(error));
