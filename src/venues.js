@@ -20,17 +20,21 @@ class Venues extends Component {
     .then(response => {
       response.forEach(event => {
         // console.log('datetime string: ', event.event_datetime);
-        console.log('datetime string: ', event.event_datetime_string);
+        // console.log('datetime string: ', event.event_datetime_string);
         // event.datetime = new Date(event.event_datetime);
-        event.datetime = new Date(event.event_datetime_string);
-        console.log('new datetime object: ', event.datetime);
+        // event.datetime = new Date(event.event_datetime_string);
+        event.event_datetime_object = new Date(event.event_datetime_string);
+        // console.log('new datetime object: ', event.datetime);
+        // console.log('new datetime object: ', event.event_datetime_object);
         // console.log('typeof event.datetime: ', typeof(event.datetime));
         // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
         // {event.event_datetime && (?)
         // <td><small>{event.datetime.toDateString()}</small></td>  
         // <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>    
-        event.date = event.datetime.toDateString();
-        event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+        // event.date = event.datetime.toDateString();
+        event.event_date = event.event_datetime_object.toDateString();
+        // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+        event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
       });
       this.setState({eventInfo: response});
       console.log('state: ', this.state);
@@ -115,11 +119,12 @@ class Venues extends Component {
                     <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big> <br /> <span className="description">{event.venue_description}</span></td>
                     {/* {event.event_date !== 'none' && */}
                     {/* (?) */}
-                    {event.date &&
+                    {/* {event.date && */}
+                    {event.event_date &&
                       <Fragment>
                         <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td>
-                        {/* <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td> */}
-                        <td><small>{event.date}</small> &nbsp; <small>{event.time}</small></td>
+                        <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                        {/* <td><small>{event.date}</small> &nbsp; <small>{event.time}</small></td> */}
                       </Fragment>
                     }
                   </tr>
