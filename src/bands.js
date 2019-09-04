@@ -24,10 +24,12 @@ class Bands extends Component {
         //   events: response.events
         // }, () => {
         response.forEach(event => {
-          console.log('datetime: ', event.event_datetime);
-          event.datetime = new Date(event.event_datetime);
+          // console.log('datetime: ', event.event_datetime);
+          console.log('datetime string: ', event.event_datetime_string);
+          // event.datetime = new Date(event.event_datetime);
+          event.datetime = new Date(event.event_datetime_string);
           console.log('new datetime: ', event.datetime);
-          console.log('typeof event.datetime: ', typeof(event.datetime));
+          // console.log('typeof event.datetime: ', typeof(event.datetime));
           // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
         });
         this.setState({
@@ -103,7 +105,8 @@ class Bands extends Component {
 
                     {/* {event.event_date !== 'none' && */}
                     {/* may need to input some bands without events to check if I have this right (?) ... */}
-                    {event.event_datetime &&
+                    {/* {event.event_datetime && */}
+                    {event.datetime &&                    
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
                         <td><small>{event.datetime.toDateString()}</small></td>      

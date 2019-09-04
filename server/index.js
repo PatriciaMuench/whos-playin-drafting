@@ -79,7 +79,8 @@ bandsRouter.get('/', (req, res, next) => {
       -- END event_date,
       -- Events.time AS event_time,
       -- note: not sure about whether I might still need the 'none', should prob input some bands without events to test...
-      Events.datetime AS event_datetime,
+      -- Events.datetime AS event_datetime,
+      Events.datetime AS event_datetime_string,      
       Bands.description AS band_description,
       Venues.description AS venue_description,
       Bands.genre AS band_genre
@@ -92,7 +93,8 @@ bandsRouter.get('/', (req, res, next) => {
     -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...
     -- -- ORDER BY date, time
-    ORDER BY event_datetime
+    -- ORDER BY event_datetime
+    ORDER BY event_datetime_string
     `,
     [],
     (error, rows) => {
