@@ -17,7 +17,7 @@ class Bands extends Component {
     fetch(`/bands`)
       .then(response => response.json())
       .then(response => {
-        console.log(`response: \n`, response);
+        // console.log(`response: \n`, response);
         // this.setState({
         //   bands: response.bands,
         //   venues: response.venues,
@@ -25,12 +25,16 @@ class Bands extends Component {
         // }, () => {
         response.forEach(event => {
           // console.log('datetime: ', event.event_datetime);
-          console.log('datetime string: ', event.event_datetime_string);
+          // console.log('datetime string: ', event.event_datetime_string);
           // event.datetime = new Date(event.event_datetime);
-          event.datetime = new Date(event.event_datetime_string);
-          console.log('new datetime: ', event.datetime);
+          // event.datetime = new Date(event.event_datetime_string);
+          event.event_datetime_object = new Date(event.event_datetime_string);
+          // console.log('new datetime: ', event.datetime);
+          // console.log('new datetime object: ', event.event_datetime_object);
           // console.log('typeof event.datetime: ', typeof(event.datetime));
           // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
+          event.event_date = event.event_datetime_object.toDateString();
+          event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
         });
         this.setState({
           eventInfo: response
@@ -106,11 +110,16 @@ class Bands extends Component {
                     {/* {event.event_date !== 'none' && */}
                     {/* may need to input some bands without events to check if I have this right (?) ... */}
                     {/* {event.event_datetime && */}
-                    {event.datetime &&                    
+                    {/* {event.datetime && */}
+                    {event.event_datetime_object &&
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
-                        <td><small>{event.datetime.toDateString()}</small></td>      
-                        <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>
+                        {/* <td><small>{event.datetime.toDateString()}</small></td> */}
+                        {/* <td><small>{event.event_datetime_object.toDateString()}</small></td> */}
+                        <td><small>{event.event_date}</small></td>
+                        {/* <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td> */}
+                        {/* <td><small>{event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>                         */}
+                        <td><small>{event.event_time}</small></td>
                       </Fragment>       
                     }                                                        
                   </tr>
