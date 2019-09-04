@@ -181,6 +181,10 @@ db.serialize(() => {
     let lansdowneBearfight1 = '2019-08-09 21:00:00';    
     let lansdowneDalton1 = new Date(2019, 7, 10, 21).toString();
     let chickenboxDalton1 = new Date(2019, 7, 15, 22).toString();
+    // the above 2 versions seem to work the same way so far, though event_datetime_string will show up in state (for example) as
+    // "2019-08-09 21:00:00" vs. "Sat Aug 10 2019 21:00:00 GMT-0400 (EDT)"
+    // (this means one of the options I have is even to save a string but include more in it...
+    // but I think I want to nail that down more in conjunction with users being able to input events)
     db.run(
       // how to work with venue/band names vs. ids (now and/or when a user is able to add...) ?
       // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
