@@ -12,6 +12,7 @@ class Bands extends Component {
   // ok I tried being more explicit here with what goes in state:
   // not exactly sure if it's useful, but I'm thinking I have it such that it is set in the same way,
   // but here you can see what belongs there and give each item empty defaults ??
+  // *btw, I don't think these defaults even stick around, so I'm not sure if they're even useful..
     eventInfo: [
       {
         band_description: '',
@@ -22,7 +23,13 @@ class Bands extends Component {
         event_datetime_string: '',
         event_time: '',
         venue_description: '',
-        venue_name: ''
+        venue_name: '',
+        // no_events_found: false
+        // events_found: true
+        event_found: true
+        // not sure if it's great to default this to true, but I think that's what's keeping 'no events found' from displaying while bands load
+        // event_found: false
+        // band_event_found: false
       }
     ],
     selectedGenres: [noSelection]
@@ -51,7 +58,14 @@ class Bands extends Component {
             event.event_datetime_object = new Date(event.event_datetime_string);
             event.event_date = event.event_datetime_object.toDateString();
             event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+            // event.no_events_found = false;
+            event.event_found = true;
+          } else {
+            // event.no_events_found = true;
+            event.event_found = false;
           }
+          // ^ maybe some of these properties should be set/created in server/index.js so they will definitely exist by the time they get to state??
+          // ^ (haven't thought much about this idea yet)
           // console.log('new datetime: ', event.datetime);
           // console.log('new datetime object: ', event.event_datetime_object);
           // console.log('typeof event.datetime: ', typeof(event.datetime));
@@ -149,7 +163,11 @@ class Bands extends Component {
                     {/* {event.event_datetime && */}
                     {/* {event.datetime && */}
                     {/* {event.event_datetime_object && */}
-                    {event.event_datetime_object ?
+                    {/* {event.event_datetime_object ? */}
+                    {/* (?) */}
+                    {/* for some reason this seems to successfully prevent 'no events found' from displaying while bands load,
+                    which was my plan, but somehow I don't fully understand lol */}
+                    {event.event_found ?
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
                         {/* <td><small>{event.datetime.toDateString()}</small></td> */}
