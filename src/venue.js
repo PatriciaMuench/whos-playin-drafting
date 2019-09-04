@@ -53,7 +53,8 @@ class Venue extends Component {
                     <li  key="description">{this.state.venue.description}</li>
                     <li  key="site">{this.state.venue.website_url}</li> */}
                     <li  key="description">{this.state.eventInfo[0].venue_description}</li>
-                    <li  key="location">{`${this.state.eventInfo[0].city}, ${this.state.eventInfo[0].state}`}</li>                  
+                    {/* <li  key="location">{`${this.state.eventInfo[0].city}, ${this.state.eventInfo[0].state}`}</li>                   */}
+                    <li  key="location">{`${this.state.eventInfo[0].venue_city}, ${this.state.eventInfo[0].venue_state}`}</li>                  
                     <li  key="site">{this.state.eventInfo[0].venue_website_url}</li>
                   </ul>
 

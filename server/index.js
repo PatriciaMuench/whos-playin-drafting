@@ -203,8 +203,10 @@ venuesRouter.get('/:name', (req, res, next) => {
     `SELECT 
       Venues.name AS venue_name,
       Venues.description AS venue_description,
-      Venues.city AS city,
-      Venues.state AS state,
+      -- Venues.city AS city,
+      Venues.city AS venue_city,      
+      -- Venues.state AS state,
+      Venues.state AS venue_state,      
       Venues.website_url AS venue_website_url,
       Bands.name AS band_name,
       Bands.description AS band_description,
