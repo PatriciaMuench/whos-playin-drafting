@@ -4,14 +4,11 @@ import logo from './android-chrome-512x512-copy.png';
 import { onFilterChange, noSelection } from './utils';
 import './App.css';
 
-// const onFilterChange = require('./utils');
-
 class Bands extends Component {
 
   // maybe break state up into more specific pieces?
   state = {
     eventInfo: [],
-    // genreValues: ['no selection'] // [] // ''
     selectedGenres: [noSelection]
   }
 
@@ -22,9 +19,6 @@ class Bands extends Component {
       .then(response => {
         console.log(`response: \n`, response);
         // this.setState({
-        //   // bands: response[0],
-        //   // venues: response[1],
-        //   // events: response[2]
         //   bands: response.bands,
         //   venues: response.venues,
         //   events: response.events
@@ -44,13 +38,6 @@ class Bands extends Component {
       .catch(error => console.log(error));
   }
 
-  // onFilterChange = onFilterChange;
-  // onFilterChange = require('./utils').onFilterChange;
-  // onFilterChange = require('./utils').onFilterChange();   
-  // onFilterChange2 = onFilterChange.bind(this);     
-
-  // genreValues = ['no selection'];
-
   render() {
     return(
       // note: I don't know if forceRefresh is desirable here, but I also don't know why things weren't rerendering on link clicks
@@ -63,69 +50,16 @@ class Bands extends Component {
           <select 
             name="genre" 
             id="genre" 
-            // value={this.state.genreValues} 
             value={this.state.selectedGenres}             
-            // maybe pull this function into a utils file?
-            // onChange={(event) => {
-            //   console.log('genreValues1: ', this.genreValues);
-            //   let value = event.target.value;
-            //   console.log('value: ', value);
-            //   let index = this.genreValues.findIndex(genreName => genreName === value);
-            //   console.log('index: ', index);
-            //   let noneSelectedIndex = this.genreValues.findIndex(genreName => genreName === 'no selection');
-            //   console.log('noneSelectedIndex: ', noneSelectedIndex);
-            //   if (value === 'no selection') {
-            //     this.genreValues = ['no selection'];
-            //     console.log('genreValues1.5: ', this.genreValues);
-            //   }
-            //   else if (index === -1) {
-            //     if (noneSelectedIndex !== -1) {
-            //       this.genreValues.splice(noneSelectedIndex, 1);
-            //     } 
-            //     this.genreValues.push(value);
-            //     console.log('genreValues2: ', this.genreValues);                
-            //   } else {
-            //     this.genreValues.splice(index, 1);
-            //     console.log('genreValues3: ', this.genreValues);                  
-            //   }
-            //   this.setState({genreValues: this.genreValues});
-            // }} 
-            // onChange={event => onFilterChange.call(this, event.target.value, 'genreValues')}            
-            // onChange={event => {
-            //   console.log('state1: ', this.state.genreValues);
-            //   onFilterChange.call(this, event.target.value, 'genreValues');
-            //   console.log('state2: ', this.state.genreValues);
-            // }}  
-            // I THINK this works the same without the async/await:
-            // onChange={ event => {            
-            // // onChange={async event => {
-            //   // console.log('state1: ', this.state.genreValues);
-            //   // let attemptedGenreValues = await onFilterChange.call(this, event.target.value, 'genreValues');
-            //   // let attemptedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
-            //   let selectedGenreValues = onFilterChange.call(this, event.target.value, 'genreValues');
-            //   // console.log('attemptedGenreValues: ', attemptedGenreValues);
-            //   // this.setState({genreValues: attemptedGenreValues});
-            //   this.setState({genreValues: selectedGenreValues});
-            //   // this.setState(onFilterChange.call(this, event.target.value, 'genreValues'));
-            //   // this.setState({genreValues: [onFilterChange.call(this, event.target.value, 'genreValues')]});
-            //   // console.log('state2: ', this.state.genreValues);
-            // }}       
             onChange={ event => {            
-              // let selectedGenreValues = onFilterChange(event.target.value, this.state.genreValues);
               let selectedGenres = onFilterChange(event.target.value, this.state.selectedGenres);              
-              // this.setState({genreValues: selectedGenreValues});
               // (currently not sure whether it will ever matter if I have the return)
-              // return this.setState({genreValues: selectedGenreValues});
               return this.setState({selectedGenres});
               // FYI, actually this does seem to work too, but I'm thinking I like it less:
               // this.setState({genreValues: onFilterChange(event.target.value, this.state.genreValues)});
             }}     
-            // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues, 'genreValues')}
-            // onChange={event => onFilterChange.call(this, event.target.value, this.state.genreValues)}            
-            // onChange={event => this.onFilterChange2(event.target.value, 'genreValues')}            
             multiple
           >          
-            {/* <option value="no selection">--none specified--</option> */}
             <option value={noSelection}>--none specified--</option>            
             <option value="country">country</option>
             <option value="rock">rock</option>
@@ -162,7 +96,6 @@ class Bands extends Component {
                 // to do: use id for key instead of index ?
                 // link using id instead of name / how to link using name ?
                 // also, I am actually not sure how much info should be on this page besides the list of bands? (well, obv..)
-                // (this.state.genreValues.includes('no selection') || this.state.genreValues.includes(event.band_genre)) && (
                 (this.state.selectedGenres.includes(noSelection) || this.state.selectedGenres.includes(event.band_genre)) && (
                   <tr key={i}>
                     <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
@@ -173,18 +106,7 @@ class Bands extends Component {
                     {event.event_datetime &&
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
-                        {/* <td><small>{event.event_date}</small></td>      
-                        <td><small>{event.event_time}</small></td> */}
-                        {/* <td><small>{event.event_datetime.toString()}</small></td> */}
-                        {/* <td><small>{event.event_datetime}</small></td> */}
-                        {/* <td><small>{event.datetime.toString()}</small></td> */}
-                        {/* <td><small>{event.datetime.toLocaleString()}</small></td> */}
                         <td><small>{event.datetime.toDateString()}</small></td>      
-                        {/* <td><small>{event.datetime.toLocaleTimeString()}</small></td> */}
-                        {/* <td><small>{event.datetime.toLocaleTimeString([], {hour: 'numeric', minute: 'numeric'})}</small></td> */}
-                        {/* <td><small>{event.datetime.toLocaleString([], {weekday: 'short', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'})}</small></td> */}
-                        {/* timeStyle: 'short' */}
-                        {/* <td><small>{event.datetime.toLocaleDateString([], {weekday: 'short', month: 'long', day: 'numeric', year: 'numeric'})}</small></td> */}
                         <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>
                       </Fragment>       
                     }                                                        
