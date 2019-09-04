@@ -148,7 +148,8 @@ class Bands extends Component {
                     {/* may need to input some bands without events to check if I have this right (?) ... */}
                     {/* {event.event_datetime && */}
                     {/* {event.datetime && */}
-                    {event.event_datetime_object &&
+                    {/* {event.event_datetime_object && */}
+                    {event.event_datetime_object ?
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
                         {/* <td><small>{event.datetime.toDateString()}</small></td> */}
@@ -157,7 +158,12 @@ class Bands extends Component {
                         {/* <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td> */}
                         {/* <td><small>{event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>                         */}
                         <td><small>{event.event_time}</small></td>
-                      </Fragment>       
+                      </Fragment>
+                      :
+                      // <Fragment>
+                      // {/* // maybe edit styling for this */}
+                        <td><small><em>no events found</em></small></td>
+                      // </Fragment>
                     }                                                        
                   </tr>
                 ) 
