@@ -106,9 +106,6 @@ bandsRouter.get('/', (req, res, next) => {
       next();
     }
   );
-  // console.log(this.data);
-  // res.send(this.data);
-  // next();
 });
 
 // use IDs instead of names?
@@ -147,13 +144,11 @@ bandsRouter.get('/:name', (req, res, next) => {
         console.log(error);
       }
       this.data = rows; 
-      console.log(rows);
+      // console.log(rows);
       res.send(this.data);
       next();
     }
   );
-  // res.send(this.data);
-  // next();
 });
 
 venuesRouter.get('/', (req, res, next) => {
@@ -194,9 +189,6 @@ venuesRouter.get('/', (req, res, next) => {
       next();
     }
   );
-  // console.log(`below db.all within get '/venues': \n`, this.data);
-  // res.send(this.data);
-  // next();
 });
 
 venuesRouter.get('/:name', (req, res, next) => {
@@ -241,8 +233,6 @@ venuesRouter.get('/:name', (req, res, next) => {
       next();
     }
   );
-  // res.send(this.data);
-  // next();
 });
 
 app.listen(3001, () =>
