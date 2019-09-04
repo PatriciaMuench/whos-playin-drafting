@@ -29,7 +29,22 @@ class Band extends Component {
 
     // (will need more/different details...)
     // state = {band: null}
-    state = {eventInfo: []}
+    // state = {eventInfo: []}
+    state = {
+      eventInfo: [
+        {
+          band_description: '',
+          band_name: '',
+          band_website_url: '',
+          event_date: '',
+          event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+          event_datetime_string: '',
+          event_time: '',
+          venue_description: '',
+          venue_name: ''
+        }
+      ]
+    }
 
     // bandName = request.params.name; // ??
     // const bandName = match.params.name;
@@ -145,7 +160,7 @@ class Band extends Component {
                         // event.event_date !== 'none' && (
                         // (?)
                         // event.date && (
-                        event.event_date && (
+                        event.event_date !== '' && (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`venue${i}`}><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link> <br /> <span className="description">{event.venue_description}</span></td> 
