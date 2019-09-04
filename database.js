@@ -161,7 +161,8 @@ db.serialize(() => {
         -- date TEXT DEFAULT '', 
         -- time TEXT DEFAULT '', 
         -- datetime TEXT,
-        datetime TEXT DEFAULT '',
+        -- datetime TEXT DEFAULT '',
+        datetime_string TEXT DEFAULT '',
         -- datetime INTEGER,
         notes TEXT DEFUALT '',
         FOREIGN KEY (venue_name) REFERENCES Venues(name),
@@ -195,7 +196,8 @@ db.serialize(() => {
       //   ('The Lansdowne', 'Dalton', '8/10/19', '9pm', 'sing along'),
       //   ('The Chicken Box', 'Dalton', '8/15/19', '10pm', 'takes requests')`,
       // **
-      `INSERT INTO Events (venue_name, band_name, datetime, notes) VALUES 
+      // `INSERT INTO Events (venue_name, band_name, datetime, notes) VALUES
+      `INSERT INTO Events (venue_name, band_name, datetime_string, notes) VALUES
         ('The Lansdowne', 'BearFight', $lansdowneBearfight1, 'good times'), 
         ('The Lansdowne', 'Dalton', $lansdowneDalton1, 'sing along'),
         ('The Chicken Box', 'Dalton', $chickenboxDalton1, 'takes requests')`,

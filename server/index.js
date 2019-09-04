@@ -80,7 +80,15 @@ bandsRouter.get('/', (req, res, next) => {
       -- Events.time AS event_time,
       -- note: not sure about whether I might still need the 'none', should prob input some bands without events to test...
       -- Events.datetime AS event_datetime,
-      Events.datetime AS event_datetime_string,      
+      -- Events.datetime AS event_datetime_string,
+      -- CASE Events.datetime
+      --   WHEN Events.datetime THEN Events.datetime
+      --   ELSE 'none'
+      -- END event_datetime_string,
+      CASE Events.datetime_string
+        WHEN Events.datetime_string THEN Events.datetime_string
+        ELSE 'none'
+      END event_datetime_string,
       Bands.description AS band_description,
       Venues.description AS venue_description,
       Bands.genre AS band_genre
