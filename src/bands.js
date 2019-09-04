@@ -44,13 +44,19 @@ class Bands extends Component {
           // console.log('datetime string: ', event.event_datetime_string);
           // event.datetime = new Date(event.event_datetime);
           // event.datetime = new Date(event.event_datetime_string);
-          event.event_datetime_object = new Date(event.event_datetime_string);
+          // event.event_datetime_object = new Date(event.event_datetime_string);
+          // event.event_datetime_object = event.event_datetime_string ? new Date(event.event_datetime_string) : null;
+          if (event.event_datetime_string) {
+            event.event_datetime_object = new Date(event.event_datetime_string);
+            event.event_date = event.event_datetime_object.toDateString();
+            event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+          }
           // console.log('new datetime: ', event.datetime);
           // console.log('new datetime object: ', event.event_datetime_object);
           // console.log('typeof event.datetime: ', typeof(event.datetime));
           // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
-          event.event_date = event.event_datetime_object.toDateString();
-          event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+          // event.event_date = event.event_datetime_object.toDateString();
+          // event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
         });
         this.setState({
           eventInfo: response
@@ -86,10 +92,19 @@ class Bands extends Component {
               // this.setState({genreValues: onFilterChange(event.target.value, this.state.genreValues)});
             }}     
             multiple
-          >          
+          >
+          {/* Genre: rock, country, alternative, hip hop, DJ, orchestra ...idk, look up a list */}
             <option value={noSelection}>--none specified--</option>            
             <option value="country">country</option>
             <option value="rock">rock</option>
+            <option value="pop">pop</option>
+            <option value="variety">variety</option>
+            <option value="alternative">alternative</option>
+            <option value="hip-hop">hip-hop</option>
+            <option value="dj">DJ</option>
+            <option value="orchestra">orchestra</option>
+            <option value="acoustic">acoustic</option>
+            <option value="other">other</option>
             {/* <option></option> */}
           </select>
           <br/>

@@ -67,7 +67,8 @@ db.serialize(() => {
     db.run(
       `INSERT INTO Bands (name, description, website_url, genre) VALUES 
       ('BearFight', 'rock cover band / wedding band', 'bearfight.com', 'rock'), 
-      ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com', 'country')`,
+      ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com', 'country'),
+      ('Legends of Summer', 'popular music cover band', 'legendsofsummer.com', 'variety')`,
     // ** error stuff??...
       error => {
         if (error) {
@@ -159,7 +160,8 @@ db.serialize(() => {
         band_name TEXT NOT NULL, 
         -- date TEXT DEFAULT '', 
         -- time TEXT DEFAULT '', 
-        datetime TEXT,
+        -- datetime TEXT,
+        datetime TEXT DEFAULT '',
         -- datetime INTEGER,
         notes TEXT DEFUALT '',
         FOREIGN KEY (venue_name) REFERENCES Venues(name),
