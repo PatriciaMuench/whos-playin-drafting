@@ -200,7 +200,9 @@ db.serialize(() => {
       `INSERT INTO Events (venue_name, band_name, datetime_string, notes) VALUES
         ('The Lansdowne', 'BearFight', $lansdowneBearfight1, 'good times'), 
         ('The Lansdowne', 'Dalton', $lansdowneDalton1, 'sing along'),
-        ('The Chicken Box', 'Dalton', $chickenboxDalton1, 'takes requests')`,
+        ('The Chicken Box', 'Dalton', $chickenboxDalton1, 'takes requests') -- ,
+        -- ('The Chicken Box', 'Legends of Summer', null, 'why isnt stuff working right')
+        `,
       {$lansdowneBearfight1: lansdowneBearfight1, 
       $lansdowneDalton1: lansdowneDalton1, 
       $chickenboxDalton1: chickenboxDalton1},

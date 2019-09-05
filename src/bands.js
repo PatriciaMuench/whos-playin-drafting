@@ -55,6 +55,7 @@ class Bands extends Component {
           // event.event_datetime_object = event.event_datetime_string ? new Date(event.event_datetime_string) : null;
           // if (event.event_datetime_string) {
           if (event.event_datetime_string !== 'none') {
+          // if (event.event_datetime_string !== 'none' && event.event_datetime_string !== '') {
             event.event_datetime_object = new Date(event.event_datetime_string);
             event.event_date = event.event_datetime_object.toDateString();
             event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});

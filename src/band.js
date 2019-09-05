@@ -41,7 +41,8 @@ class Band extends Component {
           event_datetime_string: '',
           event_time: '',
           venue_description: '',
-          venue_name: ''
+          venue_name: '',
+          event_found: true // (?)
         }
       ]
     }
@@ -76,18 +77,25 @@ class Band extends Component {
       fetch(`/bands/${this.bandName}`)
       .then(response => response.json())    
       .then(response => {
+        console.log('response: ', response);
         response.forEach(event => {
-          // event.datetime = new Date(event.event_datetime);
-          // event.datetime = new Date(event.event_datetime_string);
-          // event.datetime_object = new Date(event.event_datetime_string);
-          event.event_datetime_object = new Date(event.event_datetime_string);
-          // event.date = event.datetime.toDateString();
-          // event.date = event.datetime_object.toDateString();
-          // event.date_string = event.datetime_object.toDateString();
-          event.event_date = event.event_datetime_object.toDateString();
-          // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
-          // event.time = event.datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
-          event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});                              
+          if (event.event_datetime_string !== 'none') {          
+          // if (event.event_datetime_string !== 'none' && event.event_datetime_string !== '') {
+            // event.datetime = new Date(event.event_datetime);
+            // event.datetime = new Date(event.event_datetime_string);
+            // event.datetime_object = new Date(event.event_datetime_string);
+            event.event_datetime_object = new Date(event.event_datetime_string);
+            // event.date = event.datetime.toDateString();
+            // event.date = event.datetime_object.toDateString();
+            // event.date_string = event.datetime_object.toDateString();
+            event.event_date = event.event_datetime_object.toDateString();
+            // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+            // event.time = event.datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+            event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'}); 
+            event.event_found = true;
+          } else {
+            event.event_found = false;
+          }
         });
         this.setState({eventInfo: response});
         console.log('state: ', this.state);
@@ -160,7 +168,9 @@ class Band extends Component {
                         // event.event_date !== 'none' && (
                         // (?)
                         // event.date && (
-                        event.event_date !== '' && (
+                        // event.event_date !== '' && (
+                        event.event_found ? (
+                        // event.event_date ? (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`venue${i}`}><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link> <br /> <span className="description">{event.venue_description}</span></td> 
@@ -169,7 +179,11 @@ class Band extends Component {
                             {/* <td key={`date${i}`}>{event.date}</td>      
                             <td key={`time${i}`}>{event.time}</td> */}
                           </tr>    
-                        )  
+                        ) : (
+                          // maybe edit styling for this 
+                          // (also not positive if this is all done right, but fine for now I guess...)
+                          <tr key={i}><td><small><em>no events found</em></small></td></tr>
+                        )
                       ))}
                     </tbody>
                   </table>

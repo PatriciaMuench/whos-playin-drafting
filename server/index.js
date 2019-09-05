@@ -87,6 +87,8 @@ bandsRouter.get('/', (req, res, next) => {
       -- END event_datetime_string,
       CASE Events.datetime_string
         WHEN Events.datetime_string THEN Events.datetime_string
+        -- WHEN Events.datetime_string != '' AND Events.datetime_string THEN Events.datetime_string
+        -- WHEN Events.datetime_string != '' THEN 'none'
         ELSE 'none'
       END event_datetime_string,
       Bands.description AS band_description,
@@ -111,7 +113,7 @@ bandsRouter.get('/', (req, res, next) => {
         console.log(error);
       }
       this.data = rows; 
-      // console.log(rows);
+      console.log(rows);
       res.send(this.data);
       next();
     }
@@ -122,37 +124,85 @@ bandsRouter.get('/', (req, res, next) => {
 // or possibly algorithm to remove spaces for urls at some point?
 bandsRouter.get('/:name', (req, res, next) => {
   const bandName = req.params.name;
+  console.log('bandName: ', bandName);
   db.all(
+    // `SELECT 
+    //   Bands.name AS band_name,
+    //   Bands.description AS band_description,
+    //   Bands.website_url AS band_website_url,
+    //   CASE Events.datetime_string
+    //     WHEN Events.datetime_string THEN Events.datetime_string
+    //     ELSE 'none'
+    //   END event_datetime_string,
+    //   Venues.name AS venue_name,
+    //   Venues.description AS venue_description
+    //   -- CASE Events.date 
+    //   --   WHEN Events.date THEN Events.date
+    //   --   ELSE 'none'
+    //   -- END event_date,
+    //   -- Events.time AS event_time
+    //   -- Events.datetime AS event_datetime -- (?)
+    //   -- Events.datetime AS event_datetime_string -- (?)
+    //   -- CASE Events.datetime_string
+    //   --   WHEN Events.datetime_string THEN Events.datetime_string
+    //   --   ELSE 'none'
+    //   -- END event_datetime_string
+    // FROM Bands
+    // LEFT JOIN Events
+    //   ON Events.band_name = Bands.name
+    // LEFT JOIN Venues
+    //   ON Venues.name = Events.venue_name
+    // WHERE band_name = $bandName
+    // -- -- GROUP BY band_name
+    // -- ORDER BY event_date
+    // -- note: I think I'm having trouble ordering by event date because my dates are just strings...
+    // -- -- ORDER BY date, time
+    // -- ORDER BY event_datetime
+    // ORDER BY event_datetime_string
+    // `,
     `SELECT 
       Bands.name AS band_name,
       Bands.description AS band_description,
       Bands.website_url AS band_website_url,
-      Venues.name AS venue_name,
-      Venues.description AS venue_description,
-      -- CASE Events.date 
-      --   WHEN Events.date THEN Events.date
-      --   ELSE 'none'
-      -- END event_date,
-      -- Events.time AS event_time
-      -- Events.datetime AS event_datetime -- (?)
-      -- Events.datetime AS event_datetime_string -- (?)
       CASE Events.datetime_string
         WHEN Events.datetime_string THEN Events.datetime_string
         ELSE 'none'
-      END event_datetime_string
+      END event_datetime_string,
+      Venues.name AS venue_name,
+      -- CASE Venues.name 
+      --   WHEN Venues.name THEN Venues.name
+      --   ELSE ''
+      -- END venue_name,
+      Venues.description AS venue_description
+      -- CASE Venues.description 
+      --   WHEN Venues.description THEN Venues.description
+      --   ELSE ''
+      -- END venue_description
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
-    WHERE band_name = $bandName
-    -- -- GROUP BY band_name
-    -- ORDER BY event_date
-    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- -- ORDER BY date, time
-    -- ORDER BY event_datetime
+    -- WHERE band_name = $bandName
+    -- I think this may have been the reason for returning no results when band was not in Events!
+    WHERE Bands.name = $bandName
     ORDER BY event_datetime_string
     `,
+    // `SELECT 
+    //   Bands.name AS band_name,
+    //   Bands.description AS band_description,
+    //   Bands.website_url AS band_website_url
+    // FROM Bands
+    // LEFT JOIN Events
+    //   ON Events.band_name = Bands.name
+    // -- WHERE band_name = $bandName
+    // WHERE Bands.name = $bandName
+    // -- ORDER BY event_datetime_string
+    // `,
+    // * hey, I wonder if one option could be to automatically make an empty entry in the Events table when a Band is created???
+    // it would seem, so far, that no results are being returned from the query if the bandName does not exist in the Events table,
+    // but I don't think that's how a left join is supposed to work??
+    // (still have more stuff to edit/try/etc....)
     [bandName],
     (error, rows) => {
       if (error) {
@@ -160,7 +210,7 @@ bandsRouter.get('/:name', (req, res, next) => {
         console.log(error);
       }
       this.data = rows; 
-      // console.log(rows);
+      console.log(rows);
       res.send(this.data);
       next();
     }
