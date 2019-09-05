@@ -111,7 +111,9 @@ db.serialize(() => {
     db.run(
       `INSERT INTO Venues (name, city, state, description, website_url, type, size) VALUES 
       ('The Lansdowne', 'Boston', 'MA', 'bar', 'lansdowne.com', 'bar', 'medium'), 
-      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com', 'bar', 'medium')`,
+      ('The Chicken Box', 'Nantucket', 'MA', 'bar', 'chickenbox.com', 'bar', 'medium'),
+      ('Lincoln Tavern', 'Boston', 'MA', 'Tavern and Restaurant', 'lincolnsouthboston.com', 'restaurant', 'medium')
+      `,
       // **
       error => {
         if (error) {

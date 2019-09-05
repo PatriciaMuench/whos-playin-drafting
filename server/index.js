@@ -293,7 +293,8 @@ venuesRouter.get('/:name', (req, res, next) => {
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
-    WHERE venue_name = $venueName
+    -- WHERE venue_name = $venueName
+    WHERE Venues.name = $venueName
     -- -- GROUP BY venue_name
     -- ORDER BY event_date
     -- note: I think I'm having trouble ordering by event date because my dates are just strings...

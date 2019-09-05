@@ -21,7 +21,8 @@ class Venue extends Component {
           venue_description: '',
           venue_name: '',
           venue_state: '',
-          venue_website_url: ''
+          venue_website_url: '',
+          event_found: true // (?)
         }
       ]
     }
@@ -33,12 +34,17 @@ class Venue extends Component {
       .then(response => response.json())
       .then(response => {
         response.forEach(event => {
-          // event.datetime = new Date(event.event_datetime);
-          event.event_datetime_object = new Date(event.event_datetime_string);
-          // event.date = event.datetime.toDateString();
-          event.event_date = event.event_datetime_object.toDateString();
-          // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
-          event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});          
+          if (event.event_datetime_string !== 'none') {
+            // event.datetime = new Date(event.event_datetime);
+            event.event_datetime_object = new Date(event.event_datetime_string);
+            // event.date = event.datetime.toDateString();
+            event.event_date = event.event_datetime_object.toDateString();
+            // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
+            event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
+            event.event_found = true;   
+          } else {
+            event.event_found = false;
+          }
         });
         this.setState({eventInfo: response});
         console.log('state: ', this.state);
@@ -82,7 +88,8 @@ class Venue extends Component {
                         // event.event_date !== 'none' && (
                         // (?)
                         // event.date && ( 
-                        event.event_date !== '' && (
+                        // event.event_date !== '' && (
+                        event.event_found ? (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`band${i}`}><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td> 
@@ -91,7 +98,10 @@ class Venue extends Component {
                             {/* <td key={`date${i}`}>{event.date} <br /> &nbsp; </td>     
                             <td key={`time${i}`}>{event.time} <br /> &nbsp; </td> */}
                           </tr>    
-                        )  
+                        ) : (
+                          // (?)
+                          <tr key={i}><td><small><em>no events found</em></small></td></tr>
+                        )
                       ))}
                     </tbody>
                   </table>
