@@ -14,6 +14,8 @@ class Home extends Component {
             Find live music events organized by venue, band, or location
           </p>
           <span><Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span>
+
+          {/* maybe add links (or buttons?) to create/add a band, create/add a venue, and possibly create/add an event (?) */}
         </div>
       </Router>
     );

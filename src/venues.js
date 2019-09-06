@@ -143,6 +143,8 @@ class Venues extends Component {
             </tbody>
           </table>
 
+          {/* maybe add links (or buttons?) to create/add a venue, and possibly create/add an event (?) */}
+
         </div>
       </Router>
     );

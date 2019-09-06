@@ -143,6 +143,13 @@ bandsRouter.get('/:name', (req, res, next) => {
   );
 });
 
+// bandsRouter.get('/new', (req, res, next) => {
+//   next();
+// });
+// app.get('/new-band', (req, res, next => {
+
+// }));
+
 venuesRouter.get('/', (req, res, next) => {
   db.all(
     `SELECT 
