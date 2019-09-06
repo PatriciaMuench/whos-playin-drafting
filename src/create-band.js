@@ -83,6 +83,9 @@ class CreateBand extends Component {
                 ))}
             </select>
 
+            <br />
+            <button>Add this Band</button>
+            {/* <button type="submit">Add this Band</button>             */}
           </form>
 
         </div>
