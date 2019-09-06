@@ -35,11 +35,8 @@ class Venue extends Component {
       .then(response => {
         response.forEach(event => {
           if (event.event_datetime_string !== 'none') {
-            // event.datetime = new Date(event.event_datetime);
             event.event_datetime_object = new Date(event.event_datetime_string);
-            // event.date = event.datetime.toDateString();
             event.event_date = event.event_datetime_object.toDateString();
-            // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
             event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
             event.event_found = true;   
           } else {
@@ -85,18 +82,13 @@ class Venue extends Component {
                   <table>
                     <tbody>
                       {this.state.eventInfo.map((event, i) => (
-                        // event.event_date !== 'none' && (
                         // (?)
-                        // event.date && ( 
-                        // event.event_date !== '' && (
                         event.event_found ? (
                           <tr key={i}>
                             {/* (update keys...) */}
                             <td key={`band${i}`}><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td> 
                             <td key={`date${i}`}>{event.event_date} <br /> &nbsp; </td>     
                             <td key={`time${i}`}>{event.event_time} <br /> &nbsp; </td>
-                            {/* <td key={`date${i}`}>{event.date} <br /> &nbsp; </td>     
-                            <td key={`time${i}`}>{event.time} <br /> &nbsp; </td> */}
                           </tr>    
                         ) : (
                           // (?)
