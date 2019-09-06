@@ -12,8 +12,10 @@ class CreateBand extends Component {
   render() {
     return (
       <Router forceRefresh>
-        <div>
-          <p>create a new band</p>
+        <div className="App-header">
+          <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link> &nbsp; <Link to="/venues">Venues</Link></span>
+          <h2 className="main">Create a New Band</h2>
+          
         </div>
       </Router>
     )

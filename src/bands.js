@@ -153,6 +153,8 @@ class Bands extends Component {
             </tbody>
           </table>
 
+          <br />
+
           {/* maybe add links (or buttons?) to create/add a band, and possibly create/add an event (?) */}
           {/* <Link to={`/bands/new`}>Add a Band</Link> */}
           {/* <Link to="/bands/new">Add a Band</Link> */}
