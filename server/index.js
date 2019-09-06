@@ -147,8 +147,23 @@ bandsRouter.get('/:name', (req, res, next) => {
 //   next();
 // });
 // app.get('/new-band', (req, res, next => {
-
 // }));
+// so yeah, not entirely sure how to handle the urls for this, 
+// but I guess /bands/new fits the same pattern as band/:name (unless I'm missing something), so I'll just go with /new-band for now
+
+// the form for adding a new band would be a get, and the submission to create the band would be a post...
+// (not sure at the moment what should be displayed upon/after submission)
+
+// prob won't need ajax/db for the get/form (?),
+// then would need insert statement(s) for the post/submit, 
+// INSERT INTO Bands (name, description, website_url, genre)
+// (also will need to handle taking in the user input....)
+// then maybe select afterward?
+
+// (eventually I'll need to edit database.js...)
+
+// I think I will def need to look back at the Express tutorial for other CRUD stuff... (?) - or React Router??
+
 
 venuesRouter.get('/', (req, res, next) => {
   db.all(
