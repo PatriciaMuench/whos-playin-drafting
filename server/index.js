@@ -152,7 +152,7 @@ bandsRouter.get('/:name', (req, res, next) => {
 // but I guess /bands/new fits the same pattern as band/:name (unless I'm missing something), so I'll just go with /new-band for now
 
 // the form for adding a new band would be a get, and the submission to create the band would be a post...
-// (not sure at the moment what should be displayed upon/after submission)
+// (not sure at the moment what should be displayed upon/after submission) - maybe get bands/:name for the newly added band?
 
 // prob won't need ajax/db for the get/form (?),
 // then would need insert statement(s) for the post/submit, 
