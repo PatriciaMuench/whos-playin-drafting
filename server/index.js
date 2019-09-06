@@ -72,38 +72,20 @@ bandsRouter.get('/', (req, res, next) => {
   db.all(
     `SELECT 
       Bands.name AS band_name,
-      Venues.name AS venue_name,
-      -- CASE Events.date 
-      --   WHEN Events.date THEN Events.date
-      --   ELSE 'none'
-      -- END event_date,
-      -- Events.time AS event_time,
-      -- note: not sure about whether I might still need the 'none', should prob input some bands without events to test...
-      -- Events.datetime AS event_datetime,
-      -- Events.datetime AS event_datetime_string,
-      -- CASE Events.datetime
-      --   WHEN Events.datetime THEN Events.datetime
-      --   ELSE 'none'
-      -- END event_datetime_string,
+      Bands.description AS band_description,
+      Bands.genre AS band_genre,
       CASE Events.datetime_string
         WHEN Events.datetime_string THEN Events.datetime_string
-        -- WHEN Events.datetime_string != '' AND Events.datetime_string THEN Events.datetime_string
-        -- WHEN Events.datetime_string != '' THEN 'none'
         ELSE 'none'
       END event_datetime_string,
-      Bands.description AS band_description,
-      Venues.description AS venue_description,
-      Bands.genre AS band_genre
+      Venues.name AS venue_name,
+      Venues.description AS venue_description
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
     GROUP BY band_name
-    -- ORDER BY event_date
-    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- -- ORDER BY date, time
-    -- ORDER BY event_datetime
     ORDER BY event_datetime_string
     `,
     [],
@@ -126,40 +108,6 @@ bandsRouter.get('/:name', (req, res, next) => {
   const bandName = req.params.name;
   console.log('bandName: ', bandName);
   db.all(
-    // `SELECT 
-    //   Bands.name AS band_name,
-    //   Bands.description AS band_description,
-    //   Bands.website_url AS band_website_url,
-    //   CASE Events.datetime_string
-    //     WHEN Events.datetime_string THEN Events.datetime_string
-    //     ELSE 'none'
-    //   END event_datetime_string,
-    //   Venues.name AS venue_name,
-    //   Venues.description AS venue_description
-    //   -- CASE Events.date 
-    //   --   WHEN Events.date THEN Events.date
-    //   --   ELSE 'none'
-    //   -- END event_date,
-    //   -- Events.time AS event_time
-    //   -- Events.datetime AS event_datetime -- (?)
-    //   -- Events.datetime AS event_datetime_string -- (?)
-    //   -- CASE Events.datetime_string
-    //   --   WHEN Events.datetime_string THEN Events.datetime_string
-    //   --   ELSE 'none'
-    //   -- END event_datetime_string
-    // FROM Bands
-    // LEFT JOIN Events
-    //   ON Events.band_name = Bands.name
-    // LEFT JOIN Venues
-    //   ON Venues.name = Events.venue_name
-    // WHERE band_name = $bandName
-    // -- -- GROUP BY band_name
-    // -- ORDER BY event_date
-    // -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    // -- -- ORDER BY date, time
-    // -- ORDER BY event_datetime
-    // ORDER BY event_datetime_string
-    // `,
     `SELECT 
       Bands.name AS band_name,
       Bands.description AS band_description,
@@ -169,15 +117,7 @@ bandsRouter.get('/:name', (req, res, next) => {
         ELSE 'none'
       END event_datetime_string,
       Venues.name AS venue_name,
-      -- CASE Venues.name 
-      --   WHEN Venues.name THEN Venues.name
-      --   ELSE ''
-      -- END venue_name,
       Venues.description AS venue_description
-      -- CASE Venues.description 
-      --   WHEN Venues.description THEN Venues.description
-      --   ELSE ''
-      -- END venue_description
     FROM Bands
     LEFT JOIN Events
       ON Events.band_name = Bands.name
@@ -188,21 +128,7 @@ bandsRouter.get('/:name', (req, res, next) => {
     WHERE Bands.name = $bandName
     ORDER BY event_datetime_string
     `,
-    // `SELECT 
-    //   Bands.name AS band_name,
-    //   Bands.description AS band_description,
-    //   Bands.website_url AS band_website_url
-    // FROM Bands
-    // LEFT JOIN Events
-    //   ON Events.band_name = Bands.name
-    // -- WHERE band_name = $bandName
-    // WHERE Bands.name = $bandName
-    // -- ORDER BY event_datetime_string
-    // `,
-    // * hey, I wonder if one option could be to automatically make an empty entry in the Events table when a Band is created???
-    // it would seem, so far, that no results are being returned from the query if the bandName does not exist in the Events table,
-    // but I don't think that's how a left join is supposed to work??
-    // (still have more stuff to edit/try/etc....)
+    // hey, I wonder if one option could be to automatically make an empty entry in the Events table when a Band is created??
     [bandName],
     (error, rows) => {
       if (error) {
@@ -221,32 +147,22 @@ venuesRouter.get('/', (req, res, next) => {
   db.all(
     `SELECT 
       Venues.name AS venue_name,
-      Bands.name AS band_name,
+      Venues.description AS venue_description,
+      Venues.type AS venue_type,
+      Venues.size AS venue_size,
       -- Max(Events.date) AS event_date
-      -- CASE Events.date
-      --   WHEN Events.date THEN Events.date
-      --   ELSE 'none'
-      -- END event_date,
-      -- Events.time AS event_time,
-      -- Events.datetime AS event_datetime, -- (?)
-      -- Events.datetime AS event_datetime_string, -- (?)
       CASE Events.datetime_string
         WHEN Events.datetime_string THEN Events.datetime_string
         ELSE 'none'
       END event_datetime_string,
-      Venues.description AS venue_description,
-      Bands.description AS band_description,
-      Venues.type AS venue_type,
-      Venues.size AS venue_size
+      Bands.name AS band_name,
+      Bands.description AS band_description
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
     GROUP BY venue_name
-    -- ORDER BY event_date
-    -- -- ORDER BY Events.date, Events.time
-    -- ORDER BY event_datetime
     ORDER BY event_datetime_string
     `,
     [],
@@ -269,37 +185,22 @@ venuesRouter.get('/:name', (req, res, next) => {
     `SELECT 
       Venues.name AS venue_name,
       Venues.description AS venue_description,
-      -- Venues.city AS city,
       Venues.city AS venue_city,      
-      -- Venues.state AS state,
       Venues.state AS venue_state,      
       Venues.website_url AS venue_website_url,
-      Bands.name AS band_name,
-      Bands.description AS band_description,
-      Bands.website_url AS band_website_url,
-      -- CASE Events.date 
-      --   WHEN Events.date THEN Events.date
-      --   ELSE 'none'
-      -- END event_date,
-      -- Events.time AS event_time
-      -- Events.datetime AS event_datetime -- (?)
-      -- Events.datetime AS event_datetime_string -- (?)
       CASE Events.datetime_string
         WHEN Events.datetime_string THEN Events.datetime_string
         ELSE 'none'
-      END event_datetime_string
+      END event_datetime_string,
+      Bands.name AS band_name,
+      Bands.description AS band_description,
+      Bands.website_url AS band_website_url
     FROM Venues
     LEFT JOIN Events
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
-    -- WHERE venue_name = $venueName
     WHERE Venues.name = $venueName
-    -- -- GROUP BY venue_name
-    -- ORDER BY event_date
-    -- note: I think I'm having trouble ordering by event date because my dates are just strings...
-    -- -- ORDER BY date, time
-    -- ORDER BY event_datetime
     ORDER BY event_datetime_string
     `,
     [venueName],
