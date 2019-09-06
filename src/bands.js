@@ -19,17 +19,13 @@ class Bands extends Component {
         band_genre: '',
         band_name: '',
         event_date: '',
-        event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+        event_datetime_object: null, // ex: Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
         event_datetime_string: '',
         event_time: '',
         venue_description: '',
         venue_name: '',
-        // no_events_found: false
-        // events_found: true
-        event_found: true
         // not sure if it's great to default this to true, but I think that's what's keeping 'no events found' from displaying while bands load
-        // event_found: false
-        // band_event_found: false
+        event_found: true
       }
     ],
     selectedGenres: [noSelection]
@@ -47,42 +43,25 @@ class Bands extends Component {
         //   events: response.events
         // }, () => {
         response.forEach(event => {
-          // console.log('datetime: ', event.event_datetime);
           // console.log('datetime string: ', event.event_datetime_string);
-          // event.datetime = new Date(event.event_datetime);
-          // event.datetime = new Date(event.event_datetime_string);
-          // event.event_datetime_object = new Date(event.event_datetime_string);
-          // event.event_datetime_object = event.event_datetime_string ? new Date(event.event_datetime_string) : null;
-          // if (event.event_datetime_string) {
           if (event.event_datetime_string !== 'none') {
-          // if (event.event_datetime_string !== 'none' && event.event_datetime_string !== '') {
             event.event_datetime_object = new Date(event.event_datetime_string);
+            // console.log('new datetime object: ', event.event_datetime_object);
+            // console.log('typeof event.datetime: ', typeof(event.datetime));
             event.event_date = event.event_datetime_object.toDateString();
             event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
-            // event.no_events_found = false;
             event.event_found = true;
+            // ^ maybe some of these properties should be set/created in server/index.js so they will definitely exist by the time they get to state??
+            // ^ (haven't thought much about this idea yet)
           } else {
-            // event.no_events_found = true;
             event.event_found = false;
           }
-          // ^ maybe some of these properties should be set/created in server/index.js so they will definitely exist by the time they get to state??
-          // ^ (haven't thought much about this idea yet)
-          // console.log('new datetime: ', event.datetime);
-          // console.log('new datetime object: ', event.event_datetime_object);
-          // console.log('typeof event.datetime: ', typeof(event.datetime));
-          // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
-          // event.event_date = event.event_datetime_object.toDateString();
-          // event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
         });
+        // this.setState({eventInfo: response});
         this.setState({
           eventInfo: response
         }, () => {
-        // this.setState({
-        //   // (never quite sure how to do this...)
-        //   // ...response
-        //   eventInfo: [...response]
-        // }, () => {
-        console.log('state, within componentWillMount: \n', this.state);
+          console.log('state, within componentWillMount: \n', this.state);
       })})
       .catch(error => console.log(error));
   }
@@ -158,32 +137,16 @@ class Bands extends Component {
                   <tr key={i}>
                     <td className="main"><big><Link to={`/bands/${event.band_name}`} className="main">{event.band_name}</Link></big> <br /> <span className="description">{event.band_description}</span></td>                
                     {/* <td className="main"><small>{event.band_description}</small></td> */}
-
-                    {/* {event.event_date !== 'none' && */}
-                    {/* may need to input some bands without events to check if I have this right (?) ... */}
-                    {/* {event.event_datetime && */}
-                    {/* {event.datetime && */}
-                    {/* {event.event_datetime_object && */}
-                    {/* {event.event_datetime_object ? */}
-                    {/* (?) */}
-                    {/* for some reason this seems to successfully prevent 'no events found' from displaying while bands load,
-                    which was my plan, but somehow I don't fully understand lol */}
-                    {event.event_found ?
+                    {event.event_found ? (
                       <Fragment>
                         <td><small><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></small> <br /> <span className="description">{event.venue_description}</span></td> 
-                        {/* <td><small>{event.datetime.toDateString()}</small></td> */}
-                        {/* <td><small>{event.event_datetime_object.toDateString()}</small></td> */}
                         <td><small>{event.event_date}</small></td>
-                        {/* <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td> */}
-                        {/* <td><small>{event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>                         */}
                         <td><small>{event.event_time}</small></td>
                       </Fragment>
-                      :
-                      // <Fragment>
-                      // {/* // maybe edit styling for this */}
-                        <td><small><em>no events found</em></small></td>
-                      // </Fragment>
-                    }                                                        
+                    ) : (
+                      // maybe edit styling for this
+                      <td><small><em>no events found</em></small></td>
+                    )}                                                        
                   </tr>
                 ) 
               ))}

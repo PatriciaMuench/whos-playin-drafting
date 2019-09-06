@@ -14,7 +14,7 @@ class Venue extends Component {
           band_name: '',
           band_website_url: '',
           event_date: '',
-          event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+          event_datetime_object: null, // ex: Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
           event_datetime_string: '',
           event_time: '',
           venue_city: '',
@@ -82,7 +82,6 @@ class Venue extends Component {
                   <table>
                     <tbody>
                       {this.state.eventInfo.map((event, i) => (
-                        // (?)
                         event.event_found ? (
                           <tr key={i}>
                             {/* (update keys...) */}

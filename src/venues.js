@@ -15,7 +15,7 @@ class Venues extends Component {
         band_description: '',
         band_name: '',
         event_date: '',
-        event_datetime_object: null, // Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
+        event_datetime_object: null, // ex: Fri Aug 09 2019 21:00:00 GMT-0400 (Eastern Daylight Time) {}
         event_datetime_string: '',
         event_time: '',
         venue_description: '',
@@ -35,21 +35,11 @@ class Venues extends Component {
     .then(response => {
       response.forEach(event => {
         if (event.event_datetime_string !== 'none') {
-          // console.log('datetime string: ', event.event_datetime);
           // console.log('datetime string: ', event.event_datetime_string);
-          // event.datetime = new Date(event.event_datetime);
-          // event.datetime = new Date(event.event_datetime_string);
           event.event_datetime_object = new Date(event.event_datetime_string);
-          // console.log('new datetime object: ', event.datetime);
           // console.log('new datetime object: ', event.event_datetime_object);
           // console.log('typeof event.datetime: ', typeof(event.datetime));
-          // maybe further convert datetime to desired formatting here, then just display during render, if this is even the right place?...
-          // {event.event_datetime && (?)
-          // <td><small>{event.datetime.toDateString()}</small></td>  
-          // <td><small>{event.datetime.toLocaleTimeString([], {timeStyle: 'short'})}</small></td>    
-          // event.date = event.datetime.toDateString();
           event.event_date = event.event_datetime_object.toDateString();
-          // event.time = event.datetime.toLocaleTimeString([], {timeStyle: 'short'});
           event.event_time = event.event_datetime_object.toLocaleTimeString([], {timeStyle: 'short'});
           event.event_found = true;
         } else {
@@ -137,20 +127,10 @@ class Venues extends Component {
                 && (this.state.selectedSizes.includes(noSelection) || this.state.selectedSizes.includes(event.venue_size))) && (                             
                   <tr key={i}>
                     <td className="main"><big><Link to={`/venues/${event.venue_name}`}>{event.venue_name}</Link></big> <br /> <span className="description">{event.venue_description}</span></td>
-                    {/* {event.event_date !== 'none' && */}
-                    {/* (?) */}
-                    {/* {event.date && */}
-                    {/* {event.event_date && */}
-                    {/* ok it seems like maybe when I added the specific items to state with blank defaults, the version above caused this warning: */}
-                    {/* Warning: validateDOMNesting(...): Whitespace text nodes cannot appear as a child of <tr>. Make sure you don't have any extra whitespace between tags on each line of your source code. */}
-                    {/* so I guess either of the below versions will work, but I still need to do some testing to nail down... */}
-                    {/* {event.event_datetime_object && */}
-                    {/* {event.event_date !== '' && */}
                     {event.event_found ? (
                       <Fragment>
                         <td><Link to={`/bands/${event.band_name}`}>{event.band_name}</Link> <br /> <span className="description">{event.band_description}</span></td>
                         <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
-                        {/* <td><small>{event.date}</small> &nbsp; <small>{event.time}</small></td> */}
                       </Fragment>
                     ) : (
                       // (edit styling?...)
