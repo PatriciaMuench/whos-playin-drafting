@@ -231,3 +231,37 @@ export const onFilterChange = (value, filterArray) => {
   }
   return filterArray;
 }
+
+
+// maybe there should be an additional file for constants/shared data separate from utils?
+
+/**
+ * Genre Options
+ */
+export const genreOptions = [
+  // '--none specified', // or not part of this list? ['--none specified--' vs. 'noSelection'?, also reused elsewhere as well...]
+  // noSelection,
+  'country',
+  'rock',
+  'pop',
+  'variety',
+  'alternative',
+  'hip-hop',
+  'DJ', // dj?
+  'orchestra',
+  'acoustic',
+  'other'
+];
+// (order of options?)
+// {/* Genre: rock, country, alternative, hip hop, DJ, orchestra ...idk, look up a list */}
+// <option value={noSelection}>--none specified--</option>            
+// <option value="country">country</option>
+// <option value="rock">rock</option>
+// <option value="pop">pop</option>
+// <option value="variety">variety</option>
+// <option value="alternative">alternative</option>
+// <option value="hip-hop">hip-hop</option>
+// <option value="dj">DJ</option>
+// <option value="orchestra">orchestra</option>
+// <option value="acoustic">acoustic</option>
+// <option value="other">other</option>
