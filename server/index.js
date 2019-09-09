@@ -67,42 +67,7 @@ app.use('/bands', bandsRouter);
 const venuesRouter = express.Router();
 app.use('/venues', venuesRouter);
 
-const getBands = (req, res, next) => {
-  db.all(
-    `SELECT 
-      Bands.name AS band_name,
-      Bands.description AS band_description,
-      Bands.genre AS band_genre,
-      CASE Events.datetime_string
-        WHEN Events.datetime_string THEN Events.datetime_string
-        ELSE 'none'
-      END event_datetime_string,
-      Venues.name AS venue_name,
-      Venues.description AS venue_description
-    FROM Bands
-    LEFT JOIN Events
-      ON Events.band_name = Bands.name
-    LEFT JOIN Venues
-      ON Venues.name = Events.venue_name
-    GROUP BY band_name
-    ORDER BY event_datetime_string
-    `,
-    [],
-    (error, rows) => {
-      if (error) {
-      //   throw error;
-        console.log(error);
-      }
-      this.data = rows; 
-      console.log(rows);
-      res.send(this.data);
-      next();
-    }
-  );
-}
-
-// app.get('/bands', (req, res, next) => {
-// bandsRouter.get('/', (req, res, next) => {  
+// const getBands = (req, res, next) => {
 //   db.all(
 //     `SELECT 
 //       Bands.name AS band_name,
@@ -134,8 +99,43 @@ const getBands = (req, res, next) => {
 //       next();
 //     }
 //   );
-// });
-bandsRouter.get('/', getBands);    
+// }
+
+// app.get('/bands', (req, res, next) => {
+bandsRouter.get('/', (req, res, next) => {  
+  db.all(
+    `SELECT 
+      Bands.name AS band_name,
+      Bands.description AS band_description,
+      Bands.genre AS band_genre,
+      CASE Events.datetime_string
+        WHEN Events.datetime_string THEN Events.datetime_string
+        ELSE 'none'
+      END event_datetime_string,
+      Venues.name AS venue_name,
+      Venues.description AS venue_description
+    FROM Bands
+    LEFT JOIN Events
+      ON Events.band_name = Bands.name
+    LEFT JOIN Venues
+      ON Venues.name = Events.venue_name
+    GROUP BY band_name
+    ORDER BY event_datetime_string
+    `,
+    [],
+    (error, rows) => {
+      if (error) {
+      //   throw error;
+        console.log(error);
+      }
+      this.data = rows; 
+      console.log(rows);
+      res.send(this.data);
+      next();
+    }
+  );
+});
+// bandsRouter.get('/', getBands);    
 
 // use IDs instead of names?
 // or possibly algorithm to remove spaces for urls at some point?
@@ -202,10 +202,10 @@ bandsRouter.get('/:name', (req, res, next) => {
 // app.post('/new-band', (req, res, next) => {
 // maybe it should really be post, 'bands' ?
 // (https://www.codecademy.com/courses/learn-express/lessons/learn-express-routes/exercises/creating-an-expression?action=resume_content_item)
-bandsRouter.post('/', (req, res, next) => {
+// bandsRouter.post('/', (req, res, next) => {
   // I'm thinking req.query will/should include the key value pairs from the query string
-  console.log(req.query);
-  console.log(req.body);
+  // console.log(req.query);
+  // console.log(req.body);
   // likely use some kind of if check, and do the needed updates...
   // When updating, many servers will send back the updated resource after the updates are applied so that the client has the exact same version of the resource as the server and database.
   // res.send();
@@ -220,7 +220,9 @@ bandsRouter.post('/', (req, res, next) => {
   // res.send('posted');
   // this.getBands();
   // return bandsRouter.get('/', getBands);
-  res.redirect('bands');
+  // res.redirect('bands');
+  // res.redirect('/bands');  
+  // I guess the above line works with 'bands' or '/bands' (?)
   // next();
   // next(bandsRouter.get('/'));  
   // next('/bands');
@@ -229,10 +231,17 @@ bandsRouter.post('/', (req, res, next) => {
   // res.render('bands');
   // res.render(bandsRouter.get('/', getBands));  
   // (https://www.codecademy.com/courses/learn-express/lessons/learn-express-routes/exercises/using-queries?action=resume_content_item)
-});
+// });
 // }).get('/', getBands);
 // haven't yet figured out how to actually forward to GET /bands after a post, but also don't know if that would be right...
 // could it possibly by done with a .then() in the front end??.....
+
+// for now, just copied the lines I was using out of the above mess and put them here:
+bandsRouter.post('/', (req, res, next) => {
+  console.log(req.query);
+  console.log(req.body);
+  res.redirect('/bands');  
+});
 
 venuesRouter.get('/', (req, res, next) => {
   db.all(
