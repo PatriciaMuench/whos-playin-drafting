@@ -19,27 +19,40 @@ class CreateBand extends Component {
           
           {/* // INSERT INTO Bands (name, description, website_url, genre) */}
           {/* ok yeah I also need to look back at the input stuff... */}
-          <form>
+          {/* (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) */}
+          <form
+            // action="" // (?)
+            // action="../server/index.js" // ?
+            action="/bands" // ?
+            method="post"
+            // method="get"
+          >
+
+            {/* cool, but I might not need it.. */}
+            {/* <fieldset> */}
+            {/* <legend>legend?</legend> */}
+
             <label htmlFor="name">Band Name:&nbsp;</label>
             <input 
               id="name"
-            //   name="name"
+              name="name"
             //   label="name"
             //   placeholder="name"
+            //   value=""
             >
             </input>
             <br />
             <label htmlFor="description">Description:&nbsp;</label>
             <input 
               id="description"
-            //   name="description"
+              name="description"
             >
             </input>
             <br />
             <label htmlFor="websiteURL">Website URL:&nbsp;</label>
             <input 
               id="websiteURL"
-            //   name="websiteURL"
+              name="websiteURL"
             >
             </input>
             <br />
@@ -84,8 +97,20 @@ class CreateBand extends Component {
             </select>
 
             <br />
-            <button>Add this Band</button>
-            {/* <button type="submit">Add this Band</button>             */}
+
+            {/* currently these all seem the same, although the text on the third one looks a tad larger */}
+            {/* <button>Add this Band</button> */}
+            {/* <button type="submit">Add this Band</button> */}
+            {/* <input type="submit" value="Add this Band" /> */}
+            {/* it looks like submit is the default type anyway, and I'm not sure if it is related in any good or bad way to an onclick handler... */}
+            {/* (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) */}
+            <button
+            //   onClick={fetch(`bands?`)} // , {method: 'POST'})}
+            >
+              Add this Band
+            </button>
+
+            {/* </fieldset> */}
           </form>
 
         </div>
@@ -96,3 +121,7 @@ class CreateBand extends Component {
 }
 
 export default CreateBand;
+
+// maybe will need to write onClick for submit button, maybe something like https://www.codecademy.com/practice/projects/quote-api add-quote.js
+// but, currently not sure how that would fit in with react router...
+// (also want to look at form element stuff for this...)
