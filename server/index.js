@@ -19,14 +19,8 @@ let db = new sqlite3.Database('./db.sqlite', err => {
     console.log('Success');
   }
 });
-// let db = new sqlite3.Database('./database.js', err => {
-// // let db = new sqlite3.Database('./database', err => {
-//   if (err){
-//     console.log(err);
-//   } else {
-//     console.log('Success');
-//   }
-// });
+// (https://discuss.codecademy.com/t/if-we-have-a-db-sqlite-file-already-in-the-directory-do-we-need-to-create-a-new-database-file/404167)
+
 
 // some notes from codecademy:
 // db.all() - fetch all the data we have that meets certain criteria
@@ -75,40 +69,6 @@ app.use('/bands', bandsRouter);
 const venuesRouter = express.Router();
 app.use('/venues', venuesRouter);
 
-// const getBands = (req, res, next) => {
-//   db.all(
-//     `SELECT 
-//       Bands.name AS band_name,
-//       Bands.description AS band_description,
-//       Bands.genre AS band_genre,
-//       CASE Events.datetime_string
-//         WHEN Events.datetime_string THEN Events.datetime_string
-//         ELSE 'none'
-//       END event_datetime_string,
-//       Venues.name AS venue_name,
-//       Venues.description AS venue_description
-//     FROM Bands
-//     LEFT JOIN Events
-//       ON Events.band_name = Bands.name
-//     LEFT JOIN Venues
-//       ON Venues.name = Events.venue_name
-//     GROUP BY band_name
-//     ORDER BY event_datetime_string
-//     `,
-//     [],
-//     (error, rows) => {
-//       if (error) {
-//       //   throw error;
-//         console.log(error);
-//       }
-//       this.data = rows; 
-//       console.log(rows);
-//       res.send(this.data);
-//       next();
-//     }
-//   );
-// }
-
 // app.get('/bands', (req, res, next) => {
 bandsRouter.get('/', (req, res, next) => {  
   db.all(
@@ -135,7 +95,6 @@ bandsRouter.get('/', (req, res, next) => {
     -- ORDER BY event_datetime_string -- maybe this is the default?
     -- ORDER BY Events.datetime_string -- this seems wrong (?)
     `,
-    // `SELECT * FROM Bands`,
     [],
     (error, rows) => {
       if (error) {
@@ -149,7 +108,6 @@ bandsRouter.get('/', (req, res, next) => {
     }
   );
 });
-// bandsRouter.get('/', getBands);    
 
 // use IDs instead of names?
 // or possibly algorithm to remove spaces for urls at some point?
