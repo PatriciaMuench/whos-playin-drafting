@@ -161,7 +161,11 @@ class Bands extends Component {
           {/* maybe add links (or buttons?) to create/add a band, and possibly create/add an event (?) */}
           {/* <Link to={`/bands/new`}>Add a Band</Link> */}
           {/* <Link to="/bands/new">Add a Band</Link> */}
-          <Link to="/new-band">Add a Band</Link>
+          {/* <Link to="/new-band">Add a Band</Link> */}
+          {/* not even sure if I want the link to add an event on this page;
+          maybe I want all the links on all/most of the pages;
+          and/or maybe it would be cool to have it on the page for a specific band, for example, and then it could automatically use that band... */}
+          <span><Link to="/new-band">Add a Band</Link> &nbsp; <Link to="/new-event">Add an Event</Link></span>
 
         </div>
       </Router>

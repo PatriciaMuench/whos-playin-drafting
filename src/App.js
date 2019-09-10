@@ -7,6 +7,7 @@ import Venues from './venues';
 import Venue from './venue';
 import CreateBand from './create-band';
 import CreateVenue from './create-venue';
+import CreateEvent from './create-event';
 // import logo from './logo.svg';
 // import logo from './favicon-copy.ico';
 // import logo from './android-chrome-512x512-copy.png';
@@ -147,8 +148,8 @@ class App extends Component {
           {/* <Route path="/bands/new" component={CreateBand} /> */}
           {/* <Route exact path="/bands/new" component={CreateBand} /> */}
           <Route exact path="/new-band" component={CreateBand} />
-
           <Route exact path="/new-venue" component={CreateVenue} />
+          <Route exact path="/new-event" component={CreateEvent} />
 
         </div>
       </Router>
