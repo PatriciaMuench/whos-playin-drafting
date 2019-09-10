@@ -252,7 +252,7 @@ export const genreOptions = [
   'acoustic',
   'other'
 ];
-// (order of options?)
+// (order of options?) *
 // {/* Genre: rock, country, alternative, hip hop, DJ, orchestra ...idk, look up a list */}
 // <option value={noSelection}>--none specified--</option>            
 // <option value="country">country</option>
@@ -265,3 +265,32 @@ export const genreOptions = [
 // <option value="orchestra">orchestra</option>
 // <option value="acoustic">acoustic</option>
 // <option value="other">other</option>
+
+/**
+ * Venue Type Options
+ */
+export const venueTypeOptions = [
+  'restaurant',
+  'bar',
+  'live music venue',
+  'concert hall',
+  'pavillion',
+  'park',
+  'other' // (just added this)
+];
+// <option value={noSelection}>--none specified--</option>
+// <option value="restaurant">restaurant</option>
+// <option value="bar">bar</option>
+// <option value="live music venue">live music venue</option>
+// <option value="concert hall">concert hall</option>
+// <option value="pavillion">pavillion</option>
+// <option value="park">park</option>
+
+/**
+ * Venue Size Options
+ */
+export const venueSizeOptions = [
+  'small',
+  'medium',
+  'large'
+];
