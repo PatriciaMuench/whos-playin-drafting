@@ -19,6 +19,14 @@ let db = new sqlite3.Database('./db.sqlite', err => {
     console.log('Success');
   }
 });
+// let db = new sqlite3.Database('./database.js', err => {
+// // let db = new sqlite3.Database('./database', err => {
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log('Success');
+//   }
+// });
 
 // some notes from codecademy:
 // db.all() - fetch all the data we have that meets certain criteria
@@ -108,7 +116,9 @@ bandsRouter.get('/', (req, res, next) => {
       Bands.name AS band_name,
       Bands.description AS band_description,
       Bands.genre AS band_genre,
-      CASE Events.datetime_string
+      -- CASE Events.datetime_string
+      -- I realized the earliest event per band (Dalton) wasn't the one showing...
+      CASE Min(Events.datetime_string)
         WHEN Events.datetime_string THEN Events.datetime_string
         ELSE 'none'
       END event_datetime_string,
@@ -119,9 +129,13 @@ bandsRouter.get('/', (req, res, next) => {
       ON Events.band_name = Bands.name
     LEFT JOIN Venues
       ON Venues.name = Events.venue_name
-    GROUP BY band_name
-    ORDER BY event_datetime_string
+    -- GROUP BY band_name
+    -- it seems like somehow this was preventing more than one band with no events, or something...
+    GROUP BY Bands.name
+    -- ORDER BY event_datetime_string -- maybe this is the default?
+    -- ORDER BY Events.datetime_string -- this seems wrong (?)
     `,
+    // `SELECT * FROM Bands`,
     [],
     (error, rows) => {
       if (error) {
@@ -237,11 +251,42 @@ bandsRouter.get('/:name', (req, res, next) => {
 // could it possibly by done with a .then() in the front end??.....
 
 // for now, just copied the lines I was using out of the above mess and put them here:
+// (then continued working on it)
 bandsRouter.post('/', (req, res, next) => {
-  console.log(req.query);
+  // console.log(req.query); // this would be in the case of a GET, I believe, so it's blank here
   console.log(req.body);
-  res.redirect('/bands');  
+  db.run(
+    // (camel vs. snake?)
+    `INSERT INTO Bands (name, description, website_url, genre) VALUES 
+    ($name, $description, $websiteURL, $genre)`,
+    {
+      $name: req.body.name,
+      $description: req.body.description,
+      $websiteURL: req.body.websiteURL,
+      $genre: req.body.genre
+    },
+    error => {
+    // (error, rows) => {
+    // (rows, error) => {      
+      if (error) {
+        // throw error;
+        console.log(error);
+        return; // (?)
+      }
+      console.log('req.body.name: ', req.body.name);
+      // console.log('rows?: ', rows);
+      console.log('this.lastID: ', this.lastID); // undefined - idk why..
+      console.log('this?: ', this); // apparently here this logs as {data: [array of all the rows prior to this addition]} ?
+      // res.on('', () => res.redirect('/bands'));
+      // res.on('data', (data) => res.redirect('/bands'));      
+      res.redirect('/bands'); // do I maybe want to send a status code other than 302, such as successful post?
+  // res.redirect('/bands', 207); // (not sure how to use this one)
+  // res.redirect('/bands', 201); // or res.redirect(201, '/bands'); // interesting, though not great.. (?)
+    }
+  );
+  
 });
+
 
 venuesRouter.get('/', (req, res, next) => {
   db.all(

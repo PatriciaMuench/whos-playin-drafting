@@ -68,16 +68,75 @@ db.serialize(() => {
       `INSERT INTO Bands (name, description, website_url, genre) VALUES 
       ('BearFight', 'rock cover band / wedding band', 'bearfight.com', 'rock'), 
       ('Dalton', 'country cover & original solo artist', 'daltonsherrifs.com', 'country'),
-      ('Legends of Summer', 'popular music cover band', 'legendsofsummer.com', 'variety')`,
+      ('Legends of Summer', 'popular music cover band', 'legendsofsummer.com', 'variety')
+      -- ('is', 'this', 'working', 'pop')
+      `,
     // ** error stuff??...
       error => {
         if (error) {
           // throw error;
           console.log(error);
         }
+        // console.log(this); // {} - I don't understand this really..
       }
     );
+    /********** Testing for Add a Band... ****************************************/
+    // db.run(
+    //   // (camel vs. snake?)
+    //   `INSERT INTO Bands (name, description, website_url, genre) VALUES 
+    //   ($name, $description, $websiteURL, $genre)
+    //   -- ('is', 'this', 'working', 'pop')
+    //   `,
+    //   {
+    //     $name: 'is', // req.body.name,
+    //     $description: 'this', // req.body.description,
+    //     $websiteURL: 'working', // req.body.websiteURL,
+    //     $genre: 'pop' // req.body.genre
+    //   },
+    //   error => {
+    //   // (error, rows) => {
+    //   // (rows, error) => {      
+    //     if (error) {
+    //       // throw error;
+    //       console.log(error);
+    //       return; // (?)
+    //     }
+    //     // console.log('req.body.name: ', req.body.name);
+    //     // console.log('rows?: ', rows);
+    //     console.log('this.lastID: ', this.lastID); // undefined - idk why..
+    //     console.log('this?: ', this); // {} - idk why..
+    //     // res.redirect('/bands');
+    //   }
+    // );
+    db.all(`SELECT * FROM Bands`, (error, rows) => console.log(rows));
   });
+
+  // /********** Testing for Add a Band... ****************************************/
+  // db.run(
+  //   // (camel vs. snake?)
+  //   `INSERT INTO Bands (name, description, website_url, genre) VALUES 
+  //   ($name, $description, $websiteURL, $genre)`,
+  //   {
+  //     $name: 'is', // req.body.name,
+  //     $description: 'this', // req.body.description,
+  //     $websiteURL: 'working', // req.body.websiteURL,
+  //     $genre: 'pop' // req.body.genre
+  //   },
+  //   error => {
+  //   // (error, rows) => {
+  //   // (rows, error) => {      
+  //     if (error) {
+  //       // throw error;
+  //       console.log(error);
+  //       return; // (?)
+  //     }
+  //     // console.log('req.body.name: ', req.body.name);
+  //     // console.log('rows?: ', rows);
+  //     console.log('this.lastID: ', this.lastID);
+  //     console.log('this?: ', this);
+  //     // res.redirect('/bands');
+  //   }
+  // );
 
   /********** Venues Table ****************************************/
   db.serialize(() => {

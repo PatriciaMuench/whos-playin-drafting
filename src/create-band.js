@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
-import { onFilterChange, noSelection, genreOptions } from './utils';
+// import { onFilterChange, noSelection, genreOptions } from './utils';
+import { noSelection, genreOptions } from './utils';
 import './App.css';
 
 // should it be a class??.....
