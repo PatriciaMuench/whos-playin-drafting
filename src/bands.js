@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
-import { onFilterChange, noSelection } from './utils';
+import { onFilterChange, noSelection, genreOptions } from './utils';
 import './App.css';
 
 class Bands extends Component {
@@ -89,8 +89,12 @@ class Bands extends Component {
             multiple
           >
           {/* Genre: rock, country, alternative, hip hop, DJ, orchestra ...idk, look up a list */}
-            <option value={noSelection}>--none specified--</option>            
-            <option value="country">country</option>
+              <option value={noSelection}>--none specified--</option>
+              {/* based on version in create-band, i.e. importing genreOptions; see some notes in there (?) */}
+            {genreOptions.map(genreOption => (
+              <option key={genreOption} value={genreOption}>{genreOption}</option>
+            ))}
+            {/* <option value="country">country</option>
             <option value="rock">rock</option>
             <option value="pop">pop</option>
             <option value="variety">variety</option>
@@ -99,8 +103,7 @@ class Bands extends Component {
             <option value="dj">DJ</option>
             <option value="orchestra">orchestra</option>
             <option value="acoustic">acoustic</option>
-            <option value="other">other</option>
-            {/* <option></option> */}
+            <option value="other">other</option> */}
           </select>
           <br/>
 

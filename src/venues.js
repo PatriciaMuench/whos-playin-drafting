@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
-import { onFilterChange, noSelection } from './utils';
+import { onFilterChange, noSelection, venueTypeOptions, venueSizeOptions } from './utils';
 import './App.css';
 
 // (many of notes in bands.js apply to this file as well...)
@@ -85,14 +85,16 @@ class Venues extends Component {
               // onChange={event => this.setState({selectedVenueTypes: onFilterChange(event.target.value, this.state.selectedVenueTypes)})}     
               multiple
             >          
-              <option value={noSelection}>--none specified--</option>
-              <option value="restaurant">restaurant</option>
+                <option value={noSelection}>--none specified--</option>
+              {venueTypeOptions.map(typeOption => (
+                <option key={typeOption} value={typeOption}>{typeOption}</option>
+              ))}
+              {/* <option value="restaurant">restaurant</option>
               <option value="bar">bar</option>            
               <option value="live music venue">live music venue</option>
               <option value="concert hall">concert hall</option>
               <option value="pavillion">pavillion</option>
-              <option value="park">park</option>
-              {/* <option></option> */}
+              <option value="park">park</option> */}
             </select>
 
             &nbsp;&nbsp;
@@ -109,11 +111,13 @@ class Venues extends Component {
               }}
               multiple
             >          
-              <option value={noSelection}>--none specified--</option>
-              <option value="small">small</option>
+                <option value={noSelection}>--none specified--</option>
+              {venueSizeOptions.map(sizeOption => (
+                <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
+              ))}
+              {/* <option value="small">small</option>
               <option value="medium">medium</option>            
-              <option value="large">large</option>
-              {/* <option></option> */}
+              <option value="large">large</option> */}
             </select>
           </div>
           {/* </span> */}
