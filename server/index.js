@@ -212,7 +212,7 @@ bandsRouter.get('/:name', (req, res, next) => {
 // (then continued working on it)
 bandsRouter.post('/', (req, res, next) => {
   // console.log(req.query); // this would be in the case of a GET, I believe, so it's blank here
-  console.log(req.body);
+  console.log('req.body: ', req.body);
   db.run(
     // (camel vs. snake?)
     `INSERT INTO Bands (name, description, website_url, genre) VALUES 
@@ -265,8 +265,10 @@ venuesRouter.get('/', (req, res, next) => {
       ON Events.venue_name = Venues.name
     LEFT JOIN Bands
       ON Bands.name = Events.band_name
-    GROUP BY venue_name
+    -- GROUP BY venue_name
+    GROUP BY Venues.name
     ORDER BY event_datetime_string
+    -- (not sure why there seem to be slight differences in how this select works vs. the one for bands..)
     `,
     [],
     (error, rows) => {
@@ -316,6 +318,37 @@ venuesRouter.get('/:name', (req, res, next) => {
       // console.log(rows);
       res.send(this.data);
       next();
+    }
+  );
+});
+
+// (add a venue, based on adding a band):
+venuesRouter.post('/', (req, res, next) => {
+  console.log('req.body: ', req.body);
+  db.run(
+    // (camel vs. snake?)
+    `INSERT INTO Venues (name, city, state, description, website_url, type, size) VALUES
+    ($name, $city, $state, $description, $websiteURL, $type, $size)`,
+    {
+      $name: req.body.name,
+      $city: req.body.city,
+      $state: req.body.state,
+      $description: req.body.description,
+      $websiteURL: req.body.websiteURL,
+      $type: req.body.type,
+      $size: req.body.size
+    },
+    error => {
+      if (error) {
+        // throw error;
+        console.log(error);
+        return; // (?)
+      }
+      // console.log('req.body.name: ', req.body.name);
+      console.log('this.lastID: ', this.lastID); // undefined - idk why..
+      console.log('this?: ', this); // apparently here this logs as {data: [array of all the rows prior to this addition]} ?
+      res.redirect('/venues'); // do I maybe want to send a status code other than 302, such as successful post?
+      // * or maybe work out an alert or something?
     }
   );
 });
