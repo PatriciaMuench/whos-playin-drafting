@@ -324,7 +324,7 @@ venuesRouter.get('/:name', (req, res, next) => {
 
 // (add a venue, based on adding a band):
 venuesRouter.post('/', (req, res, next) => {
-  console.log('req.body: ', req.body);
+  console.log('req.body:', req.body);
   db.run(
     // (camel vs. snake?)
     `INSERT INTO Venues (name, city, state, description, website_url, type, size) VALUES
@@ -345,10 +345,16 @@ venuesRouter.post('/', (req, res, next) => {
         return; // (?)
       }
       // console.log('req.body.name: ', req.body.name);
-      console.log('this.lastID: ', this.lastID); // undefined - idk why..
-      console.log('this?: ', this); // apparently here this logs as {data: [array of all the rows prior to this addition]} ?
+      // console.log('this.lastID: ', this.lastID); // undefined - idk why..
+      console.log('this?:', this); // apparently here this logs as {data: [array of all the rows prior to this addition]} ?
+      // res.send('Venue created.'); // doesn't redirect
+      // res.send('Venue created.').redirect('/venues'); // doesn't redirect
+      // res.send('Venue created.').then(res.redirect('/venues')); // doesn't redirect
+      // Error: Can't set headers after they are sent.
+      // this.successMessage = 'Venue created.'; // doesn't seem to do anything
       res.redirect('/venues'); // do I maybe want to send a status code other than 302, such as successful post?
       // * or maybe work out an alert or something?
+      // I wonder if the way to do that would be to send back a status or message, show an alert, then on alert close, GET /venues?
     }
   );
 });
