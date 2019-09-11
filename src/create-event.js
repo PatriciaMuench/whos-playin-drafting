@@ -8,6 +8,15 @@ import './App.css';
 
 class CreateEvent extends Component {
 
+  componentWillMount() {
+    fetch('/new-event')
+    .then(response => response.json())
+    .then(response => {
+      console.log('response:', response);
+    })
+    .catch(error => console.log(error)); // (did I try throw error yet or anything?)
+  }
+
   render() {
     return (
       <Router forceRefresh>
@@ -25,6 +34,7 @@ class CreateEvent extends Component {
           >
 
             {/* this will prob need some sort of check that the venue exists.... */}
+            {/* one option is prob to use a dropdown of the existent venues - so prob need a server endpoint for GET /new-event (or w/e) */}
             <label htmlFor="venueName">Venue Name:&nbsp;</label>
             <input id="venueName" name="venueName"></input>
             <br />

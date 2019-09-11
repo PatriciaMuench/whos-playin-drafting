@@ -359,6 +359,45 @@ venuesRouter.post('/', (req, res, next) => {
   );
 });
 
+app.get('/new-event', (req, res, next) => {
+  // I don't need to select the bands after selecting the venues, but I do need to send the response after selecting both, 
+  // so I'm not sure if there is a better solution than db.serialize (or nesting callbacks, or w/e)...
+  // actually, I don't even know if db.serialize takes a callback or if putting res.send at the end would work...
+  // (I also don't know of a way to do 2 selects in one query statement when there really is no join needed..)
+  // p.s. unsure where I want camel vs snake, of course..
+  db.all(
+    // do I need distinct?
+    `SELECT DISTINCT Venues.name AS venueName FROM Venues`,
+    // [],
+    (error, rows) => {
+      if (error) {
+      //   throw error;
+        console.log(error);
+      }
+      this.venueNames = rows;
+      console.log('this.venueNames1:', this.venueNames); 
+      db.all(
+        `SELECT DISTINCT Bands.name AS bandName FROM Bands`,
+        // [],
+        (error, rows) => {
+          if (error) {
+          //   throw error;
+            console.log(error);
+          }
+          this.bandNames = rows;
+          console.log('this.venueNames2:', this.venueNames); // looks fine
+          console.log('this.bandNames:', this.bandNames); // looks fine
+          console.log('this:', this); // seems good: {venueNames: [{venueName: 'The Lansdowne'}, etc.], bandNames: [{}, ]}
+          // console.log('res?:', res); // lots of junk, and I don't even see the above data
+          // res.send(); // seems bad
+          res.send(this); // seems fine
+          next();
+        }
+      );
+    }
+  );
+});
+
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );
