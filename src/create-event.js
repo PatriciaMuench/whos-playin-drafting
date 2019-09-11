@@ -3,16 +3,27 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import logo from './android-chrome-512x512-copy.png';
-// import { noSelection } from './utils';
+import { noSelection } from './utils';
 import './App.css';
 
 class CreateEvent extends Component {
+
+  state = {
+    venueNames: [], // array?
+    bandNames: []
+  }
 
   componentWillMount() {
     fetch('/new-event')
     .then(response => response.json())
     .then(response => {
       console.log('response:', response);
+      // (I'm sure there are alternative ways to do this..)
+      const venueNamesArray = response.venueNames.map(venueNameObject => venueNameObject.venueName);
+      const bandNamesArray = response.bandNames.map(bandNameObject => bandNameObject.bandName);
+      console.log('bandNamesArray:', bandNamesArray);
+      this.setState({venueNames: venueNamesArray, bandNames: bandNamesArray});
+      console.log('state:', this.state);
     })
     .catch(error => console.log(error)); // (did I try throw error yet or anything?)
   }
@@ -36,12 +47,25 @@ class CreateEvent extends Component {
             {/* this will prob need some sort of check that the venue exists.... */}
             {/* one option is prob to use a dropdown of the existent venues - so prob need a server endpoint for GET /new-event (or w/e) */}
             <label htmlFor="venueName">Venue Name:&nbsp;</label>
-            <input id="venueName" name="venueName"></input>
+            {/* <input id="venueName" name="venueName"></input>
+            <br /> */}
+            <select name="venueName" id="venueName">
+                <option key={noSelection} value={noSelection}>--none specified--</option>
+              {this.state.venueNames.map(venueName => (
+                <option key={venueName} value={venueName}>{venueName}</option>
+              ))}
+            </select>
             <br />
 
             {/* this will prob need some sort of check that the band exists.... */}
             <label htmlFor="bandName">Band Name:&nbsp;</label>
-            <input id="bandName" name="bandName"></input>
+            {/* <input id="bandName" name="bandName"></input> */}
+            <select name="bandName" id="bandName">
+                <option key={noSelection} value={noSelection}>--none specified--</option>
+              {this.state.bandNames.map(bandName => (
+                <option key={bandName} value={bandName}>{bandName}</option>
+              ))}
+            </select>
             <br />
 
             {/* not sure if a datepicker is what we want or what... */}

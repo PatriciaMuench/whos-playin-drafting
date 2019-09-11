@@ -390,7 +390,7 @@ app.get('/new-event', (req, res, next) => {
           console.log('this:', this); // seems good: {venueNames: [{venueName: 'The Lansdowne'}, etc.], bandNames: [{}, ]}
           // console.log('res?:', res); // lots of junk, and I don't even see the above data
           // res.send(); // seems bad
-          res.send(this); // seems fine
+          res.send(this); // seems fine - ya know, I'm beginning to think the async is actually wrong (but not sure if my comp is just being slow?)
           next();
         }
       );
