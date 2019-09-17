@@ -75,11 +75,14 @@ class CreateEvent extends Component {
             {/* <label htmlFor="datetime"> :&nbsp;</label>
             <input id="datetime" name="datetime"></input>
             <br /> */}
-            <label htmlFor="date">Date:&nbsp;</label>
+            {/* <label htmlFor="date">Date:&nbsp;</label>
             <input id="date" name="date"></input>
             <br />
             <label htmlFor="time">Time:&nbsp;</label>
             <input id="time" name="time"></input>
+            <br /> */}
+            <label htmlFor="datetime">Date and Time:&nbsp;</label>
+            <input type="datetime-local" id="datetime" name="datetime"></input>
             <br />
 
 
