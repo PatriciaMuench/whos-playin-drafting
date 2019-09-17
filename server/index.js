@@ -398,6 +398,30 @@ app.get('/new-event', (req, res, next) => {
   );
 });
 
+app.post('/events', (req, res, next) => {
+  console.log('req.body:', req.body);
+  db.run(
+    `INSERT INTO Events (venue_name, band_name, datetime_string, notes) VALUES
+    ($venueName, $bandName, $datetimeString, $notes)`,
+    {
+      $venueName: req.body.venueName, 
+      $bandName: req.body.bandName, 
+      $datetimeString: req.body.datetime, 
+      $notes: req.body.notes
+    },
+    error => {
+      if (error) {
+        // throw error;
+        console.log(error);
+        return; // (?)
+      }
+      console.log('this:', this);
+      // res.redirect('/events'); // wait, there is no such page as events....
+      res.redirect('/venues'); // I'll just do this for now I guess
+    }
+  );
+});
+
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );

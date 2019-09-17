@@ -148,7 +148,9 @@ class Venues extends Component {
           </table>
 
           {/* maybe add links (or buttons?) to create/add a venue, and possibly create/add an event (?) */}
-          <Link to="/new-venue">Add a Venue</Link>
+          {/* <Link to="/new-venue">Add a Venue</Link> */}
+          <span><Link to="/new-venue">Add a Venue</Link> &nbsp; <Link to="/new-event">Add an Event</Link></span>
+          <br />
 
         </div>
       </Router>

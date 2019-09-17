@@ -166,6 +166,7 @@ class Bands extends Component {
           maybe I want all the links on all/most of the pages;
           and/or maybe it would be cool to have it on the page for a specific band, for example, and then it could automatically use that band... */}
           <span><Link to="/new-band">Add a Band</Link> &nbsp; <Link to="/new-event">Add an Event</Link></span>
+          <br />
 
         </div>
       </Router>

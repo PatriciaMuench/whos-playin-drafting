@@ -243,12 +243,16 @@ db.serialize(() => {
     // let lansdowneBearfight1 = '2019-08-09T21:00:00.000';
     // let lansdowneBearfight1 = '2019-08-09T21:00:00';
     let lansdowneBearfight1 = '2019-08-09 21:00:00';    
-    let lansdowneDalton1 = new Date(2019, 7, 10, 21).toString();
-    let chickenboxDalton1 = new Date(2019, 7, 15, 22).toString();
+    // let lansdowneDalton1 = new Date(2019, 7, 10, 21).toString();
+    // let chickenboxDalton1 = new Date(2019, 7, 15, 22).toString();
     // the above 2 versions seem to work the same way so far, though event_datetime_string will show up in state (for example) as
     // "2019-08-09 21:00:00" vs. "Sat Aug 10 2019 21:00:00 GMT-0400 (EDT)"
     // (this means one of the options I have is even to save a string but include more in it...
     // but I think I want to nail that down more in conjunction with users being able to input events)
+    // "2019-09-21T20:30" - this is how the datetime string is currently saved now that I've created a way for users to add events
+    // it looks like having the day name beginning the string for Dalton is potentially messing up the ordering of events, so I'll change that here:
+    let lansdowneDalton1 = '2019-08-10T21:00';
+    let chickenboxDalton1 = '2019-08-15T22:00';
     db.run(
       // how to work with venue/band names vs. ids (now and/or when a user is able to add...) ?
       // `INSERT INTO Events (venue_id, band_id, date, time, notes) VALUES 
