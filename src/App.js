@@ -13,6 +13,9 @@ import CreateEvent from './create-event';
 // import logo from './android-chrome-512x512-copy.png';
 import './App.css';
 
+import LogRocket from 'logrocket';
+LogRocket.init('0wdbdp/whos-playin-dev');
+
 
 // function App() {
 //   return (
