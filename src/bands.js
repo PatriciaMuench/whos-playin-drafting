@@ -40,12 +40,7 @@ class Bands extends Component {
             event.event_found = false;
           }
         });
-        // this.setState({eventInfo: response});
-        this.setState({
-          eventInfo: response
-        }, () => {
-          console.log('state, within componentWillMount: \n', this.state);
-        })
+        this.setState({eventInfo: response});
       })
       .catch(error => console.log(error));
   }
