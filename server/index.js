@@ -7,11 +7,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 
-// ...unsure how to set up the db stuff properly...
 // const sqlite3 = require('sqlite3');
 const sqlite3 = require('sqlite3').verbose();
-// import sqlite3 from 'sqlite3';
-// const db = new sqlite3.Database('./db.sqlite');
 let db = new sqlite3.Database('./db.sqlite', err => {
   if (err){
     console.log(err);
@@ -62,7 +59,7 @@ let db = new sqlite3.Database('./db.sqlite', err => {
 // * clean up my console logs, and make the ones I still want more specific... (also clean up my files in general...)
 
 
-// should bandsRouter be a new file at some point?
+// should bandsRouter be a new file at some point?...
 const bandsRouter = express.Router();
 app.use('/bands', bandsRouter);
 
@@ -149,14 +146,6 @@ bandsRouter.get('/:name', (req, res, next) => {
     }
   );
 });
-
-// bandsRouter.get('/new', (req, res, next) => {
-//   next();
-// });
-// app.get('/new-band', (req, res, next => {
-// }));
-// so yeah, not entirely sure how to handle the urls for this, 
-// but I guess /bands/new fits the same pattern as band/:name (unless I'm missing something), so I'll just go with /new-band for now
 
 // the form for adding a new band would be a get, and the submission to create the band would be a post...
 // (not sure at the moment what should be displayed upon/after submission) - maybe get bands/:name for the newly added band?
