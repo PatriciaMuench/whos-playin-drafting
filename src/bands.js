@@ -52,7 +52,9 @@ class Bands extends Component {
           <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
           <h2 className="main">Bands</h2>
 
-          <label htmlFor="genre"><small>Genre:</small></label>
+          <div className="select">
+          <label htmlFor="genre"><small>Genre:&nbsp;</small></label>          
+          {/* <label htmlFor="genre"><small>Genre:</small></label> */}
           <select 
             name="genre" 
             id="genre" 
@@ -68,6 +70,7 @@ class Bands extends Component {
               <option key={genreOption} value={genreOption}>{genreOption}</option>
             ))}
           </select>
+          </div>
           <br/>
 
           <table>
@@ -91,7 +94,14 @@ class Bands extends Component {
                         <td><small>{event.event_time}</small></td>
                       </Fragment>
                     ) : (
-                      <td><small><em>no events found</em></small></td>
+                      // <td><small><em>no events found</em></small></td>
+                      <Fragment>
+                        <td><small><em>no events found</em></small></td>
+                        {/* an empty cell needs to exist in order to have background/borders */}
+                        <td></td>
+                        {/* <td><small><em>no events found</em></small></td> */}
+                        <td></td>
+                      </Fragment>
                     )}                                                        
                   </tr>
                 ) 

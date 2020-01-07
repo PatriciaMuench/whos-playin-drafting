@@ -29,6 +29,8 @@
   font-size: calc(10px + 2vmin);
   /* color: #ffb84d; */
   color: #0066ff;
+  /* align-content: center; */
+  /* justify-items: center; */
 }
 
 /* .header-link a { */
@@ -52,6 +54,59 @@
   color: #0066ff;
 } */
 
+.header {
+  background: #fff5e6;
+  background: #ffebcc;
+  /* padding: 20px; */
+  width: 95%;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  /* align-items: baseline; */
+  align-items: flex-end;
+
+  /* align-content: center; */
+  /* align-content: baseline;   */
+  /* justify-items: center; */
+  /* flex-direction: column; */
+}
+.header-span {
+  display: flex;
+  display: inline-flex;
+  align-items: center;
+  align-items: baseline;
+  align-items: flex-end;
+  /* padding-bottom: 10px; */
+  /* margin-bottom: 10px; */
+  /* align-content: center; */
+  /* align-content: baseline; */
+}
+/* .header-span link { */
+.header-span a {
+  /* .header-span img { */
+    padding-bottom: 10px;
+    /* margin-bottom: 10px; */
+    display: flex;
+    display: inline-flex;
+    /* align-items: baseline; */
+    /* align-content: baseline; */
+    /* text-align: center; */
+    /* line-height: 10px; */
+}
+.header-span-2 {
+  display: flex;
+  display: inline-flex;  
+  align-items: baseline;
+  /* align-content: baseline; */
+  padding-bottom: 10px;
+  /* margin-bottom: 10px; */
+  align-items: flex-end;
+}
+
 .main {
   /* background-color: white;
   min-height: 100vh;
@@ -61,6 +116,12 @@
   padding-top: 100px;
   font-size: calc(10px + 2vmin); */
   color: #ffb84d;
+  /* display: flex; */
+  /* display: inline-flex; */
+  /* align-items: center; */
+  /* align-content: center; */
+  /* justify-content: center; */
+  /* justify-items: center; */
 }
 
 .main a {
@@ -86,6 +147,100 @@ h1 {
 .description {
   font-size: 12px;
 }
+
+/* maybe can even do more to help with the spaces and breaks I think I remember having to put in.... */
+.select {
+  display: flex;
+  /* display: inline-flex; */
+  /* align-items: center; */
+  align-items: top;
+}
+
+/* ? */
+/* table, tr, td {empty-cells: show;} */
+/* table {
+  background-color: #dedede;
+  border-radius: 10px;
+} */
+/* tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF} */
+/* tr:nth-child(even) {background-color: #CCC} */
+/* tr:nth-child(odd) {background-color: #FFF} */
+tr:nth-child(odd) {
+  /* background-color: #CCC; */
+  /* background: #CCC; */
+  background: #e6f0ff;
+  /* background: #fff5e6; */
+  /* border-radius: 10px; */
+  /* border-radius: inherit; */
+}
+tr:nth-child(even) {
+  /* background: #dedede; */
+  background: #fff5e6;
+  /* background: #e6f0ff; */
+}
+table, tr, td {
+/* table {   */
+/* table, tr { */
+/* tr, td { */
+  /* border: none; */
+  /* border: 0px; */
+  /* border:hidden; */
+  border-collapse: collapse;
+  /* border-radius: 10px; */
+  empty-cells: show;
+  /* empty-cells: hide; */
+  /* empty-cells: initial; */
+  /* empty-cells: inherit;   */
+  /* border-bottom: 1px solid black; */
+}
+/* tr, td {
+  border-collapse: collapse;
+} */
+table {
+  /* border: 1px solid black; */
+  /* border-bottom: 1px solid black; */
+}
+td {
+  /* border-bottom: 1px solid black; */
+  border-bottom: 1px solid white;
+  /* padding: 10px 0 10px 0; */
+  /* padding: 4px 5px; */
+  padding: 4px 10px;
+  /* padding: 4px; */
+  /* margin: 3px; */
+}
+tr {
+  /* padding-right: 10px; */
+  /* margin: 3px; */
+}
+table {
+  /* padding-right: 10px; */
+  /* padding: 3px; */
+  /* margin: 3px; */
+}
+/* td { */
+/* tr { */
+/* td, tr { */
+td:nth-child(1) {
+  /* border-collapse: collapse; */
+  /* border: 0px; */
+  /* border: none; */
+  /* border: hidden; */
+  /* border-radius: 10px; */
+  /* border-radius: 10px 0 0 0;   */
+  border-radius: 10px 0 0 10px; 
+  padding-left: 12px; 
+}
+td:nth-last-child(1) {
+/* td:nth-child(3) { */
+/* td:nth-child(4) { */
+  /* border-radius: 0 10px 0 0; */
+  border-radius: 0 10px 10px 0;  
+  padding-right: 12px;
+  padding-left: 0px;
+}
+/* table, tr, td {empty-cells: show;} */
 
 /* .App-link {
   color: #61dafb;

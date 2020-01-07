@@ -69,10 +69,43 @@ class Venues extends Component {
     return(
       <Router forceRefresh>
         <div className="App-header">
-          <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
+          {/* <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span> */}
+          <span className="header"><img src={logo} alt="logo" className="logo" height="70" width="70" />&nbsp;&nbsp;<Link to="/"><big>Who's Playin'</big></Link> &nbsp;&nbsp; <Link to="/bands">Bands</Link></span>          
+          {/* <span className="header"><img src={logo} alt="logo" className="logo" height="100%" width="auto" />&nbsp;&nbsp;<Link to="/"><big>Who's Playin'</big></Link> &nbsp;&nbsp; <Link to="/bands">Bands</Link></span>           */}
+          {/* <div className="header">
+            <span><img src={logo} alt="logo" className="logo" height="70" width="70" /> &nbsp; <Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
+          </div> */}
+          {/* I THINK I like this version at the moment; I'm thinking I might like to commit before cleaning up... */}
+          <div className="header">
+            <span className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" /> &nbsp; <Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>
+          </div>
+          <div className="header">
+            {/* <div className="header-span"> */}
+              {/* <span><img src={logo} alt="logo" className="logo" height="70" width="70" /> &nbsp; <Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span> */}
+              {/* <span className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" /> &nbsp; <Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span> */}
+              {/* <div className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" /> &nbsp; <Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></div> */}
+              {/* <div className="header-span"> */}
+                {/* <span className="header-span"> */}
+                {/* <span> */}
+                {/* <div className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" /></div> &nbsp;  */}
+                {/* <div><img src={logo} alt="logo" className="logo" height="70" width="70" /></div> &nbsp;  */}
+                {/* <div className="header-span"><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></div> */}
+                {/* <div><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></div> */}
+                {/* </span> */}
+                <span className="header-span">
+                {/* <span> */}
+                {/* <span><img src={logo} alt="logo" className="logo" height="70" width="70" /></span> &nbsp;  */}
+                <span className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" /></span> &nbsp; 
+                {/* <span className="header-span"><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span> */}
+                {/* <span><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>                 */}
+                <span className="header-span-2"><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/bands">Bands</Link></span>                
+                </span>
+              {/* </div> */}
+            {/* </div> */}
+          </div>
           <h2 className="main">Venues</h2>
 
-          <div>
+          <div className="select">
             <label htmlFor="venue type"><small>Venue Type:&nbsp;</small></label>
             <select 
               name="venue type" 
@@ -130,10 +163,18 @@ class Venues extends Component {
                           <br /> 
                           <span className="description">{event.band_description}</span>
                         </td>
-                        <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td>
+                        {/* <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td> */}
+                        {/* <td><small>{event.event_date}</small>&nbsp;&nbsp;<small>{event.event_time}</small></td>  */}
+                        <td><small>{event.event_date}</small></td>
+                        <td><small>{event.event_time}</small></td>                       
                       </Fragment>
                     ) : (
-                      <td><small><em>no events found</em></small></td>
+                      <Fragment>
+                        <td><small><em>no events found</em></small></td>
+                        {/* an empty cell needs to exist in order to have background/borders */}
+                        <td></td>
+                        <td></td>                        
+                      </Fragment>
                     )}
                   </tr>
                 )
