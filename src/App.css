@@ -5,6 +5,7 @@
 .App {
   /* (consider whether I actually want all text centered, such as inside the tables...) */
   text-align: center;
+  /* (try adding a background color?) */
   background-color: white; /* #ffb84d #ffad33 #ff9900; */
   /*  (what is this?) */
   min-height: 100vh;
@@ -18,12 +19,9 @@
   color: #0066ff;
 }
 
-/* (could put a classname on links / a tags maybe?) */
-/* did I not have the whos playin link in orange at some point?? */
-/* I guess maybe not because the title below it is orange... */
+/* should links change color after being clicked? on hover, etc? */
 .App a {
   color: #0066ff;
-  /* should links change color after being clicked? on hover, etc? */
 }
 
 .header {
@@ -61,98 +59,43 @@ ul {
   margin-top: 0;
 }
 
-.description {
-  font-size: 12px;
-}
-
 /* maybe can even do more to help with the spaces and breaks I think I remember having to put in.... */
+/* (there are also selects on the create pages, but I don't think these styles are changing anything right now */
 .select {
   display: flex;
   align-items: top;
 }
 
-/* ? */
-/* table, tr, td {empty-cells: show;} */
-/* table {
-  background-color: #dedede;
-  border-radius: 10px;
-} */
-/* tr:nth-child(even) {background: #CCC}
-tr:nth-child(odd) {background: #FFF} */
-/* tr:nth-child(even) {background-color: #CCC} */
-/* tr:nth-child(odd) {background-color: #FFF} */
-tr:nth-child(odd) {
-  /* background-color: #CCC; */
-  /* background: #CCC; */
-  background: #e6f0ff;
-  /* background: #fff5e6; */
-  /* border-radius: 10px; */
-  /* border-radius: inherit; */
+.description {
+  font-size: 12px;
 }
-tr:nth-child(even) {
-  /* background: #dedede; */
-  background: #fff5e6;
-  /* background: #e6f0ff; */
-}
+
 table, tr, td {
-/* table {   */
-/* table, tr { */
-/* tr, td { */
-  /* border: none; */
-  /* border: 0px; */
-  /* border:hidden; */
   border-collapse: collapse;
-  /* border-radius: 10px; */
   empty-cells: show;
-  /* empty-cells: hide; */
-  /* empty-cells: initial; */
-  /* empty-cells: inherit;   */
-  /* border-bottom: 1px solid black; */
 }
-/* tr, td {
-  border-collapse: collapse;
-} */
-table {
-  /* border: 1px solid black; */
-  /* border-bottom: 1px solid black; */
+
+/* (background vs. background-color?) */
+tr:nth-child(odd) {
+  background: #e6f0ff;
 }
+
+tr:nth-child(even) {
+  background: #fff5e6;
+}
+
 td {
-  /* border-bottom: 1px solid black; */
   border-bottom: 1px solid white;
-  /* padding: 10px 0 10px 0; */
-  /* padding: 4px 5px; */
   padding: 4px 10px;
-  /* padding: 4px; */
-  /* margin: 3px; */
 }
-tr {
-  /* padding-right: 10px; */
-  /* margin: 3px; */
-}
-table {
-  /* padding-right: 10px; */
-  /* padding: 3px; */
-  /* margin: 3px; */
-}
-/* td { */
-/* tr { */
-/* td, tr { */
+
 td:nth-child(1) {
-  /* border-collapse: collapse; */
-  /* border: 0px; */
-  /* border: none; */
-  /* border: hidden; */
-  /* border-radius: 10px; */
-  /* border-radius: 10px 0 0 0;   */
   border-radius: 10px 0 0 10px; 
   padding-left: 12px; 
 }
+
 td:nth-last-child(1) {
-/* td:nth-child(3) { */
-/* td:nth-child(4) { */
-  /* border-radius: 0 10px 0 0; */
   border-radius: 0 10px 10px 0;  
   padding-right: 12px;
   padding-left: 0px;
 }
-/* table, tr, td {empty-cells: show;} */
