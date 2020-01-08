@@ -68,9 +68,7 @@ class Venues extends Component {
   render() {
     return(
       <Router forceRefresh>
-        {/* <div className="App-header"> */}
         <div className="App">
-        {/* <div> */}
           <div className="header">
             <span className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" />&nbsp;&nbsp;<Link to="/"><big>Who's Playin'</big></Link>&nbsp;&nbsp;<Link to="/bands">Bands</Link></span>
           </div>
@@ -134,8 +132,6 @@ class Venues extends Component {
                           <br /> 
                           <span className="description">{event.band_description}</span>
                         </td>
-                        {/* <td><small>{event.event_date}</small> &nbsp; <small>{event.event_time}</small></td> */}
-                        {/* <td><small>{event.event_date}</small>&nbsp;&nbsp;<small>{event.event_time}</small></td>  */}
                         <td><small>{event.event_date}</small></td>
                         <td><small>{event.event_time}</small></td>                       
                       </Fragment>

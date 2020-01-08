@@ -18,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        {/* (consider an enclosing div here for shared styling) */}
         {/* <div className="App"> */}
         {/* <div> */}
           <Route exact path="/" component={Home} />
