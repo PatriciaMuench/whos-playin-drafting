@@ -1,31 +1,21 @@
 /* of course, I might want to change up my headers a lot, and maybe extract and reuse header, among other things... */
 
+/* (I can refer to earlier attemps at whos playin to see the create react app css if I want) */
+
 .App {
   /* (consider whether I actually want all text centered, such as inside the tables...) */
   text-align: center;
-  /* background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white; */
   background-color: white; /* #ffb84d #ffad33 #ff9900; */
+  /*  (what is this?) */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  /* padding-top: 100px; */
-  padding-top: 10px;
-  /* padding-top: 0px; */
-  /* margin-top: 0px; */
+  margin: 10px;
+  /* (what is this?) */
   font-size: calc(10px + 2vmin);
   /* color: #ffb84d; */
   color: #0066ff;
-  /* align-content: center; */
-  /* justify-items: center; */
 }
 
 /* (could put a classname on links / a tags maybe?) */
@@ -37,73 +27,28 @@
 }
 
 .header {
-  background: #fff5e6;
   background: #ffebcc;
-  /* padding: 20px; */
   width: 95%;
   border-radius: 10px;
-  margin: 10px;
+  margin-top: 10px;
+  /* margin-top: inherit; */
   padding: 10px;
   display: flex;
-  display: inline-flex;
   justify-content: center;
-  align-items: center;
-  /* align-items: baseline; */
   align-items: flex-end;
-
-  /* align-content: center; */
-  /* align-content: baseline;   */
-  /* justify-items: center; */
-  /* flex-direction: column; */
 }
+
 .header-span {
   display: flex;
-  display: inline-flex;
-  align-items: center;
-  align-items: baseline;
   align-items: flex-end;
-  /* padding-bottom: 10px; */
-  /* margin-bottom: 10px; */
-  /* align-content: center; */
-  /* align-content: baseline; */
 }
-/* .header-span link { */
+
 .header-span a {
-  /* .header-span img { */
-    padding-bottom: 10px;
-    /* margin-bottom: 10px; */
-    display: flex;
-    display: inline-flex;
-    /* align-items: baseline; */
-    /* align-content: baseline; */
-    /* text-align: center; */
-    /* line-height: 10px; */
-}
-.header-span-2 {
-  display: flex;
-  display: inline-flex;  
-  align-items: baseline;
-  /* align-content: baseline; */
   padding-bottom: 10px;
-  /* margin-bottom: 10px; */
-  align-items: flex-end;
 }
 
 .main {
-  /* background-color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 100px;
-  font-size: calc(10px + 2vmin); */
   color: #ffb84d;
-  /* display: flex; */
-  /* display: inline-flex; */
-  /* align-items: center; */
-  /* align-content: center; */
-  /* justify-content: center; */
-  /* justify-items: center; */
 }
 
 .main a {
@@ -116,16 +61,6 @@ ul {
   margin-top: 0;
 }
 
-/* .logo {
-  margin: 50px 0px 0px 50px;
-  padding: 0px;
-} */
-
-h1 {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-
 .description {
   font-size: 12px;
 }
@@ -133,8 +68,6 @@ h1 {
 /* maybe can even do more to help with the spaces and breaks I think I remember having to put in.... */
 .select {
   display: flex;
-  /* display: inline-flex; */
-  /* align-items: center; */
   align-items: top;
 }
 
