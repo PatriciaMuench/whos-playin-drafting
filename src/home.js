@@ -8,7 +8,8 @@ class Home extends Component {
     return (
       // note: I don't know if forceRefresh is desirable here, but I also don't know why things weren't rerendering on link clicks
       <Router forceRefresh>
-        <div className="App-header">
+        {/* <div className="App-header"> */}
+        <div className="App">
           <h1 className="main"><img src={logo} alt="logo" className="logo" height="100" width="100" />Who's Playin'</h1>
           <p className="main">
             Find live music events organized by venue, band, or location

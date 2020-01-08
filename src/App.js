@@ -18,7 +18,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        {/* <div className="App"> */}
+        {/* <div> */}
           <Route exact path="/" component={Home} />
           <Route exact path="/bands" component={Bands}/>
           {/* <Route path="/bands/:name" component={Band} /> */}
@@ -28,7 +29,7 @@ class App extends Component {
           <Route exact path="/new-band" component={CreateBand} />
           <Route exact path="/new-venue" component={CreateVenue} />
           <Route exact path="/new-event" component={CreateEvent} />
-        </div>
+        {/* </div> */}
       </Router>
     );
   }

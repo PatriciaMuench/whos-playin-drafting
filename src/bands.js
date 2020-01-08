@@ -48,7 +48,8 @@ class Bands extends Component {
   render() {
     return(
       <Router forceRefresh>
-        <div className="App-header">
+        {/* <div className="App-header"> */}
+        <div className="App">
           <span><img src={logo} alt="logo" className="logo" height="70" width="70" /><Link to="/"><big>Who's Playin'</big></Link> &nbsp; <Link to="/venues">Venues</Link></span> 
           <h2 className="main">Bands</h2>
 

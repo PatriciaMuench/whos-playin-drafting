@@ -1,6 +1,8 @@
-.App {
+/* of course, I might want to change up my headers a lot, and maybe extract and resuse header, among other things... */
+
+/* .App {
   text-align: center;
-}
+} */
 
 /* .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -8,7 +10,10 @@
   pointer-events: none;
 } */
 
-.App-header {
+/* .App-header { */
+.App {
+  /* (consider whether I actually want all text centered, such as inside the tables...) */
+  text-align: center;
   /* background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -35,9 +40,11 @@
 }
 
 /* .header-link a { */
-.App-header a {
+/* .App-header a { */
+.App a {
   /* color: #ffb84d; */
   color: #0066ff;
+  /* should links change color after being clicked? on hover, etc? */
 }
 
 /* .App-body {

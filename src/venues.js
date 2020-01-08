@@ -68,7 +68,9 @@ class Venues extends Component {
   render() {
     return(
       <Router forceRefresh>
-        <div className="App-header">
+        {/* <div className="App-header"> */}
+        <div className="App">
+        {/* <div> */}
           <div className="header">
             <span className="header-span"><img src={logo} alt="logo" className="logo" height="70" width="70" />&nbsp;&nbsp;<Link to="/"><big>Who's Playin'</big></Link>&nbsp;&nbsp;<Link to="/bands">Bands</Link></span>
           </div>
